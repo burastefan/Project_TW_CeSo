@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="register.css" />
+    <script src="../../Scripts/map.js"></script>
+  </head>
+  <body>
+    <div class="spacer-m"></div>
+    <div class="register-container-row">
+      <div class="title-authentication">Let's get started</div>
+    </div>
+    <div class="container">
+      <div class="register-container-column">
+        <p class="label-text" style="margin-right: 200px;">Choose your location</p>
+        <!--The div element for the map -->
+        <div id="map"></div>
+      </div>
+      <div class="register-container-column">
+        <div class="register-form-row">
+          <div class="register-form-column">
+            <p class="label-text">First name</p>
+            <input class="register-input" type="text" id="fname" name="fname" />
+          </div>
+          <div class="register-form-column">
+            <p class="label-text">Last name</p>
+            <input class="register-input" type="text" id="lname" name="lname" />
+          </div>
+        </div>
+        <div class="register-form-column">
+          <p class="label-text">Email</p>
+          <input class="register-input" type="text" id="lname" name="lname" />
+        </div>
+        <div class="register-form-column">
+          <p class="label-text">Password</p>
+          <input class="register-input" type="text" id="lname" name="lname" />
+        </div>
+        <div class="register-form-column">
+          <p class="label-text">Confirm password</p>
+          <input class="register-input" type="text" id="lname" name="lname" />
+        </div>
+        <div class="register-form-row">
+          <input type="checkbox" id="scales" name="scales" checked />
+          <p class="label-text">I agree to Terms of Service & Privacy Policy</p>
+        </div>
+        <div class="spacer-l"></div>
+        <div class="register-container-row">
+          <button class="authentication-button">Sign up</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap&v=weekly"
+      async
+    ></script>
+  </body>
+</html>

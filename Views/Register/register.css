@@ -35,17 +35,21 @@
 input:not(:first-child) { 
   margin-top: 8px;
 }
+
 input:not(:last-child) { 
   margin-bottom: 8px;
 }
 
-.spacer-m {
-  margin-top: 50px;
-}
-
-.spacer-l {
-  margin-top: 80px;
-}
+.searchBox {
+    width: 30%;
+    height: 5%;
+    padding: 9px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 12px;
+    }
 
 #map {
   height: 100%;

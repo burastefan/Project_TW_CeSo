@@ -1,9 +1,14 @@
-body, html {
+body,
+html {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
     width: 100vw;
     height: 100vh;
+}
+
+.flex {
+    display: flex;
 }
 
 .flex-row {
@@ -44,6 +49,11 @@ body, html {
     align-items: center;
 }
 
+.flex-center-div {
+    display: flex;
+    justify-content: center;
+}
+
 .text-align-center {
     text-align: center;
 }
@@ -56,6 +66,10 @@ body, html {
     margin-right: 8px;
 }
 
+.margin-right-16 {
+    margin-right: 16px;
+}
+
 .margin-bottom-16 {
     margin-bottom: 16px;
 }
@@ -66,6 +80,10 @@ body, html {
 
 .margin-bottom-24 {
     margin-bottom: 24px;
+}
+
+.margin-bottom-80 {
+    margin-bottom: 80px;
 }
 
 .margin-top-16 {
@@ -101,10 +119,12 @@ body, html {
 
 .input-placeholder {
     font-style: normal;
-    font-weight: 500;
     font-size: 18px;
     padding: 12px;
     line-height: 20px;
+}
+
+.input-layout {
     color: #9CA3AF;
     border: 1px solid #D1D5DB;
     border-radius: 4px;

@@ -103,7 +103,6 @@ html {
 }
 
 .title-page {
-    font-family: "Inter";
     font-style: normal;
     font-weight: 600;
     font-size: 40px;
@@ -141,7 +140,6 @@ html {
 }
 
 .title-authentication {
-    font-family: "Robot";
     font-style: normal;
     font-weight: 600;
     font-size: 50px;

@@ -22,6 +22,10 @@
       <!--The div element for the map -->
       <div class="register-container-column">
         <span class="input-title margin-bottom-24">Choose your location</span>
+        <!-- Search input -->
+        <input id="searchInput" class="searchBox" type="text" style="margin-top: 10px;"
+          placeholder="Enter a location" />
+        <!-- Google map -->
         <div id="map"></div>
       </div>
 
@@ -65,8 +69,10 @@
 
   <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap&v=weekly"
-    async></script>
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap"
+    async defer></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso"></script>
 </body>
 
 </html>

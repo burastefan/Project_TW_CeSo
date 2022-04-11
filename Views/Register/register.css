@@ -1,5 +1,5 @@
 .container {
-  padding:80px;
+  padding: 80px;
 }
 
 .register-container-column {
@@ -24,6 +24,17 @@
   margin-top: 6px;
   margin-bottom: 6px;
   color: #4b5563;
+}
+
+.searchBox {
+  width: 30%;
+  height: 5%;
+  padding: 9px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 12px;
 }
 
 #map {

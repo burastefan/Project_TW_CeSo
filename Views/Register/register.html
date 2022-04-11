@@ -1,62 +1,67 @@
 <!DOCTYPE html>
 <html lang="en-US">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Register</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="register.css" />
-    <script src="../../Scripts/map.js"></script>
-  </head>
-  <body>
-    <div class="spacer-m"></div>
-    <div class="register-container-row">
-      <div class="title-authentication">Let's get started</div>
-    </div>
-    <div class="container">
-      <div class="register-container-column">
-        <p class="label-text" style="margin-right: 200px;">Choose your location</p>
-        <!--The div element for the map -->
-        <div id="map"></div>
-      </div>
-      <div class="register-container-column">
-        <div class="register-form-row">
-          <div class="register-form-column">
-            <p class="label-text">First name</p>
-            <input class="register-input" type="text" id="fname" name="fname" />
-          </div>
-          <div class="register-form-column">
-            <p class="label-text">Last name</p>
-            <input class="register-input" type="text" id="lname" name="lname" />
-          </div>
-        </div>
-        <div class="register-form-column">
-          <p class="label-text">Email</p>
-          <input class="register-input" type="text" id="lname" name="lname" />
-        </div>
-        <div class="register-form-column">
-          <p class="label-text">Password</p>
-          <input class="register-input" type="text" id="lname" name="lname" />
-        </div>
-        <div class="register-form-column">
-          <p class="label-text">Confirm password</p>
-          <input class="register-input" type="text" id="lname" name="lname" />
-        </div>
-        <div class="register-form-row">
-          <input type="checkbox" id="scales" name="scales" checked />
-          <p class="label-text">I agree to Terms of Service & Privacy Policy</p>
-        </div>
-        <div class="spacer-l"></div>
-        <div class="register-container-row">
-          <button class="authentication-button">Sign up</button>
-        </div>
-      </div>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Register</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="./register.css" />
+  <link rel="stylesheet" href="../../main.css" />
+  <script src="../../Scripts/map.js"></script>
+</head>
+
+<body>
+  <p class="title-page text-align-center">Let's get started</p>
+  <div class="container">
+
+    <!--The div element for the map -->
+    <div class="register-container-column">
+      <span class="input-title margin-bottom-24">Choose your location</span>
+      <div id="map"></div>
     </div>
 
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap&v=weekly"
-      async
-    ></script>
-  </body>
+    <form class="register-container-column" action="#">
+      <div class="flex-row margin-bottom-8">
+        <div class="flex-column">
+          <label class="input-title">First name</label>
+          <input class="input-placeholder" type="text" id="firstName" name="firstName" placeholder="First name" />
+        </div>
+
+        <div>
+          <div class="flex-column">
+            <label class="input-title">Last name</label>
+            <input class="input-placeholder" type="text" id="lastName" name="lastName" placeholder="Last name" />
+          </div>
+        </div>
+
+      </div>
+
+      <label class="input-title">Email</label>
+      <input class="input-placeholder" type="text" id="email" name="email" placeholder="Email" />
+
+      <label class="input-title">Password</label>
+      <input class="input-placeholder" type="text" id="password" name="password" placeholder="Password" />
+
+      <label class="input-title">Confirm password</label>
+      <input class="input-placeholder" type="text" id="confirmPassword" name="confirmPassword"
+        placeholder="Confirm password" />
+
+
+      <div class="flex-center-row">
+        <input type="checkbox" id="scales" name="scales" checked class="margin-right-8"/>
+        <span class="input-title">I agree to Terms of Service & Privacy Policy</span>
+      </div>
+      <div class="flex-justify-center" style="margin-top: 60px">
+        <input class="authentication-button input-title text-align-center hand-mouse" type="submit" value="Submit">
+      </div>
+    </form>
+  </div>
+
+  <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap&v=weekly"
+    async></script>
+</body>
+
 </html>

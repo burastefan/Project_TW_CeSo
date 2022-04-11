@@ -1,0 +1,139 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-center-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.flex-space-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flex-justify-center {
+    display: flex;
+    justify-content: center;
+}
+
+.flex-vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+}
+
+.margin-right-8 {
+    margin-right: 8px;
+}
+
+.margin-bottom-16 {
+    margin-bottom: 16px;
+}
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}
+
+.margin-bottom-24 {
+    margin-bottom: 24px;
+}
+
+.margin-top-16 {
+    margin-top: 16px;
+}
+
+.margin-top-20 {
+    margin-top: 20px;
+}
+
+.margin-top-24 {
+    margin-top: 24px;
+}
+
+.hand-mouse {
+    cursor: pointer;
+}
+
+.title-page {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 20px;
+    color: #1f2937;
+}
+
+.input-title {
+    font-family: "Roboto";
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 12px;
+    color: #1f2937;
+}
+
+.input-placeholder {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 12px;
+    line-height: 20px;
+    color: #9CA3AF;
+    border: 1px solid #D1D5DB;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.authentication-button {
+    width: 30%;
+    padding: 15px;
+    background: #12b83e;
+    border-radius: 15px;
+    color: white;
+}
+
+.title-authentication {
+    font-family: "Robot";
+    font-style: normal;
+    font-weight: 600;
+    font-size: 50px;
+    line-height: 20px;
+    color: #1f2937;
+}
+
+.spacer-m {
+    margin-top: 50px;
+}
+
+.spacer-l {
+    margin-top: 80px;
+}

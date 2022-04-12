@@ -1,14 +1,12 @@
 .container {
-  flex: 1 1 auto;
   display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 1920px;
-  align-self: center;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .register-container-column {
-  width: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -22,7 +20,6 @@
 }
 
 .label-text {
-  font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
   font-size: 22px;
@@ -32,26 +29,17 @@
   color: #4b5563;
 }
 
-input:not(:first-child) { 
-  margin-top: 8px;
-}
-
-input:not(:last-child) { 
-  margin-bottom: 8px;
-}
-
 .searchBox {
-    width: 30%;
-    height: 5%;
-    padding: 9px;
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 500;
-    font-size: 15px;
-    line-height: 12px;
-    }
+  width: 30%;
+  height: 5%;
+  padding: 9px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 12px;
+}
 
 #map {
   height: 100%;
-  width: 80%;
 }

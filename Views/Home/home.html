@@ -13,27 +13,68 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap"
       rel="stylesheet"
     />
+    <script
+      src="https://kit.fontawesome.com/1fede1a164.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="../../Scripts/navbar.js"></script>
   </head>
   <body>
     <div class="container">
-      <div class="navigation-bar input-title">
-        <ul>
-          <li style="padding: 0"><img src="../../images/logo.png" width="90" height="43" /></li>
-          <li>Home</li>
-          <li>Map</li>
-          <li>Events</li>
-          <li>Fires</li>
-          <li>Earthquakes</li>
-          <li>Floods</li>
-          <li>Storms</li>
+      <nav class="stroke">
+        <ul class="flex-space-between">
+          <div class="flex-center-row">
+            <li style="padding: 0">
+              <img src="../../images/logo.png" width="90" height="43" />
+            </li>
+            <li>
+              <input type="text" placeholder="Search.." class="searchbar" />
+            </li>
+          </div>
+          <div class="flex-center-row">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Map</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Fires</a></li>
+            <li><a href="#">Earthquakes</a></li>
+            <li><a href="#">Floods</a></li>
+            <li><a href="#">Storms</a></li>
+          </div>
+          <div class="flex-center-row">
+            <li>
+              <button
+                id="dropdownButton"
+                class="dropdown-btn"
+                onclick="handleDropdownClick()"
+              >
+                <a href="#">
+                  <i id="dropdownButtonIcon" class="fa-regular fa-bell"></i>
+                </a>
+              </button>
+            </li>
+            <li style="padding: 0">
+              <a href="#" style="padding: 2px">
+                <img
+                  src="../../images/profile_photo.png"
+                  width="43"
+                  height="43"
+                  id="profilePic"
+                />
+                <i id="profilePicArrow" class="fa-solid fa-caret-down"></i>
+              </a>
+            </li>
+          </div>
         </ul>
-        <!-- <div class="navbar-element input-title">Home</div>
-              <div class="navbar-element input-title">Map</div>
-              <div class="navbar-element input-title">Events</div>
-              <div class="navbar-element input-title">Fires</div>
-              <div class="navbar-element input-title">Earthquakes</div>
-              <div class="navbar-element input-title">Floods</div>
-              <div class="navbar-element input-title">Storms</div> -->
+      </nav>
+      <div id="myDropdown" class="dropdown-content">
+        <a href="#">Notification 1</a>
+        <a href="#">Notification 2</a>
+        <a href="#">Notification 3</a>
+      </div>
+      <div id="myDropdownPpic" class="dropdown-content-ppic">
+        <a href="#">Account</a>
+        <a href="#">Settings</a>
+        <a href="#">Change Password</a>
       </div>
     </div>
   </body>

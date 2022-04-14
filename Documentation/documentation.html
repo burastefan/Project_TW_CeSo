@@ -65,7 +65,7 @@
             <section>
                 <h4>1.2 Intended Audience and Reading Suggestions</h4>
                 <p>
-                    This Document was created based on the IEEE template for System Requirement Specification Documents.
+                    The users of the applications are divided in <b>three</b> categories:
                 </p>
                 <ul>
                     <li>
@@ -124,15 +124,24 @@
                         <li>Pages that contain general details about each type of cataclysm (floods, fires, earthquakes, storms).</li>
                     </ul>
                     <li>Only the authorities will have access to the following features:</li>
-                    <ul>
-                        <li>Add crisis situation.</li>
-                        <li>Review a crisis situation added by a civilian user.</li>
-                        <li>Delete false/inappropriate events</li>
-                        <li>Add shelter locations or rescue routes.</li>
-                        <li>Send special instructions to the affected population.</li>
-                    </ul>
+                        <ul>
+                            <li>Add crisis situation.</li>
+                            <li>Review a crisis situation added by a civilian user.</li>
+                            <li>Delete false/inappropriate events</li>
+                            <li>Add shelter locations or rescue routes.</li>
+                            <li>Send special instructions to the affected population.</li>
+                        </ul>
                     <li>Only the civilians will have access to the following features:</li>
+                        <ul>
+                            <li>Add crisis situation which will be reviewed by the local authorities.</li>
+                            <li>Review authorities based on how well they handled the crisis situation.</li>
+                        </ul>
                     <li>The user role (local authority/civilian) will be given by an administrator of the application.</li>
+                    <li>Information about crisis events will be provided by two main sources:</li>
+                        <ul>
+                            <li>APIs such as <i>USGS Earthquake Catalog</i>, <i>NOAA National Weather Service</i> and <i>Environment Agency Real Time Flood-Monitoring</i>.</li>
+                            <li>Authorities and also citizens will be able to manually add an event (citizens will need approval from authorities) and provide further details about it.</li>
+                        </ul>
                 </ul>
             </section>
 
@@ -201,7 +210,7 @@
             <section>
                 <h4>3.1 User Interfaces</h4>
                 <ul>
-                    <li>Navigation Bar</li>
+                    <li><b>Navigation Bar</b></li>
                         <ul>
                             <li>Search Panel</li>
                             <li>Home Page</li>
@@ -212,7 +221,7 @@
                             <li>Map Page</li>
                             <li>Events Page</li>
                         </ul>
-                    <li>Side Panel</li>
+                    <li><b>Side Panel</b></li>
                         <ul>
                             <li>Login Page</li>
                             <li>Register Page</li>

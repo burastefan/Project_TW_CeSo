@@ -1,6 +1,6 @@
 body,
 html {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -35,8 +35,19 @@ html {
 
 .flex-space-between {
     display: flex;
+    justify-content: space-between;
+}
+
+.flex-space-between-center {
+    display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .flex-justify-center {
@@ -64,6 +75,10 @@ html {
 
 .margin-right-8 {
     margin-right: 8px;
+}
+
+.margin-right-4 {
+    margin-right:4px;
 }
 
 .margin-right-16 {
@@ -96,6 +111,14 @@ html {
 
 .margin-top-24 {
     margin-top: 24px;
+}
+
+.margin-top-40 {
+    margin-top: 40px;
+}
+
+.margin-top-80 {
+    margin-top:80px;
 }
 
 .hand-mouse {
@@ -134,16 +157,14 @@ html {
 }
 
 .input-layout {
-    color: #9CA3AF;
     border: 1px solid #D1D5DB;
     border-radius: 4px;
     box-sizing: border-box;
 }
 
 .authentication-button {
-    width: 360px;
+    width: 280px;
     padding: 15px;
-    background: #12b83e;
     border: none;
     border-radius: 15px;
     color: white;

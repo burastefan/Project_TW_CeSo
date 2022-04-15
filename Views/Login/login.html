@@ -6,25 +6,57 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Login</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel="stylesheet" href="../Register/register.css" />
+    <link rel="stylesheet" href="../Login/login.css" />
     <link rel="stylesheet" href="../../main.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-    <script src='main.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <div class="container">
+        <div class="child-container flex-center" style="background-color: #F7F7F8;">
+            <div>
+                <img src="../../images/loginImage.png" width="500" height="500" />
+            </div>
+        </div>
+        <div class="child-container flex-center-div flex-column">
 
-    <form class="register-container-column" action="#" method="#">
-        <label class="input-title margin-bottom-8">Email</label>
-        <input class="input-placeholder input-layout margin-bottom-24" type="email" id="email" name="email"
-            placeholder="Email" />
+            <h1 class="margin-bottom-80 title-page text-align-center">Welcome to <span
+                    style="color: #009A29;">CoSe</span></h1>
+            <form class="flex-column" style="margin: 0px 60px" action="#" method="#">
+                <label class="input-title margin-bottom-8">Email</label>
+                <input class="input-placeholder input-layout margin-bottom-24" style="background: #F8F7F7; border:none"
+                    type="email" id="email" name="email" placeholder="Email" />
 
-        <label class="input-title margin-bottom-8">Password</label>
-        <input class="input-placeholder input-layout margin-bottom-24" type="password" id="password" name="password"
-            placeholder="Password" />
-    </form>
+                <label class="input-title margin-bottom-8">Password</label>
+                <input class="input-placeholder input-layout margin-bottom-24" style="background: #F8F7F7; border:none"
+                    type="password" id="password" name="password" placeholder="Password" />
+
+                <div class="flex-space-between">
+                    <div>
+                        <input type="checkbox" id="checkbox" checked class="margin-right-4" />
+                        <span class="input-title">Remember me</span>
+                    </div>
+                    <span><a href="#" class="input-title">Forget Password?</a></span>
+                </div>
+                <div class="flex-justify-center" style="margin-top: 40px">
+                    <input class="authentication-button input-title text-align-center hand-mouse margin-bottom-24"
+                        type="submit" value="Login" style="background: #12b83e;">
+                </div>
+                <div class="flex-justify-center">
+                    <input class="authentication-button input-title text-align-center hand-mouse" type="submit"
+                        value="Continue without log in"
+                        style="background: #FFFFFF; color: #12b83e !important; border: 1px solid #12B83E">
+                </div>
+            </form>
+
+            <span class="text-align-center margin-top-80 input-title">Don't have an account? <a
+                    href="../Register/register.html" class="input-title">Register</a></span>
+        </div>
+
+    </div>
+
 
 </body>
 

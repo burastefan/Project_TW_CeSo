@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../../main.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="../../Scripts/map.js"></script>
 </head>
 
@@ -25,14 +25,17 @@
             <span class="input-title ">Choose your location</span>
           </div>
           <!-- Search input -->
-          <input id="searchInput" type="text" style="margin-top: 11px; padding:11px; border:1px solid #D1D5DB;" placeholder="Enter a location" />
+          <input id="searchInput" type="text" style="margin-top: 11px; padding:11px; border:1px solid #D1D5DB;"
+            placeholder="Enter a location" />
           <!-- Google map -->
-          <div id="map" style="display: flex; flex-direction: column; width: 500px; height: 500px; position: fixed !important; border-radius: 5px;"></div>
+          <div id="map"
+            style="display: flex; flex-direction: column; width: 500px; height: 500px; position: fixed !important; border-radius: 5px;">
+          </div>
         </div>
 
-          <form class="register-container-column" action="#" method="#">
-            <div class="flex-row margin-bottom-24">
-              <div class="flex-column margin-right-16">
+        <form class="register-container-column" action="#" method="#">
+          <div class="flex-row margin-bottom-24">
+            <div class="flex-column margin-right-16">
               <label class="input-title margin-bottom-8">First name</label>
               <input class="input-placeholder input-layout" style="width:273px" type="text" id="firstName"
                 name="firstName" placeholder="First name" />
@@ -42,27 +45,28 @@
               <label class="input-title margin-bottom-8">Last name</label>
               <input class="input-placeholder input-layout" style="width:273px" type="text" id="lastName"
                 name="lastName" placeholder="Last name" />
-              </div>
             </div>
-            
-            <label class="input-title margin-bottom-8">Email</label>
-            <input class="input-placeholder input-layout margin-bottom-24" type="email" id="email" name="email"
+          </div>
+
+          <label class="input-title margin-bottom-8">Email</label>
+          <input class="input-placeholder input-layout margin-bottom-24" type="email" id="email" name="email"
             placeholder="Email" />
 
           <label class="input-title margin-bottom-8">Password</label>
           <input class="input-placeholder input-layout margin-bottom-24" type="password" id="password" name="password"
-          placeholder="Password" />
-          
+            placeholder="Password" />
+
           <label class="input-title margin-bottom-8">Confirm password</label>
           <input class="input-placeholder input-layout margin-bottom-24" type="password" id="confirmPassword"
-          name="confirmPassword" placeholder="Confirm password" />
-          
+            name="confirmPassword" placeholder="Confirm password" />
+
           <div class="flex-center-row">
-            <input type="checkbox" id="scales" name="scales" checked class="margin-right-8" />
+            <input type="checkbox" id="checkbox" checked class="margin-right-8" />
             <span class="input-title">I agree to Terms of Service & Privacy Policy</span>
           </div>
           <div class="flex-justify-center" style="margin-top: 60px">
-            <input class="authentication-button input-title text-align-center hand-mouse" type="submit" value="Submit">
+            <input class="authentication-button input-title text-align-center hand-mouse" type="submit" value="Submit"
+              style="background: #12b83e;">
           </div>
         </form>
       </div>

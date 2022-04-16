@@ -18,7 +18,284 @@
 </head>
 
 <body>
-  <navbar-component></navbar-component>
+  <div class="container">
+    <navbar-component></navbar-component>
+    <div class="content">
+      <div class="flex-space-between margin-bottom-24">
+        <div class="flex-center-row">
+          <div class="flex-center-row margin-right-16">
+            <img src="../../images/completeIcon.png" width="17" height="17" class="margin-right-4">
+            <span class="text-image">Completed</span>
+          </div>
+          <div class="flex-center-row margin-right-16">
+            <img src="../../images/progressIcon.png" width="17" height="17" class="margin-right-4">
+            <span class="text-image">Proceeding</span>
+          </div>
+          <div class="flex-center-row">
+            <img src="../../images/newIcon.png" width="17" height="17" class="margin-right-4">
+            <span class="text-image">New</span>
+          </div>
+        </div>
+        <!--Aici trebuie sa introduci functionalitatea pentru FILTER-->
+        <div class="filter-container flex-center-row">
+          <span class="text-image margin-right-8"> Filters</span>
+          <img src="../../images/filterIcon.svg" width="17" height="17">
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <input type="checkbox" disabled />
+            </th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Time of occurrence</th>
+            <th>Date of occurrence</th>
+            <th>Code</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 1 </strong>
+            </td>
+            <td>
+              <img src="../../images/completeIcon.png" width="17" height="17" />
+            </td>
+            <td>Iasi</td>
+            <td>Fires</td>
+            <td>10:05:30 AM</td>
+            <td>1/04/2022</td>
+            <td>
+              <button class="button" style="background-color: #FDF539;">
+                Yellow
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 2 </strong>
+            </td>
+            <td>
+              <img src="../../images/newIcon.png" width="17" height="17" />
+            </td>
+            <td>Tg. Frumos</td>
+            <td>Flood</td>
+            <td>8:41:15 PM</td>
+            <td>4/09/2021</td>
+            <td>
+              <button class="button" on style="background-color: #FF5252;">
+                Red
+                </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 3 </strong>
+            </td>
+            <td>
+              <img src="../../images/progressIcon.png" width="17" height="17" />
+            </td>
+            <td>Păcurari</td>
+            <td>Storm</td>
+            <td>6:30:50 AM</td>
+            <td>15/04/2022</td>
+            <td>
+              <button class="button" style="background-color: #FDF539;">
+                Yellow
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 4 </strong>
+            </td>
+            <td>
+              <img src="../../images/newIcon.png" width="17" height="17" />
+            </td>
+            <td>Ilfov</td>
+            <td>Earthquake</td>
+            <td>11:32:10 PM</td>
+            <td>23/01/2022</td>
+            <td>
+              <button class="button" style="background-color: #FFA05B;">
+                Orange
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 5 </strong>
+            </td>
+            <td>
+              <img src="../../images/completeIcon.png" width="17" height="17" />
+            </td>
+            <td>Satu Mare</td>
+            <td>Fire</td>
+            <td>6:51:14 PM</td>
+            <td>6/12/2021</td>
+            <td>
+              <button class="button" on style="background-color: #FF5252;">
+                Red
+                </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 6 </strong>
+            </td>
+            <td>
+              <img src="../../images/newIcon.png" width="17" height="17" />
+            </td>
+            <td>Arad</td>
+            <td>Storm</td>
+            <td>4:13:01 PM</td>
+            <td>11/06/2021</td>
+            <td>
+              <button class="button" style="background-color: #FDF539;">
+                Yellow
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 7 </strong>
+            </td>
+            <td>
+              <img src="../../images/progressIcon.png" width="17" height="17" />
+            </td>
+            <td>Sibiu</td>
+            <td>Earthquake</td>
+            <td>9:47:42 AM</td>
+            <td>25/02/2022</td>
+            <td>
+              <button class="button" style="background-color: #FFA05B;">
+                Orange
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 8 </strong>
+            </td>
+            <td>
+              <img src="../../images/newIcon.png" width="17" height="17" />
+            </td>
+            <td>Craiova</td>
+            <td>Flood</td>
+            <td>3:01:54 PM</td>
+            <td>19/07/2021</td>
+            <td>
+              <button class="button" on style="background-color: #FF5252;">
+                Red
+                </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 9 </strong>
+            </td>
+            <td>
+              <img src="../../images/progressIcon.png" width="17" height="17" />
+            </td>
+            <td>Alexandria</td>
+            <td>Storm</td>
+            <td>2:39:52 AM</td>
+            <td>5/10/2020</td>
+            <td>
+              <button class="button" style="background-color: #FFA05B;">
+                Orange
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <input type="checkbox" />
+            </td>
+            <td>
+              <strong> Incident no. 10 </strong>
+            </td>
+            <td>
+              <img src="../../images/completeIcon.png" width="17" height="17" />
+            </td>
+            <td>Miercurea Ciuc</td>
+            <td>Fires</td>
+            <td>8:30:12 AM</td>
+            <td>17/12/2020</td>
+            <td>
+              <button class="button" style="background-color: #FDF539;">
+                Yellow
+              </button>
+            </td>
+            <td>
+                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+
 </body>
 
 </html>

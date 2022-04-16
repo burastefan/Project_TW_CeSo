@@ -1,7 +1,51 @@
 .container {
   display: flex;
-  align-items: center;
   flex-direction: column;
   width: 100%;
   height: 100%;
+}
+
+.content {
+  padding: 32px;
+  background-color: #effff2;
+}
+
+.filter-container {
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 10px 20px;
+}
+
+.button {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 41px;
+  border: 0;
+}
+
+table {
+  background: #fff;
+  border-radius: 6px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table thead th,
+table tfoot th {
+  color: #1f2937;
+  background: #f3f4f6;
+}
+
+table caption {
+  padding: 0.5em;
+}
+
+table th,
+table td {
+  padding: 0.5em;
+}
+
+table tbody td {
+  text-align: center;
+  border-bottom: 1px solid lightgrey;
 }

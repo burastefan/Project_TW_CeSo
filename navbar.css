@@ -10,7 +10,7 @@
     font-weight: 500;
     line-height: 12px;
     color: #1f2937;
-    font-family: "Roboto";
+    font-family: "Inter";
   }
   
   .dropdown-btn {
@@ -24,21 +24,46 @@
   .dropdown-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
     min-width: 160px;
     margin-left: auto;
     margin-right: 50px;
+    background-color: white;
     box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
     z-index: 10;
     transition: all 0.5s;
     top: 90px;
     right: 30px;
   }
+
+  .notificationsPanel {
+    overflow-y: scroll;
+    height: 250px;
+  }
+
+  .notificationsPanel::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .notificationsPanel::-webkit-scrollbar-track {
+    background: #E5E5E5;
+  }
+  
+  /* Handle */
+  .notificationsPanel::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+  
+  /* Handle on hover */
+  .notificationsPanel::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
   
   .dropdown-content-ppic {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    background-color: white;
     min-width: 160px;
     margin-left: auto;
     box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 20%);
@@ -48,9 +73,19 @@
     right: 0;
   }
   
-  .dropdown-content a,
+  .dropdown-content a {
+    color: #1f2937;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border: 1px solid #9ca3af;
+    box-sizing: border-box;
+    border-radius: 10px;
+    margin: 5px;
+  }
+
   .dropdown-content-ppic a {
-    color: black;
+    color: #1f2937;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
@@ -58,7 +93,45 @@
   
   .dropdown-content a:hover,
   .dropdown-content-ppic a:hover {
-    background-color: #ddd;
+    background-color: #9edea5;
+  }
+
+  .notifications-title1 {
+    background-color: #4ECB71;
+    padding: 17px 15px 17px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 12px;
+    color: white;
+  }
+
+  .notifications-title2 {
+    padding: 10px 15px 5px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 12px;
+    color: #1f2937;
+  }
+
+  .notifications-text1 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .notifications-text2 {
+    padding-top: 2px;
+    font-size: 10px;
+    font-weight: 600;
+    color: #403f3d;
+  }
+  
+  .badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 4px;
+    border-radius: 50%;
+    background: #4ECB71;
   }
   
   .show {
@@ -70,6 +143,7 @@
     width: 100%;
     background: #fff;
     box-shadow: 0px 5px 0px #dedede;
+    padding-bottom: 1px;
   }
   
   nav ul {
@@ -99,7 +173,7 @@
   }
   
   nav ul li a:hover {
-    color: #696969;
+    color: #4ECB71;
   }
   
   nav.stroke ul li a,
@@ -116,7 +190,7 @@
     width: 0%;
     content: ".";
     color: transparent;
-    background: #696969;
+    background: #4ECB71;
     height: 1px;
   }
   
@@ -144,4 +218,17 @@
     -webkit-animation: fill 1s forwards;
     -moz-animation: fill 1s forwards;
     opacity: 1;
+  }
+
+  .profile-title {
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 5px;
+  }
+
+  .role-title {
+    font-size: 13px;
+    font-weight: 300;
+    padding-left: 5px;
+    padding-top: 2px;
   }

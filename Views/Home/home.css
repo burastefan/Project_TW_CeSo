@@ -5,9 +5,27 @@
   height: 100%;
 }
 
-.content {
+.first-content {
   padding: 32px;
   background-color: #effff2;
+}
+
+.second-content {
+  padding: 32px;
+  background-color: #F3F4F6;
+}
+
+.container-content-news {
+  background: #FFFFFF;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.container-news {
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  grid-template-rows: 1fr 1fr 1fr; 
+  gap: 24px 15px; 
 }
 
 .filter-container {

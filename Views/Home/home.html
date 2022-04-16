@@ -15,12 +15,14 @@
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="../../Scripts/navbar.js"></script>
   <script src="../../components/navbar.js" type="text/javascript" defer></script>
+  <script src="../../Scripts/filters.js" type="text/javascript" defer></script>
+
 </head>
 
 <body>
   <div class="container">
     <navbar-component></navbar-component>
-    <div class="content">
+    <div class="first-content">
       <div class="flex-space-between margin-bottom-24">
         <div class="flex-center-row">
           <div class="flex-center-row margin-right-16">
@@ -343,25 +345,116 @@
     </div>
   </div>
   </div>
-  <script>
-    const applyFilters = document.querySelector("#close-button");
-    const closeButton = document.getElementsByClassName("close")[0];
+    <div class="second-content">
+      <h2>News, reviews and everything in between</h2>
+      <div class="container-news">
+        <div class="container-content-news flex-space-between-center">
+          <div class="flex-center-row">
+            <img src="../../images/fireImage.png" class="margin-right-16" />
+            <div class="flex-column">
+              <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
+              <div class="flex-center-row">
+                <img src="../../images/civil1.svg" class="margin-right-8" />
+                <div class="flex-column">
+                  <span class="text-image margin-bottom-4">Kianna Levin</span>
+                  <span class="text-image" style="color: #4B5563;">Civil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-center-row">
+            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+            <span class="text-image" class="text-image"> 30 minutes ago</span>
+          </div>
+        </div>
 
-    applyFilters.addEventListener("click", () => {
-      modal.close();
-    });
-    closeButton.addEventListener("click", () => {
-      modal.close();
-    });
+        <div class="container-content-news flex-space-between-center">
+          <div class="flex-center-row">
+            <img src="../../images/shelterImage.png" class="margin-right-16" />
+            <div class="flex-column">
+              <span class="input-title margin-bottom-20">Shelters for Humans </span>
+              <div class="flex-center-row">
+                <img src="../../images/civil2.svg" class="margin-right-8" />
+                <div class="flex-column">
+                  <span class="text-image margin-bottom-4">James Donin</span>
+                  <span class="text-image" style="color: #4B5563;">Authority @NNG</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-center-row">
+            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+            <span class="text-image" class="text-image"> 1 day ago</span>
+          </div>
+        </div>
 
-    window.onclick = function (event) {
-      console.log(event);
-      if (event.target.id == "filters1" || event.target.id == "filters2" || event.target.id == "filters3") {
-        const filterPopup = document.getElementById("modal");
-        filterPopup.showModal();
-      }
-    }
-  </script>
+        <div class="container-content-news flex-space-between-center">
+          <div class="flex-center-row">
+            <img src="../../images/stormIcon.png" class="margin-right-16" />
+            <div class="flex-column">
+              <span class="input-title margin-bottom-20">New storm announced - Sibiu</span>
+              <div class="flex-center-row">
+                <img src="../../images/civil4.svg" class="margin-right-8" />
+                <div class="flex-column">
+                  <span class="text-image margin-bottom-4">Dulce Donin</span>
+                  <span class="text-image" style="color: #4B5563;">Civil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-center-row">
+            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+            <span class="text-image" class="text-image"> 12 hours ago</span>
+          </div>
+        </div>
+
+        <div class="container-content-news flex-space-between-center">
+          <div class="flex-center-row">
+            <img src="../../images/stormImage.png" class="margin-right-16" />
+            <div class="flex-column">
+              <span class="input-title margin-bottom-20">New storm announced - Cluj</span>
+              <div class="flex-center-row">
+                <img src="../../images/civil5.svg" class="margin-right-8" />
+                <div class="flex-column">
+                  <span class="text-image margin-bottom-4">Cheyenne George</span>
+                  <span class="text-image" style="color: #4B5563;">Civil</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-center-row">
+            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+            <span class="text-image" class="text-image"> 5 hours ago</span>
+          </div>
+        </div>
+
+        <div class="container-content-news flex-space-between-center">
+          <div class="flex-center-row">
+            <img src="../../images/fireImage.png" class="margin-right-16" />
+            <div class="flex-column">
+              <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
+              <div class="flex-center-row">
+                <img src="../../images/civil6.svg" class="margin-right-8" />
+                <div class="flex-column">
+                  <span class="text-image margin-bottom-4">Carter Saris</span>
+                  <span class="text-image" style="color: #4B5563;">Extreme situation Specialist @NNG</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex-center-row">
+            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+            <span class="text-image" class="text-image"> 10 hours ago</span>
+          </div>
+        </div>
+
+        <div class="flex-center">
+          <span style="color: #1D4ED8;" class="margin-right-8 hand-mouse">See more</span>
+          <img src="../../images/rightArrow.png" class="hand-mouse"/>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>

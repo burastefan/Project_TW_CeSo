@@ -1,10 +1,10 @@
 class NavBar extends HTMLElement {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    connectedCallback() {
-        this.innerHTML = `
+  connectedCallback() {
+    this.innerHTML = `
           <nav class="stroke">
             <ul class="flex-space-between-center">
               <div class="flex-center-row">
@@ -33,6 +33,7 @@ class NavBar extends HTMLElement {
                   >
                     <a href="#">
                       <i id="dropdownButtonIcon" class="fa-regular fa-bell"></i>
+                      <span class="badge"></span>
                     </a>
                   </button>
                 </li>
@@ -51,17 +52,79 @@ class NavBar extends HTMLElement {
             </ul>
           </nav>
           <div id="myDropdown" class="dropdown-content">
-            <a href="#">Notification 1</a>
-            <a href="#">Notification 2</a>
-            <a href="#">Notification 3</a>
+            <div class="notifications-title1">Notifications</div>
+            <div id="dsdd" class="notificationsPanel">
+              <div class="notifications-title2">New</div>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 1: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 2 hours ago</div>
+                </div>
+              </a>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 2: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 8 hours ago</div>
+                </div>
+              </a>
+              <div class="notifications-title2">Earlier</div>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 3: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 12 hours ago</div>
+                </div>
+              </a>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 4: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 18 hours ago</div>
+                </div>
+              </a>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 5: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 1 day ago</div>
+                </div>
+              </a>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 6: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 3 days ago</div>
+                </div>
+              </a>
+              <a href="#">
+                <div style="flex-column">
+                  <div class="notifications-text1">Notification 7: Lorem ipsum dolor sit amet</div>
+                  <div class="notifications-text2">- 1 week ago</div>
+                </div>
+              </a>
+            </div>
           </div>
           <div id="myDropdownPpic" class="dropdown-content-ppic">
-            <a href="#">Account</a>
-            <a href="#">Settings</a>
-            <a href="#">Change Password</a>
+            <a>
+              <div class="flex-row">
+              <img
+              src="../../images/profile_photo.png"
+              width="43"
+              height="43"
+              id="profilePic"
+              /><div class="flex-column">
+                  <div class="profile-title">
+                  Jessica Alba
+                  </div>
+                  <div class="role-title">
+                  Civilian
+                  </div>
+                </div>
+              </div>
+            </a>
+            <a href="#"><i class="fa-solid fa-user" style="padding-right: 10px;"></i>Account</a>
+            <a href="#"><i class="fa-solid fa-gear" style="padding-right: 10px;"></i>Settings</a>
+            <a href="#"><i class="fa-solid fa-key" style="padding-right: 10px;"></i>Change Password</a>
+            <a href="../Login/login.html"><i class="fa-solid fa-right-from-bracket" style="padding-right: 10px;"></i>Log out</a>
           </div>
         `;
-    }
+  }
 }
 
-customElements.define('navbar-component', NavBar);
+customElements.define("navbar-component", NavBar);

@@ -37,10 +37,58 @@
           </div>
         </div>
         <!--Aici trebuie sa introduci functionalitatea pentru FILTER-->
-        <div class="filter-container flex-center-row">
-          <span class="text-image margin-right-8"> Filters</span>
-          <img src="../../images/filterIcon.svg" width="17" height="17">
+        <div id="filters1" class="filter-container flex-center-row">
+          <span id="filters2" class="text-image margin-right-8">Filters</span>
+          <img id="filters3" src="../../images/filterIcon.svg" width="17" height="17">
+          <dialog id="modal">
+            <span class="close">&times;</span>
+            <form class="filter-popup">
+              <h2>Situations</h2>
+              <h3>Status</h3>
+              <div class="flex-center-row">
+                <a href="#" class="status-option flex-center-row"><img src="../../images/newIcon.png" width="17"
+                    height="17" /><span class="status-text">New</span></a>
+                <a href="#" class="status-option flex-center-row"><img src="../../images/progressIcon.png" width="17"
+                    height="17" /><span class="status-text">Proceeding</span></a>
+                <a href="#" class="status-option flex-center-row"><img src="../../images/completeIcon.png" width="17"
+                    height="17" /><span class="status-text">Completed</span></a>
+              </div>
+              <h3>Location & Date</h3>
+              <div class="flex-row">
+                <div style="width: 50%; float: left;">
+                  <select class="input-placeholder input-layout"
+                    style="font-size: 15px; padding: 10px; margin-left: 5px;">
+                    <option value="0">Select location:</option>
+                    <option value="1">Iasi</option>
+                    <option value="2">Suceava</option>
+                    <option value="3">Cluj</option>
+                    <option value="4">Bucuresti</option>
+                    <option value="5">Timisoara</option>
+                  </select>
+                </div>
+                <div style="width: 50%; float: right;">
+                  <input type="date" class="input-placeholder input-layout" style="font-size: 15px; padding: 9px;">
+                </div>
+              </div>
+              <h3>Category</h3>
+              <div class="flex-center-row">
+                <div class="category-text"><input type="checkbox" /><span class="category-text">Fire</span></div>
+                <div class="category-text"><input type="checkbox" /><span class="category-text">Earthquakes</span></div>
+                <div class="category-text"><input type="checkbox" /><span class="category-text">Storm</span></div>
+                <div class="category-text"><input type="checkbox" /><span class="category-text">Floods</span></div>
+              </div>
+              <h3>Code</h3>
+              <div class="flex-center-row">
+                <a href="#" class="code-option">Yellow</a>
+                <a href="#" class="code-option">Orange</a>
+                <a href="#" class="code-option">Red</a>
+              </div>
+              <input id="close-button"
+                class="authentication-button input-title text-align-center hand-mouse margin-top-20" type="submit"
+                value="Apply filters" style="background: #12b83e; width: 150px">
         </div>
+        </dialog>
+        </form>
       </div>
 
       <table>
@@ -80,7 +128,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -100,10 +148,10 @@
             <td>
               <button class="button" on style="background-color: #FF5252;">
                 Red
-                </button>
+              </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -126,7 +174,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -149,7 +197,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -169,10 +217,10 @@
             <td>
               <button class="button" on style="background-color: #FF5252;">
                 Red
-                </button>
+              </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -195,7 +243,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -218,7 +266,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -238,10 +286,10 @@
             <td>
               <button class="button" on style="background-color: #FF5252;">
                 Red
-                </button>
+              </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -264,7 +312,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
           <tr>
@@ -287,7 +335,7 @@
               </button>
             </td>
             <td>
-                <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
+              <img src="../../images/extinseIcon.png" class="hand-mouse" width="17" height="17" />
             </td>
           </tr>
         </tbody>
@@ -295,7 +343,25 @@
     </div>
   </div>
   </div>
+  <script>
+    const applyFilters = document.querySelector("#close-button");
+    const closeButton = document.getElementsByClassName("close")[0];
 
+    applyFilters.addEventListener("click", () => {
+      modal.close();
+    });
+    closeButton.addEventListener("click", () => {
+      modal.close();
+    });
+
+    window.onclick = function (event) {
+      console.log(event);
+      if (event.target.id == "filters1" || event.target.id == "filters2" || event.target.id == "filters3") {
+        const filterPopup = document.getElementById("modal");
+        filterPopup.showModal();
+      }
+    }
+  </script>
 </body>
 
 </html>

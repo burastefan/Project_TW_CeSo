@@ -124,6 +124,12 @@ html {
     cursor: pointer;
 }
 
+.text-image {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 14px;
+}
+
 .title-logo {
     font-style: normal;
     font-weight: 900;
@@ -182,12 +188,4 @@ html {
     font-size: 50px;
     line-height: 20px;
     color: #1f2937;
-}
-
-.spacer-m {
-    margin-top: 50px;
-}
-
-.spacer-l {
-    margin-top: 80px;
 }

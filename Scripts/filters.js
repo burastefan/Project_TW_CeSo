@@ -9,7 +9,6 @@ closeButton.addEventListener("click", () => {
 });
 
 window.onclick = function (event) {
-  console.log(event);
   if (
     event.target.id == "filters1" ||
     event.target.id == "filters2" ||

@@ -172,15 +172,6 @@ html {
     line-height: 20px;
 }
 
-.tips-title {
-    width: 100%;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 20px;
-    text-align: left;
-    padding: 5px;
-}
-
 .input-layout {
     border: 1px solid #D1D5DB;
     border-radius: 4px;

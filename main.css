@@ -38,6 +38,11 @@ html {
     justify-content: space-between;
 }
 
+.flex-space-around {
+    display: flex;
+    justify-content: space-around;
+}
+
 .flex-space-between-center {
     display: flex;
     align-items: center;

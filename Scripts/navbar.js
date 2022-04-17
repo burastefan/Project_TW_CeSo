@@ -15,6 +15,19 @@ function handleDropdownClick() {
   }
 }
 
+function handleUserDropdownClick() {
+  const dropdown = document.getElementById("myDropdownPpic");
+  dropdown.classList.toggle("show");
+  const profilePicArrow = document.getElementById("profilePicArrow");
+  if (clickedProfile == false) {
+    profilePicArrow.className = "fa-solid fa-caret-up";
+    clickedProfile = true;
+  } else {
+    profilePicArrow.className = "fa-solid fa-caret-down";
+    clickedProfile = false;
+  }
+}
+
 window.onclick = function (event) {
   // Close the notifications dropdown menu if the user clicks outside of it
   if (!(event.target.id == "dropdownButtonIcon")) {
@@ -43,20 +56,6 @@ window.onclick = function (event) {
         profilePicArrow.className = "fa-solid fa-caret-down";
         clickedProfile = false;
       }
-    }
-  }
-
-  // User clicked on profile pic
-  if (event.target.id == "profilePic" || event.target.id == "profilePicArrow") {
-    const dropdown = document.getElementById("myDropdownPpic");
-    dropdown.classList.toggle("show");
-    const profilePicArrow = document.getElementById("profilePicArrow");
-    if (clickedProfile == false) {
-      profilePicArrow.className = "fa-solid fa-caret-up";
-      clickedProfile = true;
-    } else {
-      profilePicArrow.className = "fa-solid fa-caret-down";
-      clickedProfile = false;
     }
   }
 };

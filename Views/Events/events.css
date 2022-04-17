@@ -1,5 +1,6 @@
 .container {
   background: rgb(78, 203, 113);
+  width: 100%;
 }
 
 .first-container {
@@ -95,8 +96,12 @@
     line-height: 25px;
   }
 
+  .subtitle-page {
+    font-size: 16px;
+  }
+
   .title-page {
-    font-size: 30px;
+    font-size: 22px;
     line-height: 10px;
   }
 

@@ -138,6 +138,11 @@
     /* for JS onClick */
     display: block;
   }
+
+  .background-color-notifications {
+    /* for JS onClick */
+    background-color: #D3D3D3;
+  }
   
   nav {
     width: 100%;

@@ -1,5 +1,5 @@
 .container {
-  background: rgb(78,203,113);
+  background: rgb(78, 203, 113);
 }
 
 .first-container {
@@ -7,5 +7,54 @@
 }
 
 .second-container {
-    background: linear-gradient(180deg, rgba(78,203,113,1) 0%, rgba(78,203,113,1) 20%, rgba(255,255,255,1) 20%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(180deg, rgba(78, 203, 113, 1) 0%, rgba(78, 203, 113, 1) 20%, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 1) 100%);
+}
+
+.content {
+  background-color: #FFFFFF;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 12px 12px 0px 0px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 50px;
+}
+
+.title-page {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.subtitle-subtitle {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+}
+
+.label-text {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 12px;
+  color: #4B5563;
+}
+
+.input-place {
+  border: 1px solid #D1D5DB;
+  box-sizing: border-box;
+  border-radius: 4px;
+  padding: 10px 15px;
+}
+
+.email-input {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  padding: 16px 20px;
+  width: 450px;
+  border: none;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 60px;
 }

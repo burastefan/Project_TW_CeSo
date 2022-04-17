@@ -15,12 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="../../Scripts/filters.js" defer></script>
-  <script src="../../Scripts/navbar.js"></script>
-    <script
-      src="../../components/navbar.js"
-      type="text/javascript"
-      defer
-    ></script>
+  <script src="../../Scripts/navbar.js" async></script>
+  <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
 
 </head>
 
@@ -43,58 +39,10 @@
             <span class="text-image">New</span>
           </div>
         </div>
-        <div id="filters1" class="filter-container flex-center-row">
-          <span id="filters2" class="text-image margin-right-8">Filters</span>
-          <img id="filters3" src="../../images/filterIcon.svg" width="17" height="17">
-          <dialog id="modal">
-            <span class="close">&times;</span>
-            <form class="filter-popup">
-              <h2>Situations</h2>
-              <h3>Status</h3>
-              <div class="flex-center-row">
-                <a href="#" class="status-option flex-center-row"><img src="../../images/newIcon.png" width="17"
-                    height="17" /><span class="status-text">New</span></a>
-                <a href="#" class="status-option flex-center-row"><img src="../../images/progressIcon.png" width="17"
-                    height="17" /><span class="status-text">Proceeding</span></a>
-                <a href="#" class="status-option flex-center-row"><img src="../../images/completeIcon.png" width="17"
-                    height="17" /><span class="status-text">Completed</span></a>
-              </div>
-              <h3>Location & Date</h3>
-              <div class="flex-row">
-                <div style="width: 50%; float: left;">
-                  <select class="input-placeholder input-layout"
-                    style="font-size: 15px; padding: 10px; margin-left: 5px;">
-                    <option value="0">Select location:</option>
-                    <option value="1">Iasi</option>
-                    <option value="2">Suceava</option>
-                    <option value="3">Cluj</option>
-                    <option value="4">Bucuresti</option>
-                    <option value="5">Timisoara</option>
-                  </select>
-                </div>
-                <div style="width: 50%; float: right;">
-                  <input type="date" class="input-placeholder input-layout" style="font-size: 15px; padding: 9px;">
-                </div>
-              </div>
-              <h3>Category</h3>
-              <div class="flex-center-row">
-                <div class="category-text"><input type="checkbox" /><span class="category-text">Fire</span></div>
-                <div class="category-text"><input type="checkbox" /><span class="category-text">Earthquakes</span></div>
-                <div class="category-text"><input type="checkbox" /><span class="category-text">Storm</span></div>
-                <div class="category-text"><input type="checkbox" /><span class="category-text">Floods</span></div>
-              </div>
-              <h3>Code</h3>
-              <div class="flex-center-row">
-                <a href="#" class="code-option">Yellow</a>
-                <a href="#" class="code-option">Orange</a>
-                <a href="#" class="code-option">Red</a>
-              </div>
-              <input id="close-button"
-                class="authentication-button input-title text-align-center hand-mouse margin-top-20" type="submit"
-                value="Apply filters" style="background: #12b83e; width: 150px">
+        <div class="filter-container flex-center-row" onclick="showFiltersPopup()">
+          <span id="filtersText" class="text-image margin-right-8">Filters</span>
+          <img id="filtersImage" src="../../images/filterIcon.svg" width="17" height="17">
         </div>
-        </dialog>
-        </form>
       </div>
 
       <table>
@@ -349,116 +297,166 @@
     </div>
   </div>
   </div>
-    <div class="second-content">
-      <h2>News, reviews and everything in between</h2>
-      <div class="container-news">
-        <div class="container-content-news flex-space-between-center">
-          <div class="flex-center-row">
-            <img src="../../images/fireImage.png" class="margin-right-16" />
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
-              <div class="flex-center-row">
-                <img src="../../images/civil1.svg" class="margin-right-8" />
-                <div class="flex-column">
-                  <span class="text-image margin-bottom-4">Kianna Levin</span>
-                  <span class="text-image" style="color: #4B5563;">Civil</span>
-                </div>
+  <div class="second-content">
+    <h2>News, reviews and everything in between</h2>
+    <div class="container-news">
+      <div class="container-content-news flex-space-between-center">
+        <div class="flex-center-row">
+          <img src="../../images/fireImage.png" class="margin-right-16" />
+          <div class="flex-column">
+            <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
+            <div class="flex-center-row">
+              <img src="../../images/civil1.svg" class="margin-right-8" />
+              <div class="flex-column">
+                <span class="text-image margin-bottom-4">Kianna Levin</span>
+                <span class="text-image" style="color: #4B5563;">Civil</span>
               </div>
             </div>
           </div>
-          <div class="flex-center-row">
-            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
-            <span class="text-image" class="text-image"> 30 minutes ago</span>
-          </div>
         </div>
+        <div class="flex-center-row">
+          <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+          <span class="text-image" class="text-image"> 30 minutes ago</span>
+        </div>
+      </div>
 
-        <div class="container-content-news flex-space-between-center">
-          <div class="flex-center-row">
-            <img src="../../images/shelterImage.png" class="margin-right-16" />
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Shelters for Humans </span>
-              <div class="flex-center-row">
-                <img src="../../images/civil2.svg" class="margin-right-8" />
-                <div class="flex-column">
-                  <span class="text-image margin-bottom-4">James Donin</span>
-                  <span class="text-image" style="color: #4B5563;">Authority @NNG</span>
-                </div>
+      <div class="container-content-news flex-space-between-center">
+        <div class="flex-center-row">
+          <img src="../../images/shelterImage.png" class="margin-right-16" />
+          <div class="flex-column">
+            <span class="input-title margin-bottom-20">Shelters for Humans </span>
+            <div class="flex-center-row">
+              <img src="../../images/civil2.svg" class="margin-right-8" />
+              <div class="flex-column">
+                <span class="text-image margin-bottom-4">James Donin</span>
+                <span class="text-image" style="color: #4B5563;">Authority @NNG</span>
               </div>
             </div>
           </div>
-          <div class="flex-center-row">
-            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
-            <span class="text-image" class="text-image"> 1 day ago</span>
-          </div>
         </div>
+        <div class="flex-center-row">
+          <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+          <span class="text-image" class="text-image"> 1 day ago</span>
+        </div>
+      </div>
 
-        <div class="container-content-news flex-space-between-center">
-          <div class="flex-center-row">
-            <img src="../../images/stormIcon.png" class="margin-right-16" />
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">New storm announced - Sibiu</span>
-              <div class="flex-center-row">
-                <img src="../../images/civil4.svg" class="margin-right-8" />
-                <div class="flex-column">
-                  <span class="text-image margin-bottom-4">Dulce Donin</span>
-                  <span class="text-image" style="color: #4B5563;">Civil</span>
-                </div>
+      <div class="container-content-news flex-space-between-center">
+        <div class="flex-center-row">
+          <img src="../../images/stormIcon.png" class="margin-right-16" />
+          <div class="flex-column">
+            <span class="input-title margin-bottom-20">New storm announced - Sibiu</span>
+            <div class="flex-center-row">
+              <img src="../../images/civil4.svg" class="margin-right-8" />
+              <div class="flex-column">
+                <span class="text-image margin-bottom-4">Dulce Donin</span>
+                <span class="text-image" style="color: #4B5563;">Civil</span>
               </div>
             </div>
           </div>
-          <div class="flex-center-row">
-            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
-            <span class="text-image" class="text-image"> 12 hours ago</span>
-          </div>
         </div>
+        <div class="flex-center-row">
+          <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+          <span class="text-image" class="text-image"> 12 hours ago</span>
+        </div>
+      </div>
 
-        <div class="container-content-news flex-space-between-center">
-          <div class="flex-center-row">
-            <img src="../../images/stormImage.png" class="margin-right-16" />
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">New storm announced - Cluj</span>
-              <div class="flex-center-row">
-                <img src="../../images/civil5.svg" class="margin-right-8" />
-                <div class="flex-column">
-                  <span class="text-image margin-bottom-4">Cheyenne George</span>
-                  <span class="text-image" style="color: #4B5563;">Civil</span>
-                </div>
+      <div class="container-content-news flex-space-between-center">
+        <div class="flex-center-row">
+          <img src="../../images/stormImage.png" class="margin-right-16" />
+          <div class="flex-column">
+            <span class="input-title margin-bottom-20">New storm announced - Cluj</span>
+            <div class="flex-center-row">
+              <img src="../../images/civil5.svg" class="margin-right-8" />
+              <div class="flex-column">
+                <span class="text-image margin-bottom-4">Cheyenne George</span>
+                <span class="text-image" style="color: #4B5563;">Civil</span>
               </div>
             </div>
           </div>
-          <div class="flex-center-row">
-            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
-            <span class="text-image" class="text-image"> 5 hours ago</span>
-          </div>
         </div>
+        <div class="flex-center-row">
+          <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+          <span class="text-image" class="text-image"> 5 hours ago</span>
+        </div>
+      </div>
 
-        <div class="container-content-news flex-space-between-center">
-          <div class="flex-center-row">
-            <img src="../../images/fireImage.png" class="margin-right-16" />
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
-              <div class="flex-center-row">
-                <img src="../../images/civil6.svg" class="margin-right-8" />
-                <div class="flex-column">
-                  <span class="text-image margin-bottom-4">Carter Saris</span>
-                  <span class="text-image" style="color: #4B5563;">Extreme situation Specialist @NNG</span>
-                </div>
+      <div class="container-content-news flex-space-between-center">
+        <div class="flex-center-row">
+          <img src="../../images/fireImage.png" class="margin-right-16" />
+          <div class="flex-column">
+            <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
+            <div class="flex-center-row">
+              <img src="../../images/civil6.svg" class="margin-right-8" />
+              <div class="flex-column">
+                <span class="text-image margin-bottom-4">Carter Saris</span>
+                <span class="text-image" style="color: #4B5563;">Extreme situation Specialist @NNG</span>
               </div>
             </div>
           </div>
-          <div class="flex-center-row">
-            <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
-            <span class="text-image" class="text-image"> 10 hours ago</span>
-          </div>
         </div>
+        <div class="flex-center-row">
+          <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+          <span class="text-image" class="text-image"> 10 hours ago</span>
+        </div>
+      </div>
 
-        <div class="flex-center">
-          <span style="color: #1D4ED8;" class="margin-right-8 hand-mouse">See more</span>
-          <img src="../../images/rightArrow.png" class="hand-mouse"/>
-        </div>
+      <div class="flex-center">
+        <span style="color: #1D4ED8;" class="margin-right-8 hand-mouse">See more</span>
+        <img src="../../images/rightArrow.png" class="hand-mouse" />
       </div>
     </div>
   </div>
+  </div>
+
+  <dialog id="modal">
+    <span class="close" onclick="closeFiltersPopup()">&times;</span>
+    <form class="filter-popup">
+      <h2>Situations</h2>
+      <h3>Status</h3>
+      <div class="flex-center-row">
+        <a href="#" class="status-option flex-center-row"><img src="../../images/newIcon.png" width="17"
+            height="17" /><span class="status-text">New</span></a>
+        <a href="#" class="status-option flex-center-row"><img src="../../images/progressIcon.png" width="17"
+            height="17" /><span class="status-text">Proceeding</span></a>
+        <a href="#" class="status-option flex-center-row"><img src="../../images/completeIcon.png" width="17"
+            height="17" /><span class="status-text">Completed</span></a>
+      </div>
+      <h3>Location & Date</h3>
+      <div class="flex-row">
+        <div style="width: 50%; float: left;">
+          <select class="input-placeholder input-layout"
+            style="font-size: 15px; padding: 10px; margin-left: 5px;">
+            <option value="0">Select location:</option>
+            <option value="1">Iasi</option>
+            <option value="2">Suceava</option>
+            <option value="3">Cluj</option>
+            <option value="4">Bucuresti</option>
+            <option value="5">Timisoara</option>
+          </select>
+        </div>
+        <div style="width: 50%; float: right;">
+          <input type="date" class="input-placeholder input-layout" style="font-size: 15px; padding: 9px;">
+        </div>
+      </div>
+      <h3>Category</h3>
+      <div class="flex-center-row">
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Fire</span></div>
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Earthquakes</span></div>
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Storm</span></div>
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Floods</span></div>
+      </div>
+      <h3>Code</h3>
+      <div class="flex-center-row">
+        <a href="#" class="code-option">Yellow</a>
+        <a href="#" class="code-option">Orange</a>
+        <a href="#" class="code-option">Red</a>
+      </div>
+      <input id="close-button" onclick="closeFiltersPopup()"
+        class="authentication-button input-title text-align-center hand-mouse margin-top-20" type="submit"
+        value="Apply filters" style="background: #12b83e; width: 150px">
+    </form>
+  </dialog>
+
 </body>
 
 </html>

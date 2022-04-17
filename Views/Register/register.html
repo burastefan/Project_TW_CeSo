@@ -20,35 +20,22 @@
 
   <body>
     <div class="container">
-      <div style="width: 100%">
-        <div class="flex" style="justify-content: space-evenly">
+      <div style="width: 100%; height: 100%">
+        <div class="register-flex-row" style="justify-content: space-evenly">
           <!--The div element for the map -->
-          <div>
-            <div class="title-page margin-top-40 margin-bottom-80">
-              Let's get started
-            </div>
+          <div class="map-component">
+            <div class="register-title-page">Let's get started</div>
             <div class="margin-bottom-8">
-              <span class="input-title">Choose your location</span>
+              <span class="register-input-title">Choose your location</span>
             </div>
             <!-- Search input -->
             <input
               id="searchInput"
               type="text"
-              style="margin-top: 11px; padding: 11px; border: 1px solid #d1d5db"
               placeholder="Enter a location"
             />
             <!-- Google map -->
-            <div
-              id="map"
-              style="
-                display: flex;
-                flex-direction: column;
-                width: 500px;
-                height: 500px;
-                position: fixed !important;
-                border-radius: 5px;
-              "
-            ></div>
+            <div id="map"></div>
           </div>
 
           <form
@@ -57,19 +44,13 @@
             method="#"
           >
             <div class="flex-center-column">
-              <img
-                src="/images/newUser.png"
-                width="130"
-                height="130"
-                style="padding-bottom: 15px"
-              />
+              <img class="new-user-image" src="/images/newUser.png" />
             </div>
-            <div class="flex-row margin-bottom-24">
-              <div class="flex-column margin-right-16">
-                <label class="input-title margin-bottom-8">First name</label>
+            <div class="register-flex-row">
+              <div class="register-flex-column">
+                <label class="register-input-title">First name</label>
                 <input
-                  class="input-placeholder input-layout"
-                  style="width: 273px"
+                  class="input-register"
                   type="text"
                   id="firstName"
                   name="firstName"
@@ -78,11 +59,10 @@
                 />
               </div>
 
-              <div class="flex-column">
-                <label class="input-title margin-bottom-8">Last name</label>
+              <div class="register-flex-column">
+                <label class="register-input-title">Last name</label>
                 <input
-                  class="input-placeholder input-layout"
-                  style="width: 273px"
+                  class="input-register"
                   type="text"
                   id="lastName"
                   name="lastName"
@@ -92,61 +72,68 @@
               </div>
             </div>
 
-            <label class="input-title margin-bottom-8">Email</label>
-            <input
-              class="input-placeholder input-layout margin-bottom-24"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Email"
-              required
-            />
+            <div class="register-flex-column">
+              <label class="register-input-title">Email</label>
+              <input
+                class="input-register"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
 
-            <label class="input-title margin-bottom-8">Password</label>
-            <input
-              class="input-placeholder input-layout margin-bottom-24"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Password"
-              required
-            />
+            <div class="register-flex-column">
+              <label class="register-input-title">Password</label>
+              <input
+                class="input-register"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </div>
 
-            <label class="input-title margin-bottom-8">Confirm password</label>
-            <input
-              class="input-placeholder input-layout margin-bottom-24"
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              placeholder="Confirm password"
-              required
-            />
+            <div class="register-flex-column">
+              <label class="register-input-title"
+                >Confirm password</label
+              >
+              <input
+                class="input-register"
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm password"
+                required
+              />
+            </div>
 
-            <div class="flex-center-row">
+            <div class="register-flex-row-center">
               <input
                 type="checkbox"
                 id="checkbox"
                 checked
                 class="margin-right-8"
               />
-              <span class="input-title"
+              <span class="register-input-title"
                 >I agree to Terms of Service & Privacy Policy</span
               >
             </div>
-            <div class="flex-space-between-center" style="margin-top: 60px">
-              <div class="flex-column">
+            <div class="register-flex-space-between-center">
+              <div class="register-flex-column">
                 <a
                   href="../Login/login.html"
-                  class="input-title text-align-center"
+                  class="register-input-title text-align-center"
                   style="color: #1f2937"
                   >Back to login</a
                 >
               </div>
               <input
-                class="authentication-button input-title text-align-center hand-mouse"
+                class="register-authentication-button text-align-center hand-mouse"
                 type="submit"
                 value="Submit"
-                style="background: #12b83e"
               />
             </div>
           </form>

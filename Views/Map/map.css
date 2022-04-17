@@ -196,3 +196,72 @@ select {
   color: black;
   font-weight: 700;
 }
+
+.map-flex-space-between-center {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.displayNavbar {
+  display: block;
+}
+
+.map-input-title {
+  font-family: 'Inter';
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 12px;
+  color: #1f2937;
+}
+
+@media (max-width: 820px) {
+  .map-flex-space-between-center {
+    flex-direction: column;
+  }
+
+  .first-section {
+    width: 100%;
+  }
+
+  .second-section {
+    width: 100%;
+  }
+
+  .displayNavbar {
+    display: none;
+  }
+
+  h1 {
+    font-size: 20px;
+  }
+
+  h4 {
+    margin: 6px;
+  }
+
+  .map-input-title {
+    font-size: 14px;
+  }
+
+  .first-section select {
+    width: 120px;
+    height: 25px;
+  }
+
+  .first-section--stats {
+    margin-top: 12px;
+  }
+
+  .first-section--filter {
+    margin-top: 12px;
+    width: 90%;
+    padding: 6px;
+  }
+
+  .filter--selected,
+  .filter--not__selected {
+    padding: 8px;
+  }
+}

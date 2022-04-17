@@ -38,7 +38,7 @@ class NavBar extends HTMLElement {
                   </button>
                 </li>
                 <li style="padding: 0">
-                  <a href="#" style="padding: 2px">
+                  <a href="#" style="padding: 2px" onclick="handleUserDropdownClick()">
                     <img
                       src="../../images/profile_photo.png"
                       width="43"

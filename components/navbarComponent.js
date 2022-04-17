@@ -31,7 +31,7 @@ class NavBar extends HTMLElement {
                     class="dropdown-btn"
                     onclick="handleDropdownClick()"
                   >
-                    <a href="#">
+                    <a id="notificationsButton" href="#">
                       <i id="dropdownButtonIcon" class="fa-regular fa-bell"></i>
                       <span class="badge"></span>
                     </a>

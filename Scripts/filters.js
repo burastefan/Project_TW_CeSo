@@ -1,20 +1,11 @@
-const applyFilters = document.querySelector("#close-button");
-const closeButton = document.getElementsByClassName("close")[0];
+function showFiltersPopup() {
+  console.log("show");
+  const filterPopup = document.getElementById("modal");
+  filterPopup.showModal();
+}
 
-applyFilters.addEventListener("click", () => {
-  modal.close();
-});
-closeButton.addEventListener("click", () => {
-  modal.close();
-});
-
-window.onclick = function (event) {
-  if (
-    event.target.id == "filters1" ||
-    event.target.id == "filters2" ||
-    event.target.id == "filters3"
-  ) {
-    const filterPopup = document.getElementById("modal");
-    filterPopup.showModal();
-  }
-};
+function closeFiltersPopup() {
+  console.log("close");
+  const filterPopup = document.getElementById("modal");
+  filterPopup.close();
+}

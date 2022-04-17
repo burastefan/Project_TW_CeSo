@@ -41,6 +41,12 @@ function handleUserDropdownClick() {
   }
 }
 
+// Click on hamburger
+function openSideNavbar() {
+  const sideNavBar = document.getElementById("sideNavbar");
+  sideNavBar.classList.toggle("show");
+}
+
 window.onclick = function (event) {
   // Close the notifications dropdown menu if the user clicks outside of it
   if (!(event.target.id == "dropdownButtonIcon")) {

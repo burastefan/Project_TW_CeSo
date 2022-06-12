@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../../main.css" />
+  <link rel="stylesheet" href="./home.css" />
+  <link rel="stylesheet" href="../../navbar.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="icon" type="image/x-icon" href="../../images/logo.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../../Scripts/filters.js" defer></script>
+  <script src="../../Scripts/navbar.js" async></script>
+  <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
+  <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
+  <script src="../../components/miniNavbarComponent.js" type="text/javascript" defer></script>
+
+</head>
+
+<body>
+  <div class="page-row">
+    <div class="container">
+      <navbar-component class="displayNavbar"></navbar-component>
+      <mininavbar-component style="width: 100%"></mininavbar-component>
+      <div class="first-content" style="margin-top:5px;">
+        <div class="flex-space-between margin-bottom-24">
+          <div class="flex-center-row">
+            <div class="flex-center-row margin-right-16">
+              <img src="../../images/completeIcon.png" width="17" height="17" class="margin-right-4">
+              <span class="text-image">Completed</span>
+            </div>
+            <div class="flex-center-row margin-right-16">
+              <img src="../../images/progressIcon.png" width="17" height="17" class="margin-right-4">
+              <span class="text-image">Proceeding</span>
+            </div>
+            <div class="flex-center-row">
+              <img src="../../images/newIcon.png" width="17" height="17" class="margin-right-4">
+              <span class="text-image">New</span>
+            </div>
+          </div>
+          <div class="filter-container flex-center-row" onclick="showFiltersPopup()">
+            <span id="filtersText" class="text-image margin-right-8">Filters</span>
+            <img id="filtersImage" src="../../images/filterIcon.svg" width="17" height="17">
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <input type="checkbox" disabled />
+              </th>
+              <th>Name</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th>Category</th>
+              <th>Time of occurrence</th>
+              <th>Date of occurrence</th>
+              <th>Code</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+      <div class="second-content">
+        <h2 style="color:black!important">News, reviews and everything in between</h2>
+        <div class="container-news">
+          <div class="container-content-news flex-space-between-center">
+            <div class="flex-center-row">
+              <img src="../../images/fireImage.png" class="margin-right-16" />
+              <div class="flex-column">
+                <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
+                <div class="flex-center-row">
+                  <img src="../../images/civil1.svg" class="margin-right-8" />
+                  <div class="flex-column">
+                    <span class="text-image margin-bottom-4">Kianna Levin</span>
+                    <span class="text-image" style="color: #4B5563;">Civil</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-center-row">
+              <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+              <span class="text-image" class="text-image"> 30 minutes ago</span>
+            </div>
+          </div>
+
+          <div class="container-content-news flex-space-between-center">
+            <div class="flex-center-row">
+              <img src="../../images/shelterImage.png" class="margin-right-16" />
+              <div class="flex-column">
+                <span class="input-title margin-bottom-20">Shelters for Humans </span>
+                <div class="flex-center-row">
+                  <img src="../../images/civil2.svg" class="margin-right-8" />
+                  <div class="flex-column">
+                    <span class="text-image margin-bottom-4">James Donin</span>
+                    <span class="text-image" style="color: #4B5563;">Authority @NNG</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-center-row">
+              <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+              <span class="text-image" class="text-image"> 1 day ago</span>
+            </div>
+          </div>
+
+          <div class="container-content-news flex-space-between-center">
+            <div class="flex-center-row">
+              <img src="../../images/stormIcon.png" class="margin-right-16" />
+              <div class="flex-column">
+                <span class="input-title margin-bottom-20">New storm announced - Sibiu</span>
+                <div class="flex-center-row">
+                  <img src="../../images/civil4.svg" class="margin-right-8" />
+                  <div class="flex-column">
+                    <span class="text-image margin-bottom-4">Dulce Donin</span>
+                    <span class="text-image" style="color: #4B5563;">Civil</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-center-row">
+              <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+              <span class="text-image" class="text-image"> 12 hours ago</span>
+            </div>
+          </div>
+
+          <div class="container-content-news flex-space-between-center">
+            <div class="flex-center-row">
+              <img src="../../images/stormImage.png" class="margin-right-16" />
+              <div class="flex-column">
+                <span class="input-title margin-bottom-20">New storm announced - Cluj</span>
+                <div class="flex-center-row">
+                  <img src="../../images/civil5.svg" class="margin-right-8" />
+                  <div class="flex-column">
+                    <span class="text-image margin-bottom-4">Cheyenne George</span>
+                    <span class="text-image" style="color: #4B5563;">Civil</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-center-row">
+              <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+              <span class="text-image" class="text-image"> 5 hours ago</span>
+            </div>
+          </div>
+
+          <div class="container-content-news flex-space-between-center">
+            <div class="flex-center-row">
+              <img src="../../images/fireImage.png" class="margin-right-16" />
+              <div class="flex-column">
+                <span class="input-title margin-bottom-20">Strong fires in forest - Iasi</span>
+                <div class="flex-center-row">
+                  <img src="../../images/civil6.svg" class="margin-right-8" />
+                  <div class="flex-column">
+                    <span class="text-image margin-bottom-4">Carter Saris</span>
+                    <span class="text-image" style="color: #4B5563;">Extreme situation Specialist @NNG</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex-center-row">
+              <img src="../../images/clockIcon.png" width="12" height="12" class="margin-right-4">
+              <span class="text-image" class="text-image"> 10 hours ago</span>
+            </div>
+          </div>
+
+          <div class="flex-center">
+            <span style="color: #1D4ED8;" class="margin-right-8 hand-mouse">See more</span>
+            <img src="../../images/rightArrow.png" class="hand-mouse" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <sidenavbar-component></sidenavbar-component>
+  </div>
+
+  <dialog id="modal">
+    <span class="close" onclick="closeFiltersPopup()">&times;</span>
+    <form class="filter-popup">
+      <h2>Situations</h2>
+      <h3>Status</h3>
+      <div class="flex-center-row">
+        <a href="#" class="status-option flex-center-row"><img src="../../images/newIcon.png" width="17"
+            height="17" /><span class="status-text">New</span></a>
+        <a href="#" class="status-option flex-center-row"><img src="../../images/progressIcon.png" width="17"
+            height="17" /><span class="status-text">Proceeding</span></a>
+        <a href="#" class="status-option flex-center-row"><img src="../../images/completeIcon.png" width="17"
+            height="17" /><span class="status-text">Completed</span></a>
+      </div>
+      <h3>Location & Date</h3>
+      <div class="flex-row">
+        <div style="width: 50%; float: left;">
+          <select class="input-placeholder input-layout" style="font-size: 15px; padding: 10px; margin-left: 5px;">
+            <option value="0">Select location:</option>
+            <option value="1">Iasi</option>
+            <option value="2">Suceava</option>
+            <option value="3">Cluj</option>
+            <option value="4">Bucuresti</option>
+            <option value="5">Timisoara</option>
+          </select>
+        </div>
+        <div style="width: 50%; float: right;">
+          <input type="date" class="input-placeholder input-layout" style="font-size: 15px; padding: 9px;">
+        </div>
+      </div>
+      <h3>Category</h3>
+      <div class="flex-center-row">
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Fire</span></div>
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Earthquakes</span></div>
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Storm</span></div>
+        <div class="category-text"><input type="checkbox" /><span class="category-text">Floods</span></div>
+      </div>
+      <h3>Code</h3>
+      <div class="flex-center-row">
+        <a href="#" class="code-option">Yellow</a>
+        <a href="#" class="code-option">Orange</a>
+        <a href="#" class="code-option">Red</a>
+      </div>
+      <input id="close-button" onclick="closeFiltersPopup()"
+        class="authentication-button input-title text-align-center hand-mouse margin-top-20" type="submit"
+        value="Apply filters" style="background: #12b83e; width: 150px">
+    </form>
+  </dialog>
+
+  <script>
+
+    function eventTableOnInitialized(events) {
+      const tableBody = document.getElementById('tableBody');
+
+      for (let i = 0; i < events.length; i++) {
+        const row = document.createElement('tr');
+
+        let event = events[i];
+        
+        const column1 = document.createElement('td');
+        const input = document.createElement('input');
+        input.type = 'checkbox';
+        column1.append(input);
+        
+        const column2 = document.createElement('td');
+        column2.innerHTML = event.name;
+
+        const column3 = document.createElement('td');
+        const image = document.createElement('img');
+        image.src = '../../images/completeIcon.png';
+        image.width = '17';
+        image.height = '17';
+        column3.append(image);
+
+        
+        const column4 = document.createElement('td');
+        column4.innerHTML = event.location;
+
+        const column5 = document.createElement('td');
+        column5.innerHTML = event.category;
+
+        const column6 = document.createElement('td');
+        column6.innerHTML = event.timeOfOccurence;
+
+        const column7 = document.createElement('td');
+        column7.innerHTML = event.dateOfOccurence;
+
+        const column8 = document.createElement('td');
+        const button = document.createElement('button');
+        button.className = "button";
+        if (event.code == 'yellow') {
+            button.style.backgroundColor = '#FDF539';
+            button.innerHTML = 'Yellow';
+        }
+        else if (event.code == 'orange') {
+            button.style.backgroundColor = '#ffa500';
+            button.innerHTML = 'Orange';
+        }
+        else if (event.code == 'red') {
+            button.style.backgroundColor = '#B22222';
+            button.innerHTML = 'Red';
+        }
+        
+        column8.append(button);
+
+        const column9 = document.createElement('td');
+        const imageDots = document.createElement('img');
+        imageDots.src = '../../images/extinseIcon.png';
+        imageDots.className = 'hand-mouse';
+        imageDots.width = '17';
+        imageDots.height = '17';
+        column9.append(imageDots);
+
+        row.append(column1);
+        row.append(column2);
+        row.append(column3);
+        row.append(column4);
+        row.append(column5);
+        row.append(column6);
+        row.append(column7);
+        row.append(column8);
+        row.append(column9);
+
+        tableBody.append(row);
+      }
+    }
+    
+    axios.get('http://localhost:5000/api/events')
+    .then((response) => {
+      console.log(response);
+
+      eventTableOnInitialized(response.data);
+    });
+
+  </script>
+
+</body>
+
+</html>

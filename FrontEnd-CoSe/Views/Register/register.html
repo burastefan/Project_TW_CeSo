@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./register.css" />
+    <link rel="stylesheet" href="../../main.css" />
+    <link rel="icon" type="image/x-icon" href="../../images/logo.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="../../Scripts/map.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div style="width: 100%; height: 100%">
+        <div class="register-flex-row" style="justify-content: space-evenly">
+          <!--The div element for the map -->
+          <div class="map-component">
+            <div class="register-title-page">Let's get started</div>
+            <div class="margin-bottom-8">
+              <span class="register-input-title">Choose your location</span>
+            </div>
+            <!-- Search input -->
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Enter a location"
+            />
+            <!-- Google map -->
+            <div id="map"></div>
+          </div>
+
+          <form
+            class="register-container-column"
+            action="../Home/home.html"
+            method="#"
+          >
+            <div class="flex-center-column">
+              <img class="new-user-image" src="/images/newUser.png" />
+            </div>
+            <div class="register-flex-row">
+              <div class="register-flex-column">
+                <label class="register-input-title">First name</label>
+                <input
+                  class="input-register"
+                  type="text"
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First name"
+                  required
+                />
+              </div>
+
+              <div class="register-flex-column">
+                <label class="register-input-title">Last name</label>
+                <input
+                  class="input-register"
+                  type="text"
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="register-flex-column">
+              <label class="register-input-title">Email</label>
+              <input
+                class="input-register"
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+
+            <div class="register-flex-column">
+              <label class="register-input-title">Password</label>
+              <input
+                class="input-register"
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+              />
+            </div>
+
+            <div class="register-flex-column">
+              <label class="register-input-title"
+                >Confirm password</label
+              >
+              <input
+                class="input-register"
+                type="password"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm password"
+                required
+              />
+            </div>
+
+            <div class="register-flex-row-center">
+              <input
+                type="checkbox"
+                id="checkbox"
+                checked
+                class="margin-right-8"
+              />
+              <span class="register-input-title"
+                >I agree to Terms of Service & Privacy Policy</span
+              >
+            </div>
+            <div class="register-flex-space-between-center">
+              <div class="register-flex-column">
+                <a
+                  href="../Login/login.html"
+                  class="register-input-title text-align-center"
+                  style="color: #1f2937"
+                  >Back to login</a
+                >
+              </div>
+              <input
+                class="register-authentication-button text-align-center hand-mouse"
+                type="submit"
+                value="Submit"
+              />
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap"
+      async
+      defer
+    ></script>
+  </body>
+</html>

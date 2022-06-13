@@ -25,11 +25,11 @@ function handleEvents(req, res) {
             insertEvent(event, req, res)
         });
     }
-    else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'PUT') { // Update Event
-        //UPDATE EVENT
-    }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'DELETE') { // Delete Event
         //DELETE EVENT
+    }
+    else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'PUT') { // Update Event
+        //UPDATE EVENT
     }
 }
 

@@ -155,6 +155,13 @@ table tbody td {
   color: #1f2937;
 }
 
+.loadingPanel {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10px;
+}
+
 
 @media screen and (max-width:970px) {
   .container-news {

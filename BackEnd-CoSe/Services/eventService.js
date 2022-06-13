@@ -1,4 +1,4 @@
-const { getEvents, getEvent } = require('../Controllers/eventController')
+const { getEvents, getEvent, insertEvent } = require('../Controllers/eventController')
 
 function handleEvents(req, res) {
     if (req.url === '/api/events' && req.method === 'GET') { // Get All Event
@@ -9,7 +9,7 @@ function handleEvents(req, res) {
         getEvent(id, req, res)
     }
     else if (req.url.match('/api/events') && req.method === 'POST') { // Insert Event
-        var body = ''
+        let body = ''
 
         req.on('data', function (data) {
             body += data
@@ -18,9 +18,11 @@ function handleEvents(req, res) {
         req.on('end', function () {
             console.log(body)
             
-            var event = JSON.parse(body)
+            const event = JSON.parse(body)
 
-            console.log("Event: ", event)
+            console.log("Event to be inserted: ", event)
+
+            insertEvent(event, req, res)
         });
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'PUT') { // Update Event

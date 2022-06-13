@@ -66,8 +66,11 @@
               <th></th>
             </tr>
           </thead>
-          <tbody id="tableBody"></tbody>
+          <tbody id="tableBody">
+            
+          </tbody>
         </table>
+        <img id="loadingPanel" src="../../images/loading.png" width="50" height="50" class="loadingPanel" />
       </div>
       <div class="second-content">
         <h2 style="color:black!important">News, reviews and everything in between</h2>
@@ -313,6 +316,8 @@
       console.log(response);
 
       eventTableOnInitialized(response.data);
+
+      document.getElementById("loadingPanel").style.display = "none";
     });
 
   </script>

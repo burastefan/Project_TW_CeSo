@@ -4,11 +4,24 @@ const jsonType = { "Access-Control-Allow-Methods": "GET,POST,DELETE", "Access-Co
 
 async function getEvents(req, res) {
     try {
-        const events = await Event.findAllEvents()
-        console.log("Events: ", events)
+        const events = await Event.findAll()
+
+        let eventsParsed = JSON.parse(events)
+
+        eventsParsed = eventsParsed.map(event => { 
+            const eventDate = new Date(event.date)
+
+            return {
+            ...event,
+            dateOfOccurence: eventDate.getFullYear() + "-" + (eventDate.getMonth()+1) + "-" + eventDate.getDate(),
+            timeOfOccurence: eventDate.getHours() + ":" + eventDate.getMinutes() + ":" + eventDate.getSeconds()
+            }
+        })
+
+        console.log("Events: ", eventsParsed)
 
         res.writeHead(200, jsonType)
-        res.end(JSON.stringify(events))
+        res.end(JSON.stringify(eventsParsed))
     }
     catch (error) {
         console.log(error)
@@ -17,10 +30,33 @@ async function getEvents(req, res) {
 
 async function getEvent(id, req, res) {
     try {
-        const event = await Event.findEventById(id)
-        console.log("Event with id " + id + ": ", event)
+        const event = await Event.findById(id)
+        
+        let eventParsed = JSON.parse(event)[0]
+        const eventDate = new Date(eventParsed.date)
+        eventParsed.dateOfOccurence = eventDate.getFullYear() + "-" + (eventDate.getMonth()+1) + "-" + eventDate.getDate(),
+        eventParsed.timeOfOccurence = eventDate.getHours() + ":" + eventDate.getMinutes() + ":" + eventDate.getSeconds()
+        
+        console.log("Event with id " + id + ": ", eventParsed)
 
         res.writeHead(200, jsonType)
+        res.end(JSON.stringify(eventParsed))
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+async function insertEvent(event, req, res) {
+    try {
+        event.date = new Date(event.date)
+
+        await Event.insert(event)
+
+        console.log("Event created succesfully")
+        console.log("Event: ", event)
+
+        res.writeHead(201, jsonType)
         res.end(JSON.stringify(event))
     }
     catch (error) {
@@ -30,5 +66,6 @@ async function getEvent(id, req, res) {
 
 module.exports = {
     getEvents,
-    getEvent
+    getEvent,
+    insertEvent
 }

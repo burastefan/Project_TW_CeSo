@@ -52,7 +52,7 @@
             <div class="flex-row">
               <div class="flex-column margin-bottom-24 margin-right-16">
                 <label class="label-text margin-bottom-8">Time of occurrence:</label>
-                <input class="input-place" type="month" id="eventTime" name="eventTime" required>
+                <input class="input-place" type="month" name="eventTime" required>
               </div>
               <div class="flex-column margin-bottom-0">
                 <label class="label-text margin-bottom-8" class="">Location</label>
@@ -99,13 +99,7 @@
   </div>
 
   <script>
-    function functie() {
-      console.log('asdadsasda')
-      console.log(document.getElementById('addEventForm'))
-    }
-
     document.addEventListener('submit', (e) => {
-    // Store reference to form to make later code easier to read
     const form = e.target;
 
     // Prevent the default form submit
@@ -138,6 +132,13 @@
     axios.post('http://localhost:5000/api/events', JSON.stringify(event))
     .then((response) => {
       console.log(response);
+
+      if (response.status == 201 && response.statusText == "Created") {
+        //afisare mesaj creat cu succes
+      }
+      else {
+        //afisare mesaj eroare la creare
+      }
     });
 });
   </script>

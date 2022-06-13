@@ -1,4 +1,4 @@
-const { getEvents, getEvent, insertEvent } = require('../Controllers/eventController')
+const { getEvents, getEvent, insertEvent, deleteEvent } = require('../Controllers/eventController')
 
 function handleEvents(req, res) {
     if (req.url === '/api/events' && req.method === 'GET') { // Get All Event
@@ -6,6 +6,7 @@ function handleEvents(req, res) {
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'GET') { // Get Event by id
         const id = req.url.split('/')[3]
+
         getEvent(id, req, res)
     }
     else if (req.url.match('/api/events') && req.method === 'POST') { // Insert Event
@@ -13,7 +14,7 @@ function handleEvents(req, res) {
 
         req.on('data', function (data) {
             body += data
-        });
+        })
 
         req.on('end', function () {
             console.log(body)
@@ -23,10 +24,12 @@ function handleEvents(req, res) {
             console.log("Event to be inserted: ", event)
 
             insertEvent(event, req, res)
-        });
+        })
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'DELETE') { // Delete Event
-        //DELETE EVENT
+        const id = req.url.split('/')[3]
+        
+        deleteEvent(id, req, res)
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'PUT') { // Update Event
         //UPDATE EVENT

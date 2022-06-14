@@ -15,6 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./events.js" async></script>
   <script src="../../Scripts/navbar.js"></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
@@ -52,7 +53,7 @@
             <div class="flex-row">
               <div class="flex-column margin-bottom-24 margin-right-16">
                 <label class="label-text margin-bottom-8">Time of occurrence:</label>
-                <input class="input-place" type="month" name="eventTime" required>
+                <input class="input-place" type="datetime-local" name="eventTime" required>
               </div>
               <div class="flex-column margin-bottom-0">
                 <label class="label-text margin-bottom-8" class="">Location</label>
@@ -99,49 +100,11 @@
   </div>
 
   <script>
-    document.addEventListener('submit', (e) => {
-    const form = e.target;
 
-    // Prevent the default form submit
-    e.preventDefault();
+    document.addEventListener('submit', (event) => onSubmitHandler(event))
 
-    const formData = new FormData(form);
-
-    console.log(formData.entries())
-
-    const title = formData.get('eventTitle')
-    const description = formData.get('eventDescription')
-    const date = new Date(formData.get('eventTime'))
-    const location = formData.get('eventLocation')
-    const category = formData.get('eventCategory')
-    const code = formData.get('eventCode')
-    const status = formData.get('eventStatus')
-
-    const event = {
-      'name': title,
-      'status': status,
-      'location': location,
-      'category': category,
-      'code': code,
-      'date': date,
-      'description': description
-    }
-
-    console.log('Event: ', event)
-
-    axios.post('http://localhost:5000/api/events', JSON.stringify(event))
-    .then((response) => {
-      console.log(response);
-
-      if (response.status == 201 && response.statusText == "Created") {
-        //afisare mesaj creat cu succes
-      }
-      else {
-        //afisare mesaj eroare la creare
-      }
-    });
-});
   </script>
+  
 </body>
 
 </html>

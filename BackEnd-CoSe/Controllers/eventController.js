@@ -1,10 +1,11 @@
 const Event= require('../Models/eventModel')
-const jsonType = { "Access-Control-Allow-Methods": "GET,POST,DELETE", "Access-Control-Allow-Credentials": true, "Access-Control-Allow-Headers": "authorization,content-type", "Access-Control-Allow-Origin": "*", "Content-Type": "application/json" };
-
+const { jsonType } = require('../Utils/headerTypes')
 
 async function getEvents(req, res) {
     try {
         const events = await Event.findAll()
+
+        console.log(events)
 
         if (events) {
             let eventsParsed = JSON.parse(events)

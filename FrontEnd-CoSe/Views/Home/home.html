@@ -52,24 +52,8 @@
         </div>
 
         <table>
-          <thead>
-            <tr>
-              <th>
-                <input type="checkbox" disabled />
-              </th>
-              <th>Name</th>
-              <th>Status</th>
-              <th>Location</th>
-              <th>Category</th>
-              <th>Time of occurrence</th>
-              <th>Date of occurrence</th>
-              <th>Code</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-            
-          </tbody>
+          <thead id="tableHead"></thead>
+          <tbody id="tableBody"></tbody>
         </table>
         <img id="loadingPanel" src="../../images/loading.png" width="50" height="50" class="loadingPanel" />
       </div>
@@ -236,15 +220,7 @@
 
   <script>
 
-    axios.get('http://localhost:5000/api/events')
-    .then((response) => {
-      console.log(response);
-
-      eventTableOnInitialized(response.data, document);
-
-      document.getElementById("loadingPanel").style.display = "none";
-      //LOADING PANEL
-    });
+    onInitialized(document)
 
   </script>
 

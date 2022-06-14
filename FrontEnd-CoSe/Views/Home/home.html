@@ -55,8 +55,14 @@
           <thead id="tableHead"></thead>
           <tbody id="tableBody"></tbody>
         </table>
-        <img id="loadingPanel" src="../../images/loading.png" width="50" height="50" class="loadingPanel" />
+        <div id="loader" class="loader"></div>    
+        
+        <div class="flex-center" style="padding-top: 8px">
+            <button class="page-link" id="prevButton" onclick="previousPage()" style="visibility: hidden">Prev</button>
+            <button class="page-link" id="nextButton" onclick="nextPage()" style="visibility: hidden">Next</button>
+        </div>
       </div>
+
       <div class="second-content">
         <h2 style="color:black!important">News, reviews and everything in between</h2>
         <div class="container-news">
@@ -217,6 +223,8 @@
         value="Apply filters" style="background: #12b83e; width: 150px">
     </form>
   </dialog>
+
+  <dialog id="deleteModal"></dialog>
 
   <script>
 

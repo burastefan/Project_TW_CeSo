@@ -41,9 +41,14 @@
 
 .input-place {
   border: 1px solid #D1D5DB;
-  box-sizing: border-box;
   border-radius: 4px;
   padding: 10px 15px;
+}
+
+.text-area {
+  border: 1px solid #D1D5DB;
+  padding: 10px 15px;
+  font-family: 'Inter', sans-serif;
 }
 
 .email-input {

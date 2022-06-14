@@ -47,7 +47,7 @@
 
             <div class="flex-column margin-bottom-24">
               <label class="label-text margin-bottom-8">Event description</label>
-              <textarea placeholder="Description" name="eventDescription" rows="10" required></textarea>
+              <textarea class="text-area" placeholder="Description" name="eventDescription" rows="10" required></textarea>
             </div>
 
             <div class="flex-row">
@@ -83,12 +83,16 @@
 
               <div class="flex-column">
                 <label class="label-text margin-bottom-8">Status</label>
-                <input class="input-place" type="text" name="eventStatus" value="New">
+                <select class="input-place" name="eventStatus" required>
+                  <option value="yellow">New</option>
+                  <option value="red">Pending</option>
+                  <option value="orange">Completed</option>
+                </select>
               </div>
             </div>
 
             <div class="flex-justify-center margin-top-60">
-              <button id="submitButton" class="authentication-button input-title text-align-center hand-mouse" style="background: #12b83e;">
+              <button id="submitButton" class="authentication-button input-title text-align-center hand-mouse margin-top-40" style="background: #12b83e;">
                 Save
               </button>
             </div>

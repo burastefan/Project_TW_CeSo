@@ -84,10 +84,14 @@ table tbody td {
   padding: 20px 40px 20px;
 }
 
+#deleteModal {
+  border-width: 0;
+  padding: 20px 40px 20px;
+}
+
 .close {
   color: #aaa;
   float: right;
-  margin-top: 12px;
   font-size: 28px;
   font-weight: bold;
 }
@@ -155,11 +159,48 @@ table tbody td {
   color: #1f2937;
 }
 
-.loadingPanel {
+.page-link {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 6px 12px 6px;
+  margin: 0px 5px 0px;
+  color: #1f2937;
+}
+
+.delete-button {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  background-color: red;
+}
+
+.cancel-button {
+  width: 100px;
+  padding: 10px;
+  border: none;
+  border-radius: 15px;
+  color: white;
+  background-color: #12b83e;
+}
+
+.loader {
   display: block;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #12b83e;
+  width: 60px;
+  height: 60px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 

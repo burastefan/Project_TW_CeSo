@@ -1,13 +1,20 @@
+const pageSize = 8
+var curPage = 1
+var eventsData = []
+var currentDocument = new Document
+
 async function onInitialized(document) {
-    const data = await getEvents()
+    currentDocument = document
 
-    createEventTable(data, document)
+    eventsData = await getEvents()
 
-    document.getElementById("loadingPanel").style.display = "none"
+    renderEventTable(1)
+
+    currentDocument.getElementById("loader").style.display = "none"
     //LOADING PANEL
 }
 
-async function getEvents(document)  {
+async function getEvents()  {
     const response = await fetch('http://localhost:5000/api/events')
     console.log('Response: ', response)
     
@@ -18,21 +25,98 @@ async function getEvents(document)  {
 }
 
 async function deleteEvent(id) {
-    const response = await fetch(`http://localhost:5000/api/events/${id}`, {
+    const deleteModalTitle = currentDocument.createElement('h4')
+    deleteModalTitle.className = 'text-align-center margin-top-8'
+    deleteModalTitle.innerHTML = 'Are you sure you want to delete this event?'
+
+    const deleteButton = currentDocument.createElement('button')
+    deleteButton.className = 'delete-button margin-left-12'
+    deleteButton.innerHTML = 'Delete'
+    deleteButton.onclick = async function() {
+        const response = await fetch(`http://localhost:5000/api/events/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'text/plain',
         },
         body: id,
-    })
-    console.log('Response: ', response)
+        })
+        console.log('Response: ', response)
+
+        const data = await response.json()
+        console.log('Data: ', data)
+
+        deleteModal.close()
+        removeAllChildNodes(deleteModal)
+
+        eventsData = eventsData.filter(x => x.id !== id)
+
+        renderEventTable(curPage)
+    }
+
+    const cancelButton = currentDocument.createElement('button')
+    cancelButton.className = 'cancel-button margin-right-12'
+    cancelButton.innerHTML = 'Cancel'
+    cancelButton.onclick = function() {
+        deleteModal.close()
+        removeAllChildNodes(deleteModal)
+    }
+
+    const buttonsDiv = currentDocument.createElement('div')
+    buttonsDiv.className = 'flex-row flex-space-between-center'
+    buttonsDiv.append(deleteButton)
+    buttonsDiv.append(cancelButton)
+
+    const deleteModal = currentDocument.getElementById('deleteModal')
+    deleteModal.append(deleteModalTitle)
+    deleteModal.append(buttonsDiv)
+
+    deleteModal.showModal()
     
-    const data = await response.json()
-    console.log('Data: ', data)
 }
 
-function createEventTable(events, document) {
-    const tableHead = document.getElementById('tableHead')
+function previousPage() {
+    if (curPage > 1) {
+        curPage--
+        renderEventTable(curPage)
+    }
+}
+  
+function nextPage() {
+    if ((curPage * pageSize) < eventsData.length) {
+        curPage++
+        renderEventTable(curPage)
+    }
+}
+
+function numPages() {
+    return Math.ceil(eventsData.length / pageSize)
+}
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild)
+    }
+}
+
+function renderEventTable(page) {
+    const prevButton = currentDocument.getElementById('prevButton')
+    const nextButton = currentDocument.getElementById('nextButton')
+    prevButton.style.visibility = "visible"
+    nextButton.style.visibility = "visible"
+
+    if (page == 1) {
+        prevButton.disabled = true
+    } else {
+        prevButton.disabled = false
+    }
+    
+    if (page == numPages()) {
+        nextButton.disabled = true
+    } else {
+        nextButton.disabled = false
+    }
+
+    const tableHead = currentDocument.getElementById('tableHead')
     tableHead.innerHTML = `
     <tr>
         <th>Name</th>
@@ -45,40 +129,50 @@ function createEventTable(events, document) {
         <th>Actions</th>
     </tr>`
     
-    const tableBody = document.getElementById('tableBody')
+    const tableBody = currentDocument.getElementById('tableBody')
+
+    if (document.querySelector('#tableBody').firstChild) {
+        removeAllChildNodes(document.querySelector('#tableBody'))
+    }
+
+    const events = JSON.parse(JSON.stringify(eventsData)).filter((row, index) => {
+        let start = (curPage - 1) * pageSize
+        let end = curPage * pageSize
+        if (index >= start && index < end) return true
+    });
 
     for (let i = 0; i < events.length; i++) {
-        const row = document.createElement('tr')
+        const row = currentDocument.createElement('tr')
 
         let event = events[i]
         
-        const column1 = document.createElement('td')
+        const column1 = currentDocument.createElement('td')
         column1.innerHTML = event.name
 
-        const column2 = document.createElement('td')
+        const column2 = currentDocument.createElement('td')
 
-        const image = document.createElement('img')
+        const image = currentDocument.createElement('img')
         image.src = '../../images/completeIcon.png'
         image.width = '17'
         image.height = '17'
 
         column2.append(image)
         
-        const column3 = document.createElement('td')
+        const column3 = currentDocument.createElement('td')
         column3.innerHTML = event.location
 
-        const column4 = document.createElement('td')
+        const column4 = currentDocument.createElement('td')
         column4.innerHTML = event.category
 
-        const column5 = document.createElement('td')
+        const column5 = currentDocument.createElement('td')
         column5.innerHTML = event.timeOfOccurence
 
-        const column6 = document.createElement('td')
+        const column6 = currentDocument.createElement('td')
         column6.innerHTML = event.dateOfOccurence
 
-        const column7 = document.createElement('td')
+        const column7 = currentDocument.createElement('td')
 
-        const code = document.createElement('button')
+        const code = currentDocument.createElement('button')
         code.className = "button"
         if (event.code == 'yellow') {
             code.style.backgroundColor = '#FDF539'
@@ -96,9 +190,9 @@ function createEventTable(events, document) {
         column7.append(code)
 
         //COLUMN 8 IS ONLY FOR AUTHORITIES
-        const column8 = document.createElement('td')
+        const column8 = currentDocument.createElement('td')
 
-        const editButton = document.createElement('i')
+        const editButton = currentDocument.createElement('i')
         editButton.className = 'fa-regular fa-pen-to-square hand-mouse'
 
         editButton.onclick = function() {
@@ -108,7 +202,7 @@ function createEventTable(events, document) {
 
         column8.append(editButton)
 
-        const deleteButton = document.createElement('i')
+        const deleteButton = currentDocument.createElement('i')
         deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8'
 
         deleteButton.onclick = function() {

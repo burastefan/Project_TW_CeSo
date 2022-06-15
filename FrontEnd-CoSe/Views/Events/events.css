@@ -39,18 +39,6 @@
   color: #4B5563;
 }
 
-.input-place {
-  border: 1px solid #D1D5DB;
-  border-radius: 4px;
-  padding: 10px 15px;
-}
-
-.text-area {
-  border: 1px solid #D1D5DB;
-  padding: 10px 15px;
-  font-family: 'Inter', sans-serif;
-}
-
 .email-input {
   background-color: #FFFFFF;
   border-radius: 6px;

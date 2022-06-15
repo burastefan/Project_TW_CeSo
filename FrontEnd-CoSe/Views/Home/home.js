@@ -24,56 +24,6 @@ async function getEvents()  {
     return data
 }
 
-async function deleteEvent(id) {
-    const deleteModalTitle = currentDocument.createElement('h4')
-    deleteModalTitle.className = 'text-align-center margin-top-8'
-    deleteModalTitle.innerHTML = 'Are you sure you want to delete this event?'
-
-    const deleteButton = currentDocument.createElement('button')
-    deleteButton.className = 'delete-button margin-left-12'
-    deleteButton.innerHTML = 'Delete'
-    deleteButton.onclick = async function() {
-        const response = await fetch(`http://localhost:5000/api/events/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'Content-Type': 'text/plain',
-        },
-        body: id,
-        })
-        console.log('Response: ', response)
-
-        const data = await response.json()
-        console.log('Data: ', data)
-
-        deleteModal.close()
-        removeAllChildNodes(deleteModal)
-
-        eventsData = eventsData.filter(x => x.id !== id)
-
-        renderEventTable(curPage)
-    }
-
-    const cancelButton = currentDocument.createElement('button')
-    cancelButton.className = 'cancel-button margin-right-12'
-    cancelButton.innerHTML = 'Cancel'
-    cancelButton.onclick = function() {
-        deleteModal.close()
-        removeAllChildNodes(deleteModal)
-    }
-
-    const buttonsDiv = currentDocument.createElement('div')
-    buttonsDiv.className = 'flex-row flex-space-between-center'
-    buttonsDiv.append(deleteButton)
-    buttonsDiv.append(cancelButton)
-
-    const deleteModal = currentDocument.getElementById('deleteModal')
-    deleteModal.append(deleteModalTitle)
-    deleteModal.append(buttonsDiv)
-
-    deleteModal.showModal()
-    
-}
-
 function previousPage() {
     if (curPage > 1) {
         curPage--
@@ -197,7 +147,7 @@ function renderEventTable(page) {
 
         editButton.onclick = function() {
             console.log(event)
-            location.reload()
+            editEvent(event)
         }
 
         column8.append(editButton)
@@ -222,5 +172,183 @@ function renderEventTable(page) {
         row.append(column8)
 
         tableBody.append(row)
+    }
+}
+
+async function deleteEvent(id) {
+    const deleteModal = currentDocument.getElementById('deleteModal')
+    deleteModal.innerHTML =
+    `
+    <h4 class="text-align-center margin-top-8">Are you sure you want to delete this event?</h4>
+    <div class="flex-row flex-space-between-center">
+        <button id="deleteButton" class="delete-button margin-left-12 hand-mouse">Delete</button>
+        <button id="cancelDeleteButton" class="cancel-delete-button margin-left-12 hand-mouse">Cancel</button>
+    </div>
+    `
+    
+    const deleteButton = currentDocument.getElementById('deleteButton')
+
+    deleteButton.onclick = async function() {
+        const response = await fetch(`http://localhost:5000/api/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'text/plain',
+        },
+        body: id,
+        })
+        console.log('Response: ', response)
+
+        const data = await response.json()
+        console.log('Data: ', data)
+
+        deleteModal.close()
+
+        eventsData = eventsData.filter(x => x.id !== id)
+
+        renderEventTable(curPage)
+    }
+
+    const cancelButton = currentDocument.getElementById('cancelDeleteButton')
+
+    cancelButton.onclick = function() {
+        deleteModal.close()
+    }
+
+    deleteModal.showModal()
+    
+}
+
+async function editEvent(event) {
+    const editEventModal = currentDocument.getElementById('editModal')
+    editEventModal.innerHTML =
+    `
+    <div class="flex-column margin-bottom-20 margin-top-20">
+        <span class="margin-bottom-8 title-page">Edit event</span>
+        <span class="subtitle-page">Describe the event just happened!</span>
+    </div>
+    <form id="editEventForm" class="flex-column">
+        <div class="flex-column margin-bottom-24">
+            <label class="label-text margin-bottom-8">Event title</label>
+            <input class="input-place" type="text" name="eventTitle" placeholder="Event title" value="${event.name}" required />
+        </div>
+
+        <div class="flex-column margin-bottom-24">
+            <label class="label-text margin-bottom-8">Event description</label>
+            <textarea class="text-area" placeholder="Description" name="eventDescription" rows="10">${event.description}</textarea>
+        </div>
+
+        <div class="flex-row">
+            <div class="flex-column margin-bottom-24 margin-right-16">
+            <label class="label-text margin-bottom-8">Time of occurrence:</label>
+            <input class="input-place" type="datetime-local" name="eventTime" value="${event.date}" required>
+            </div>
+            <div class="flex-column margin-bottom-0">
+            <label class="label-text margin-bottom-8" class="">Location</label>
+            <input class="input-place" type="text" name="eventLocation" placeholder="Location" value="${event.location}" required />
+            </div>
+        </div>
+
+        <div class="flex-row">
+            <div class="flex-column margin-right-16 margin-bottom-0">
+            <label class="label-text margin-bottom-8 margin-right-16">Category:</label>
+            <select class="input-place" name="eventCategory" required>
+                <option id="fire" value="fire">Fire</option>
+                <option id="flood" value="flood">Flood</option>
+                <option id="earthquake" value="earthquake">Earthquake</option>
+                <option id="storm" value="storm">Storm</option>
+            </select>
+            </div>
+
+            <div class="flex-column margin-right-16 margin-bottom-0">
+            <label class="label-text margin-bottom-8 ">Code:</label>
+            <select class="input-place" name="eventCode" required>
+                <option id="yellow" value="yellow">Yellow</option>
+                <option id="red" value="red">Red</option>
+                <option id="orange" value="orange">Orange</option>
+            </select>
+            </div>
+
+            <div class="flex-column">
+            <label class="label-text margin-bottom-8">Status</label>
+            <select class="input-place" name="eventStatus" required>
+                <option id="new" value="new">New</option>
+                <option id="pending" value="pending">Pending</option>
+                <option id="completed" value="completed">Completed</option>
+            </select>
+            </div>
+        </div>
+
+        <div class="flex-row flex-space-between-center margin-top-40">
+            <button id="saveEditButton" class="save-edit-button input-title text-align-center hand-mouse">
+            Save
+            </button>
+            <button id="cancelEditButton" class="cancel-edit-button input-title text-align-center hand-mouse">
+            Cancel
+            </button>
+        </div>
+    </form>
+    `
+
+    const eventCategory = currentDocument.getElementById(`${event.category}`)
+    eventCategory.selected = true
+
+    const eventCode = currentDocument.getElementById(`${event.code}`)
+    eventCode.selected = true
+
+    const eventStatus = currentDocument.getElementById(`${event.status}`)
+    eventStatus.selected = true
+
+    editEventModal.showModal()
+
+    currentDocument.addEventListener('submit', (e) => {e.preventDefault()})
+
+    const saveButton = currentDocument.getElementById('saveEditButton')
+    saveButton.onclick = async function() {
+        const form = currentDocument.getElementById('editEventForm')
+
+        const formData = new FormData(form)
+
+        console.log(formData.entries())
+
+        const title = formData.get('eventTitle')
+        const description = formData.get('eventDescription')
+        const date = new Date(formData.get('eventTime'))
+        const location = formData.get('eventLocation')
+        const category = formData.get('eventCategory')
+        const code = formData.get('eventCode')
+        const status = formData.get('eventStatus')
+
+        const updatedEvent = {
+        'name': title,
+        'status': status,
+        'location': location,
+        'category': category,
+        'code': code,
+        'date': date,
+        'description': description
+        }
+
+        console.log('Updated Event: ', updatedEvent)
+
+        const response = await fetch(`http://localhost:5000/api/events/${event.id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedEvent),
+        })
+        console.log('Response: ', response)
+
+        const data = await response.json()
+        console.log('Data: ', data)
+
+        editEventModal.close()
+
+        onInitialized(currentDocument)
+    }
+
+    const cancelButton = currentDocument.getElementById('cancelEditButton')
+    cancelButton.onclick = function() {
+        editEventModal.close()
     }
 }

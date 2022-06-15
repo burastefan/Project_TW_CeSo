@@ -5,18 +5,17 @@ async function getEvents(req, res) {
     try {
         const events = await Event.findAll()
 
-        console.log(events)
-
         if (events) {
             let eventsParsed = JSON.parse(events)
 
             eventsParsed = eventsParsed.map(event => { 
-                const eventDate = new Date(event.date)
+                const utcDate = new Date(event.date) // Get the UTC date from server
+                const eventDate = new Date(utcDate.getTime() - new Date().getTimezoneOffset() * 60000) // Convert it to local date
 
                 return {
                 ...event,
                 dateOfOccurence: eventDate.getFullYear() + "-" + (eventDate.getMonth()+1) + "-" + eventDate.getDate(),
-                timeOfOccurence: eventDate.getHours() + ":" + eventDate.getMinutes() + ":" + eventDate.getSeconds()
+                timeOfOccurence: eventDate.toLocaleTimeString('en-US')
                 }
             })
 
@@ -40,9 +39,12 @@ async function getEvent(id, req, res) {
         
         if (event) {
             let eventParsed = JSON.parse(event)[0]
-            const eventDate = new Date(eventParsed.date)
+
+            const utcDate = new Date(eventParsed.date) // Get the UTC date from server
+            const eventDate = new Date(utcDate.getTime() - new Date().getTimezoneOffset() * 60000) // Convert it to local date
+
             eventParsed.dateOfOccurence = eventDate.getFullYear() + "-" + (eventDate.getMonth()+1) + "-" + eventDate.getDate(),
-            eventParsed.timeOfOccurence = eventDate.getHours() + ":" + eventDate.getMinutes() + ":" + eventDate.getSeconds()
+            eventParsed.timeOfOccurence = eventDate.toLocaleTimeString('en-US')
             
             console.log("Event with id " + id + ": ", eventParsed)
 
@@ -83,11 +85,35 @@ async function deleteEvent(id, req, res) {
         const event = await Event.findById(id)
 
         if (event) {
-            console.log(`Deleting event with id ${id}`)
-
             await Event.remove(id)
+
+            console.log(`Event with id ${id} deleted`)
+
             res.writeHead(200, jsonType)
             res.end(JSON.stringify({ message: 'Event has been deleted' }))
+        }
+    }
+    catch (error) {
+        console.log('Error: ', error)
+
+        res.writeHead(404, jsonType)
+        res.end(JSON.stringify({ message: 'Event not found' }))
+    }
+}
+
+async function updateEvent(updatedEvent, req, res) {
+    try {
+        const event = await Event.findById(updatedEvent.id)
+
+        if (event) {
+            updatedEvent.date = new Date(updatedEvent.date)
+            
+            await Event.update(updatedEvent)
+
+            console.log(`Event with id ${updatedEvent.id} updated`)
+
+            res.writeHead(200, jsonType)
+            res.end(JSON.stringify({ message: 'Event has been updated' }))
         }
     }
     catch (error) {
@@ -102,5 +128,6 @@ module.exports = {
     getEvents,
     getEvent,
     insertEvent,
-    deleteEvent
+    deleteEvent,
+    updateEvent
 }

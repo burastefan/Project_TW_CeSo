@@ -15,7 +15,7 @@ async function getEvents(req, res) {
                 return {
                 ...event,
                 dateOfOccurence: eventDate.getFullYear() + "-" + (eventDate.getMonth()+1) + "-" + eventDate.getDate(),
-                timeOfOccurence: eventDate.toLocaleTimeString('en-US')
+                timeOfOccurence: eventDate.toLocaleTimeString('en-UK')
                 }
             })
 
@@ -44,7 +44,7 @@ async function getEvent(id, req, res) {
             const eventDate = new Date(utcDate.getTime() - new Date().getTimezoneOffset() * 60000) // Convert it to local date
 
             eventParsed.dateOfOccurence = eventDate.getFullYear() + "-" + (eventDate.getMonth()+1) + "-" + eventDate.getDate(),
-            eventParsed.timeOfOccurence = eventDate.toLocaleTimeString('en-US')
+            eventParsed.timeOfOccurence = eventDate.toLocaleTimeString('en-UK')
             
             console.log("Event with id " + id + ": ", eventParsed)
 

@@ -170,6 +170,7 @@ table tbody td {
   padding: 6px 12px 6px;
   margin: 0px 5px 0px;
   color: #1f2937;
+  border-radius: 8px;
 }
 
 .delete-button {

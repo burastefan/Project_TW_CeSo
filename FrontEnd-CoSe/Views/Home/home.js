@@ -1,16 +1,13 @@
 const pageSize = 8
 var curPage = 1
 var eventsData = []
-var currentDocument = new Document
 
-async function onInitialized(document) {
-    currentDocument = document
-
+async function onInitialized() {
     eventsData = await getEvents()
 
     renderEventTable(1)
 
-    currentDocument.getElementById("loader").style.display = "none"
+    document.getElementById("loader").style.display = "none"
     //LOADING PANEL
 }
 
@@ -49,8 +46,8 @@ function removeAllChildNodes(parent) {
 }
 
 function renderEventTable(page) {
-    const prevButton = currentDocument.getElementById('prevButton')
-    const nextButton = currentDocument.getElementById('nextButton')
+    const prevButton = document.getElementById('prevButton')
+    const nextButton = document.getElementById('nextButton')
     prevButton.style.visibility = "visible"
     nextButton.style.visibility = "visible"
 
@@ -66,7 +63,7 @@ function renderEventTable(page) {
         nextButton.disabled = false
     }
 
-    const tableHead = currentDocument.getElementById('tableHead')
+    const tableHead = document.getElementById('tableHead')
     tableHead.innerHTML = `
     <tr>
         <th>Name</th>
@@ -79,7 +76,7 @@ function renderEventTable(page) {
         <th>Actions</th>
     </tr>`
     
-    const tableBody = currentDocument.getElementById('tableBody')
+    const tableBody = document.getElementById('tableBody')
 
     if (document.querySelector('#tableBody').firstChild) {
         removeAllChildNodes(document.querySelector('#tableBody'))
@@ -92,37 +89,37 @@ function renderEventTable(page) {
     });
 
     for (let i = 0; i < events.length; i++) {
-        const row = currentDocument.createElement('tr')
+        const row = document.createElement('tr')
 
         let event = events[i]
         
-        const column1 = currentDocument.createElement('td')
+        const column1 = document.createElement('td')
         column1.innerHTML = event.name
 
-        const column2 = currentDocument.createElement('td')
+        const column2 = document.createElement('td')
 
-        const image = currentDocument.createElement('img')
+        const image = document.createElement('img')
         image.src = '../../images/completeIcon.png'
         image.width = '17'
         image.height = '17'
 
         column2.append(image)
         
-        const column3 = currentDocument.createElement('td')
+        const column3 = document.createElement('td')
         column3.innerHTML = event.location
 
-        const column4 = currentDocument.createElement('td')
+        const column4 = document.createElement('td')
         column4.innerHTML = event.category
 
-        const column5 = currentDocument.createElement('td')
+        const column5 = document.createElement('td')
         column5.innerHTML = event.timeOfOccurence
 
-        const column6 = currentDocument.createElement('td')
+        const column6 = document.createElement('td')
         column6.innerHTML = event.dateOfOccurence
 
-        const column7 = currentDocument.createElement('td')
+        const column7 = document.createElement('td')
 
-        const code = currentDocument.createElement('button')
+        const code = document.createElement('button')
         code.className = "button"
         if (event.code == 'yellow') {
             code.style.backgroundColor = '#FDF539'
@@ -140,9 +137,9 @@ function renderEventTable(page) {
         column7.append(code)
 
         //COLUMN 8 IS ONLY FOR AUTHORITIES
-        const column8 = currentDocument.createElement('td')
+        const column8 = document.createElement('td')
 
-        const editButton = currentDocument.createElement('i')
+        const editButton = document.createElement('i')
         editButton.className = 'fa-regular fa-pen-to-square hand-mouse'
 
         editButton.onclick = function() {
@@ -152,7 +149,7 @@ function renderEventTable(page) {
 
         column8.append(editButton)
 
-        const deleteButton = currentDocument.createElement('i')
+        const deleteButton = document.createElement('i')
         deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8'
 
         deleteButton.onclick = function() {
@@ -176,7 +173,7 @@ function renderEventTable(page) {
 }
 
 async function deleteEvent(id) {
-    const deleteModal = currentDocument.getElementById('deleteModal')
+    const deleteModal = document.getElementById('deleteModal')
     deleteModal.innerHTML =
     `
     <h4 class="text-align-center margin-top-8">Are you sure you want to delete this event?</h4>
@@ -186,7 +183,7 @@ async function deleteEvent(id) {
     </div>
     `
     
-    const deleteButton = currentDocument.getElementById('deleteButton')
+    const deleteButton = document.getElementById('deleteButton')
 
     deleteButton.onclick = async function() {
         const response = await fetch(`http://localhost:5000/api/events/${id}`, {
@@ -208,7 +205,7 @@ async function deleteEvent(id) {
         renderEventTable(curPage)
     }
 
-    const cancelButton = currentDocument.getElementById('cancelDeleteButton')
+    const cancelButton = document.getElementById('cancelDeleteButton')
 
     cancelButton.onclick = function() {
         deleteModal.close()
@@ -219,7 +216,7 @@ async function deleteEvent(id) {
 }
 
 async function editEvent(event) {
-    const editEventModal = currentDocument.getElementById('editModal')
+    const editEventModal = document.getElementById('editModal')
     editEventModal.innerHTML =
     `
     <div class="flex-column margin-bottom-20 margin-top-20">
@@ -289,22 +286,22 @@ async function editEvent(event) {
     </form>
     `
 
-    const eventCategory = currentDocument.getElementById(`${event.category}`)
+    const eventCategory = document.getElementById(`${event.category}`)
     eventCategory.selected = true
 
-    const eventCode = currentDocument.getElementById(`${event.code}`)
+    const eventCode = document.getElementById(`${event.code}`)
     eventCode.selected = true
 
-    const eventStatus = currentDocument.getElementById(`${event.status}`)
+    const eventStatus = document.getElementById(`${event.status}`)
     eventStatus.selected = true
 
     editEventModal.showModal()
 
-    currentDocument.addEventListener('submit', (e) => {e.preventDefault()})
+    document.addEventListener('submit', (e) => {e.preventDefault()})
 
-    const saveButton = currentDocument.getElementById('saveEditButton')
+    const saveButton = document.getElementById('saveEditButton')
     saveButton.onclick = async function() {
-        const form = currentDocument.getElementById('editEventForm')
+        const form = document.getElementById('editEventForm')
 
         const formData = new FormData(form)
 
@@ -344,10 +341,10 @@ async function editEvent(event) {
 
         editEventModal.close()
 
-        onInitialized(currentDocument)
+        onInitialized(document)
     }
 
-    const cancelButton = currentDocument.getElementById('cancelEditButton')
+    const cancelButton = document.getElementById('cancelEditButton')
     cancelButton.onclick = function() {
         editEventModal.close()
     }

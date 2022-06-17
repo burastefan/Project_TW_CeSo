@@ -34,10 +34,8 @@ async function registerUser(event) {
         })
         console.log('Response', response);
 
-        if (response.status == 201) {
-            alert('You have been successfully registered!');
-        } else if (response.status == 409) {
-            alert('This email address is already being used!');
+        if(response.status == 201) {
+            alert('User register with succes!!!');
         }
         else {
             alert('User register with unsucces!!!');

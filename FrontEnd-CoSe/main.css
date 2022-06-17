@@ -7,6 +7,12 @@ html {
     height: 100%;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .flex {
     display: flex;
 }
@@ -120,6 +126,9 @@ html {
 
 .margin-bottom-40 {
     margin-bottom: 40px;
+}
+.margin-bottom-60 {
+    margin-bottom: 60px;
 }
 
 .margin-bottom-80 {

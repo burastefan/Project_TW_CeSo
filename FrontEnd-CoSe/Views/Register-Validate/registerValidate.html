@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Register Validate</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../../main.css" />
+  <link rel="stylesheet" href="../Register-Validate/registerValidate.css" />
+  <link rel="icon" type="image/x-icon" href="../../images/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!-- <script src="./registerValidate.js" async></script> -->
+</head>
+
+<body>
+  <div class="container">
+    <div class="child-container flex-center hide-div" style="background-color: #f7f7f8">
+      <div class="flex-center">
+        <img src="../../images/loginImage.png" width="500" height="500" alt="loginUser" />
+      </div>
+    </div>
+
+    <div class="child-container flex-justify-center flex-column">
+
+      <form class="flex-column form-container" >
+        <span class="margin-bottom-60 title-page text-align-center">
+          Validate your account
+        </span>
+        <span class="input-placeholder" style="text-align: center;">Check your email to see the code with which you can register</span>
+        <input class="input-placeholder input-layout margin-bottom-24" style="background: #f8f7f7; border: none"
+          id="codeVerification" name="codeVerification" placeholder="Code for verification" type="number" required />
+        
+        <div class="flex-justify-center" style="margin-top: 40px">
+          <button class="authentication-button input-title text-align-center hand-mouse margin-bottom-24"
+            style="background: #12b83e" onclick="location.href = '../Home/home.html';">
+            Submit
+          </button>
+        </div>
+        
+      </form>
+
+    </div>
+  </div>
+  
+  <!-- <script>
+    document.addEventListener('submit', (event) => onSubmitForm(event))
+  </script> -->
+</body>
+
+</html>

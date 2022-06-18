@@ -120,7 +120,7 @@ class NavBar extends HTMLElement {
             </a>
             <a href="#"><i class="fa-solid fa-user" style="padding-right: 10px;"></i>Account</a>
             <a href="#"><i class="fa-solid fa-gear" style="padding-right: 10px;"></i>Settings</a>
-            <a href="#"><i class="fa-solid fa-key" style="padding-right: 10px;"></i>Change Password</a>
+            <a href="../ChangePassword/changePassword.html"><i class="fa-solid fa-key" style="padding-right: 10px;"></i>Change Password</a>
             <a href="../Login/login.html"><i class="fa-solid fa-right-from-bracket" style="padding-right: 10px;"></i>Log out</a>
           </div>
         `;

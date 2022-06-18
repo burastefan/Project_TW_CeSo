@@ -36,12 +36,14 @@ async function registerUser(user) {
     console.log("Response", response);
 
     if (response.status == 201) {
-      alert("You have been successfully registered!");
-      location.href='../Register-Validate/registerValidate.html';
+      snackbar(document, 'You have been successfully registered!');
+      setTimeout(function () {
+        location.href='../Register-Validate/registerValidate.html';
+      }, 2500);
     } else if (response.status == 409) {
-      alert("This email address is already being used!");
+      snackbar(document, 'This email address is already being used!');
     } else {
-      alert("User register with unsucces!!!");
+      snackbar(document, 'User register with unsucces!!!');
     }
   } catch (error) {
     console.log(error);

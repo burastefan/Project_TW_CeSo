@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="../../Scripts/map.js"></script>
+  <script src="../../Scripts/snackbar.js"></script>
   <script src="./register.js" async></script>
 </head>
 
@@ -80,6 +81,7 @@
       </div>
     </div>
   </div>
+  <div id="snackbar"></div>
 
   <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
   <script
@@ -89,6 +91,7 @@
     <script>
     document.addEventListener('submit', (event) => onSubmitForm(event))
   </script>
+
 </body>
 
 </html>

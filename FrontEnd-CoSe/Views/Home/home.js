@@ -349,3 +349,52 @@ async function editEvent(event) {
         editEventModal.close()
     }
 }
+
+function htmlToCSV(filename) {
+	var data = [];
+    let row = []
+
+    row.push('NAME')
+    row.push('STATUS')
+    row.push('LOCATION')
+    row.push('CATEGORY')
+    row.push('TIME OF OCCURENCE')
+    row.push('DATE OF OCCURENCE')
+    row.push('CODE')
+    row.push('DESCRIPTION')
+            
+    data.push(row.join(",")); 	
+
+    for (let i = 0; i < eventsData.length; i++) {
+        let row = []
+
+        row.push(eventsData[i].name)
+        row.push(eventsData[i].status)
+        row.push(eventsData[i].location)
+        row.push(eventsData[i].category)
+        row.push(eventsData[i].timeOfOccurence)
+        row.push(eventsData[i].dateOfOccurence)
+        row.push(eventsData[i].code)
+        row.push(eventsData[i].description)
+
+        row = row.map(string => string === null ? '' : `\"${string}\"`) // export to csv considers to values that contatin ','
+
+        data.push(row.join(",")); 
+    }
+
+	downloadCSVFile(data.join("\n"), filename);
+}
+
+function downloadCSVFile(csv, filename) {
+	var csv_file, download_link;
+
+	csv_file = new Blob([csv], {type: "text/csv"});
+
+	download_link = document.createElement("a");
+	download_link.download = filename;
+	download_link.href = window.URL.createObjectURL(csv_file);
+	download_link.style.display = "none";
+    
+	document.body.appendChild(download_link);
+	download_link.click();
+}

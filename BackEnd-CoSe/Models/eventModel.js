@@ -111,10 +111,10 @@ function insert(event) {
                         }
                     }
                 );
-
+                
                 request.addParameter('name', TYPES.VarChar, event.name)
                 request.addParameter('status', TYPES.VarChar, event.status)
-                request.addParameter('location', TYPES.VarChar, event.location)
+                request.addParameter('location', TYPES.NVarChar, event.location)
                 request.addParameter('category', TYPES.VarChar, event.category)
                 request.addParameter('code', TYPES.VarChar, event.code)
                 request.addParameter('date', TYPES.DateTime, event.date)
@@ -198,7 +198,7 @@ function update(event) {
 
                 request.addParameter('name', TYPES.VarChar, event.name)
                 request.addParameter('status', TYPES.VarChar, event.status)
-                request.addParameter('location', TYPES.VarChar, event.location)
+                request.addParameter('location', TYPES.NVarChar, event.location)
                 request.addParameter('category', TYPES.VarChar, event.category)
                 request.addParameter('code', TYPES.VarChar, event.code)
                 request.addParameter('date', TYPES.DateTime, event.date)

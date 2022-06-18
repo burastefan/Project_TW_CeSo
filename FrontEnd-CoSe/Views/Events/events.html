@@ -57,7 +57,7 @@
               </div>
               <div class="flex-column margin-bottom-0">
                 <label class="label-text margin-bottom-8" class="">Location</label>
-                <input class="input-place" type="text" name="eventLocation" placeholder="Location" required />
+                <input id="autocompleteLocation" class="input-place" type="text" name="eventLocation" placeholder="Location" required />
               </div>
             </div>
 
@@ -102,7 +102,9 @@
     </div>
     <sidenavbar-component></sidenavbar-component>
   </div>
-
+  <script
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initializeAutocompleteField"
+    async defer></script>
   <script>
 
     document.addEventListener('submit', (event) => onSubmitHandler(event))

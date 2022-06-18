@@ -55,3 +55,7 @@ async function createEvent(event) {
         console.log(error)
     }
 }
+
+function initializeAutocompleteField() {
+    new google.maps.places.Autocomplete(document.getElementById('autocompleteLocation'));
+}

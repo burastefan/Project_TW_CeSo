@@ -1,4 +1,4 @@
-async function onSubmitForm(e) {
+async function onSubmitFormValidate(e) {
     const form = e.target
 
     // Prevent the default form submit
@@ -6,39 +6,34 @@ async function onSubmitForm(e) {
 
     const formData = new FormData(form)
 
-    const firstName = formData.get('firstName');
-    const lastName = formData.get('lastName');
-    const email = formData.get('email');
-    const password = formData.get('password');
+    const code = formData.get('codeVerification');
+    const email = localStorage.getItem('email');
 
-    const User = {
-        'firstName' : firstName,
-        'lastName' : lastName,
+    const UserValidate = {
+        'code': code,
         'email' : email,
-        'password' : password
-    }
-
-    console.log('Aicii sunt', User);
+    };
     
-    await registerUser(User);
+    await registerValidate(UserValidate);
+    
 }
 
-async function registerUser(event) {
+async function registerValidate(userValidate) {
     try {
-        const response = await fetch ('http://localhost:5000/api/authentication', {
+        const response = await fetch ('http://localhost:5000/api/authentication/validate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(event),
+            body: JSON.stringify(userValidate),
         })
         console.log('Response', response);
 
-        if(response.status == 201) {
-            alert('User register with succes!!!');
+        if (response.status == 201) {
+            alert('Your account was activate with succes!!!');
         }
         else {
-            alert('User register with unsucces!!!');
+            alert('User register validate with unsucces!!!');
         }
 
     } catch (error) {

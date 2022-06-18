@@ -37,6 +37,7 @@ async function registerUser(user) {
 
     if (response.status == 201) {
       alert("You have been successfully registered!");
+      location.href='../Register-Validate/registerValidate.html';
     } else if (response.status == 409) {
       alert("This email address is already being used!");
     } else {

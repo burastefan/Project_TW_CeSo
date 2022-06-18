@@ -31,6 +31,7 @@ async function registerValidate(userValidate) {
 
         if (response.status == 201) {
             alert('Your account was activate with succes!!!');
+            location.href='../Login/login.html';
         }
         else {
             alert('User register validate with unsucces!!!');

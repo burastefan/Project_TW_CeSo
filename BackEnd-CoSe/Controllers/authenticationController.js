@@ -54,7 +54,7 @@ async function registerValidate(user, req, res) {
 
       await authenticationUser.activateAccount(user.email);
 
-      //TODO use json here -> login.hmtl
+      //TODO use json here jwt -> login.hmtl
       res.writeHead(201, jsonType);
       res.end(
         JSON.stringify({ message: "Your account was activate with succes!!!" })
@@ -67,7 +67,27 @@ async function registerValidate(user, req, res) {
   }
 }
 
+async function loginUser(user, req, res) {
+  try {
+    const passwordExist = await authenticationUser.login(user.email);
+    if(passwordExist) {
+      const validPassword = bcrypt.compareSync(user.password, passwordExist);
+      if (validPassword) {
+        res.writeHead(202, jsonType);
+        res.end(
+          JSON.stringify({ message: "Login with succes!!!" })
+        );
+      }
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+    res.writeHead(400, jsonType);
+    res.end(JSON.stringify({ message: "Error in Registration Validater pass!" }));
+  }
+}
+
 module.exports = {
   registerUser,
   registerValidate,
+  loginUser,
 };

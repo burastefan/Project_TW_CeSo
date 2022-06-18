@@ -316,6 +316,46 @@ function activateAccount(email) {
   });
 }
 
+function login(email) {
+  return new Promise((resolve, reject) => {
+    const connection = dbContext.connect();
+    console.log('am intrat in functia login')
+    connection.on("connect", (err) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        const request = new Request(
+          `SELECT password FROM Users WHERE email = @email and activate = 1`,
+          (error, rowCount) => {
+            if (error) {
+              reject(error.message);
+            }
+            if (rowCount != 0) {
+              reject("Password didn't exist!");
+            }
+          }
+        );
+
+        request.addParameter("email", TYPES.VarChar, email);
+
+        try {
+          connection.execSql(request);
+
+          request.on("row", (rows) => {
+            rows.forEach((row) => {
+              response = row.value;
+              resolve(response);
+            });
+          });
+        } catch (error) {
+          reject(error);
+        }
+      }
+    });
+    connection.connect();
+  });
+}
+
 module.exports = {
   addUser,
   checkEmail,
@@ -324,4 +364,5 @@ module.exports = {
   checkExistCode,
   activateAccount,
   deleteCode,
+  login,
 };

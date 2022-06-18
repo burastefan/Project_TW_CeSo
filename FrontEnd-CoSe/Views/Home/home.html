@@ -38,7 +38,7 @@
             </div>
             <div class="flex-center-row margin-right-16">
               <img src="../../images/progressIcon.png" width="17" height="17" class="margin-right-4">
-              <span class="text-image">Proceeding</span>
+              <span class="text-image">In progress</span>
             </div>
             <div class="flex-center-row">
               <img src="../../images/newIcon.png" width="17" height="17" class="margin-right-4">
@@ -238,6 +238,13 @@
 
     onInitialized()
 
+    function myFunction () {
+        console.log('Executed!');
+    }
+
+    var interval = setInterval(function () { myFunction(); }, 6000);
+
+    myFunction()
   </script>
 
 </body>

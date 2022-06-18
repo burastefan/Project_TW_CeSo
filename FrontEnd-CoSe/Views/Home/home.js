@@ -99,9 +99,17 @@ function renderEventTable(page) {
         const column2 = document.createElement('td')
 
         const image = document.createElement('img')
-        image.src = '../../images/completeIcon.png'
         image.width = '17'
         image.height = '17'
+        if (event.status == 'completed') {
+            image.src = '../../images/completeIcon.png'
+        }
+        else if (event.status == 'pending') {
+            image.src = '../../images/progressIcon.png'
+        }
+        else if (event.status == 'new') {
+            image.src = '../../images/newIcon.png'
+        }
 
         column2.append(image)
         
@@ -269,7 +277,7 @@ async function editEvent(event) {
             <label class="label-text margin-bottom-8">Status</label>
             <select class="input-place" name="eventStatus" required>
                 <option id="new" value="new">New</option>
-                <option id="pending" value="pending">Pending</option>
+                <option id="pending" value="pending">In progress</option>
                 <option id="completed" value="completed">Completed</option>
             </select>
             </div>
@@ -341,7 +349,7 @@ async function editEvent(event) {
 
         editEventModal.close()
 
-        onInitialized(document)
+        onInitialized()
     }
 
     const cancelButton = document.getElementById('cancelEditButton')

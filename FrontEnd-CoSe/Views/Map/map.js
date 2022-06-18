@@ -6,7 +6,7 @@ var filterStatus = 'all'
 async function onInitialized() {
     eventsData = await getEvents()
 
-    initMap(eventsData)
+    initMap()
     renderEventTable(1, eventsData)
     renderCounts()
 
@@ -179,7 +179,7 @@ function renderCounts() {
     newEvents.innerHTML = newEventsCount
 }
 
-function initMap(events) {
+function initMap() {
     var map = new google.maps.Map(document.getElementById('eventsMap'), {
         center: {lat: 46.039663, lng: 25.096306},
         zoom:6
@@ -188,11 +188,12 @@ function initMap(events) {
     var input = document.getElementById('searchInput')
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input)
 
+    //Autocomplete Input
     var autocomplete = new google.maps.places.Autocomplete(input)
     autocomplete.bindTo('bounds', map)
 
+    //Zoom to searched place
     autocomplete.addListener('place_changed', function() {
-        marker.setVisible(false)
         var place = autocomplete.getPlace()
 
         if (!place.geometry) {
@@ -209,9 +210,10 @@ function initMap(events) {
         }
     })
 
-    for (let i = 0; i < events.length; i++) {
+    //Set markers on map
+    for (let i = 0; i < eventsData.length; i++) {
         var geocoder = new google.maps.Geocoder()
-        var address = events[i].location
+        var address = eventsData[i].location
 
         geocoder.geocode({ 'address': address }, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
@@ -230,13 +232,13 @@ function initMap(events) {
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow = new google.maps.InfoWindow({
                     content: 
-                    `<div>Name: ${events[i].name}</div>` +
-                    `<div>Location: ${events[i].location}</div>` +
-                    `<div>Date of occurence: ${events[i].dateOfOccurence}</div>` +
-                    `<div>Time of occurence: ${events[i].timeOfOccurence}</div>` +
-                    `<div>Category: ${events[i].category}</div>` +
-                    `<div>Code: ${events[i].code}</div>` +
-                    `<div>Status: ${events[i].status}</div>`
+                    `<div>Name: ${eventsData[i].name}</div>` +
+                    `<div>Location: ${eventsData[i].location}</div>` +
+                    `<div>Date of occurence: ${eventsData[i].dateOfOccurence}</div>` +
+                    `<div>Time of occurence: ${eventsData[i].timeOfOccurence}</div>` +
+                    `<div>Category: ${eventsData[i].category}</div>` +
+                    `<div>Code: ${eventsData[i].code}</div>` +
+                    `<div>Status: ${eventsData[i].status}</div>`
                 })
                 infowindow.open(map, marker)
             })

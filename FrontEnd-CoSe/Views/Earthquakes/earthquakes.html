@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
-  <script src="../../Scripts/map.js"></script>
+  <script src="./earthquakes.js"></script>
   <script src="../../Scripts/navbar.js"></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
@@ -38,129 +38,36 @@
             </select>
           </div>
           <div class="first-section--stats">
-            <div class="stats--completed">
-              <i class="fa fa-check-circle" style="color: green; font-size: 20px; margin-right: 8px"></i>
-              <div class="stats--details map-input-title">
-                <h5>Completed</h5>
-                <h4>70</h4>
+            <div class="stats--new map-input-title">
+              <i class="fa fa-spinner" style="
+                    color: lightskyblue;
+                    font-size: 20px;
+                    margin-right: 8px;
+                  "></i>
+              <div class="stats--details">
+                <h5>New</h5>
+                <h4 id="newEvents">--</h4>
               </div>
             </div>
             <div class="stats--proceeding">
               <i class="fa fa-clock-o" style="color: orange; font-size: 20px; margin-right: 8px"></i>
               <div class="stats--details map-input-title">
-                <h5>Proceeding</h5>
-                <h4>13</h4>
+                <h5>In progress</h5>
+                <h4 id="pendingEvents">--</h4>
               </div>
             </div>
-            <div class="stats--new map-input-title">
-              <i class="fa fa-spinner" style="color: lightskyblue; font-size: 20px; margin-right: 8px"></i>
-              <div class="stats--details">
-                <h5>New</h5>
-                <h4>3</h4>
-              </div>
-            </div>
-          </div>
-          <div class="first-section--filter">
-            <div class="filter--selected">All</div>
-            <div class="filter--not__selected">New</div>
-            <div class="filter--not__selected">Proceeding</div>
-            <div class="filter--not__selected">Completed</div>
-          </div>
-          <div class="first-section--elements">
-            <div class="elements--container">
-              <div class="elements--details">
-                <div class="elements--data">
-                  <div class="elements--data__title">Name</div>
-                  <div class="elements--data__value">Earthquake 1</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa fa-calendar-o" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Time of occurence</div>
-                  <div class="elements--data__value">10/03/2022</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa-solid fa-location-dot" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Location</div>
-                  <div class="elements--data__value">Iasi</div>
-                </div>
+            <div class="stats--completed">
+              <i class="fa fa-check-circle" style="color: green; font-size: 20px; margin-right: 8px"></i>
+              <div class="stats--details map-input-title">
+                <h5>Completed</h5>
+                <h4 id="completedEvents">--</h4>
               </div>
             </div>
           </div>
-          <div class="first-section--elements">
-            <div class="elements--container">
-              <div class="elements--details">
-                <div class="elements--data">
-                  <div class="elements--data__title">Name</div>
-                  <div class="elements--data__value">Earthquake 2</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa fa-calendar-o" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Time of occurence</div>
-                  <div class="elements--data__value">10/03/2022</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa-solid fa-location-dot" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Location</div>
-                  <div class="elements--data__value">Suceava</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="first-section--elements">
-            <div class="elements--container">
-              <div class="elements--details">
-                <div class="elements--data">
-                  <div class="elements--data__title">Name</div>
-                  <div class="elements--data__value">Earthquake 3</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa fa-calendar-o" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Time of occurence</div>
-                  <div class="elements--data__value">10/03/2022</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa-solid fa-location-dot" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Location</div>
-                  <div class="elements--data__value">Bucuresti</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="first-section--elements">
-            <div class="elements--container">
-              <div class="elements--details">
-                <div class="elements--data">
-                  <div class="elements--data__title">Name</div>
-                  <div class="elements--data__value">Earthquake 4</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa fa-calendar-o" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Time of occurence</div>
-                  <div class="elements--data__value">10/03/2022</div>
-                </div>
-              </div>
-              <div class="elements--details">
-                <i class="fa-solid fa-location-dot" style="margin-right: 8px"></i>
-                <div class="elements--data">
-                  <div class="elements--data__title">Location</div>
-                  <div class="elements--data__value">Cluj</div>
-                </div>
-              </div>
-            </div>
+          <div id="eventsList"></div>
+          <div class="flex-center">
+            <button class="page-link" id="prevButton" onclick="previousPage()" style="visibility: hidden">Prev</button>
+            <button class="page-link" id="nextButton" onclick="nextPage()" style="visibility: hidden">Next</button>
           </div>
         </div>
         <div class="second-section">
@@ -169,7 +76,7 @@
           <input id="searchInput" class="searchBox" type="text" style="margin-top: 10px"
             placeholder="Enter a location" />
           <!-- Google map -->
-          <div id="map" style="
+          <div id="eventsMap" style="
               display: flex;
               flex-direction: column;
               border: 1px solid #9ca3af;
@@ -203,7 +110,7 @@
   </div>
   <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
   <script
-    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap"
+    src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=onInitialized"
     async defer></script>
 </body>
 

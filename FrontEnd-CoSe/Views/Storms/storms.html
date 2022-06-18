@@ -48,7 +48,7 @@
             <div class="stats--proceeding">
               <i class="fa fa-clock-o" style="color: orange; font-size: 20px; margin-right: 8px"></i>
               <div class="stats--details map-input-title">
-                <h5>Proceeding</h5>
+                <h5>In progress</h5>
                 <h4>13</h4>
               </div>
             </div>
@@ -63,7 +63,7 @@
           <div class="first-section--filter">
             <div class="filter--selected">All</div>
             <div class="filter--not__selected">New</div>
-            <div class="filter--not__selected">Proceeding</div>
+            <div class="filter--not__selected">In progress</div>
             <div class="filter--not__selected">Completed</div>
           </div>
           <div class="first-section--elements">
@@ -205,6 +205,18 @@
   <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initMap"
     async defer></script>
+
+    <script>
+        async function getStormsApi() {
+            const response = await fetch('https://api.weatherusa.net/v1.2/tropical?storm=active')
+            console.log('Response: ', response)
+            
+            const data = await response.json()
+            console.log('Data: ', data)
+        }
+
+        getStormsApi()
+    </script>
 </body>
 
 </html>

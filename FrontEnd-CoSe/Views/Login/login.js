@@ -1,4 +1,4 @@
-async function onSubmitForm(e) {
+async function onSubmitFormLogin(e) {
     const form = e.target
 
     // Prevent the default form submit
@@ -9,32 +9,33 @@ async function onSubmitForm(e) {
     const email = formData.get('email');
     const password = formData.get('password');
 
-    const User = {
+    const UserLogin = {
         'email' : email,
         'password' : password
-    }
-
-    console.log('Aicii sunt', User);
+    };
     
-    await loginUser(User);
+    await loginUser(UserLogin);
+    
 }
 
-async function loginUser(event) {
+async function loginUser(userLogin) {
     try {
-        const response = await fetch ('http://localhost:5000/api/authentication', {
+        const response = await fetch ('http://localhost:5000/api/authentication/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(event),
+            body: JSON.stringify(userLogin),
         })
         console.log('Response', response);
 
-        if(response.status == 201) {
-            alert('Login succes!!!');
+        if (response.status == 202) {
+            alert('Login with success!!!');
+            location.href='../Home/home.html';
+            //TODO j.then(jsonResp=>{ localStorage.setItem("jwt",jsonResp.token)
         }
         else {
-            alert('Login unsucces!!!');
+            alert('Login with unsuccess!!!');
         }
 
     } catch (error) {

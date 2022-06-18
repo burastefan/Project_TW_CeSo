@@ -1,8 +1,8 @@
 const {
   registerUser,
   loginUser,
-  forgotPasswordUser,
   registerValidate,
+  changePassword,
 } = require("../Controllers/authenticationController");
 const { noType } = require("../Utils/headerTypes");
 
@@ -58,9 +58,23 @@ function handleAuthentication(req, res) {
 
       loginUser(userLogin, req, res);
     });
-  } else if (req.url === "/api/authentication" && req.method === "POST") {
-    console.log("Handle Authentication: Forgot Password");
-    forgotPasswordUser(req, res);
+  } else if (req.url === "/api/authentication/changePassword" && req.method === "PUT") {
+    console.log("Handle Authentication: Change Password");
+    let body = "";
+
+    req.on("data", function (data) {
+      body += data;
+    });
+
+    req.on("end", function () {
+      console.log(body);
+
+      const userUpdatePassword = JSON.parse(body);
+
+      console.log("User to be inserted: ", userUpdatePassword);
+
+      changePassword(userUpdatePassword, req, res);
+    });
   } else if (req.method === "OPTIONS") {
     //Browser checks if API is valid for POST/PUT/DELETE operations
     res.writeHead(200, noType);

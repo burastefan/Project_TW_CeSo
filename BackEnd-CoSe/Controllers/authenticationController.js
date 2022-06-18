@@ -86,8 +86,34 @@ async function loginUser(user, req, res) {
   }
 }
 
+async function changePassword(user, req, res) {
+  try {
+    const emailExist = await authenticationUser.checkEmail(user.email);
+
+    if (emailExist > 0) {
+      const passwordExist = await authenticationUser.login(user.email);
+
+      const validPassword = bcrypt.compareSync(user.currentPassword, passwordExist);
+
+      if (validPassword) {
+        user.newPassword = hashPassword(user.newPassword);
+        await authenticationUser.updatePassword(user);
+        res.writeHead(200, jsonType);
+        res.end(
+          JSON.stringify({ message: "Change password with succes!!!" })
+        );
+      }
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+    res.writeHead(400, jsonType);
+    res.end(JSON.stringify({ message: "Error in Registration Validater pass!" }));
+  }
+}
+
 module.exports = {
   registerUser,
   registerValidate,
   loginUser,
+  changePassword
 };

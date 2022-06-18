@@ -319,7 +319,6 @@ function activateAccount(email) {
 function login(email) {
   return new Promise((resolve, reject) => {
     const connection = dbContext.connect();
-    console.log('am intrat in functia login')
     connection.on("connect", (err) => {
       if (err) {
         reject(err.message);
@@ -356,6 +355,48 @@ function login(email) {
   });
 }
 
+async function updatePassword(user) {
+  console.log('am intrat in aceastaaaaaa functie!!')
+  const userId = await getUserId(user.email);
+
+  if (userId) {
+    return new Promise((resolve, reject) => {
+      const connection = dbContext.connect()
+
+      connection.on("connect", err => {
+        if (err) {
+          reject(err.message)
+        } else {
+          const request = new Request(
+            `UPDATE Users SET password = @password WHERE id = @id`,
+            (err) => {
+              if (err) {
+                reject(err.message)
+              }
+            }
+          );
+
+          request.addParameter("password", TYPES.VarChar, user.newPassword);
+          request.addParameter("id", TYPES.Int, userId);
+
+
+          try {
+            connection.execSql(request)
+
+            request.on('requestCompleted', function () {
+              resolve(true)
+            })
+          }
+          catch (error) {
+            reject(error)
+          }
+        }
+      })
+      connection.connect()
+    })
+  }
+}
+
 module.exports = {
   addUser,
   checkEmail,
@@ -365,4 +406,5 @@ module.exports = {
   activateAccount,
   deleteCode,
   login,
+  updatePassword,
 };

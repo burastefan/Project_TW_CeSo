@@ -17,8 +17,6 @@ async function registerUser(user, req, res) {
     user.password = hashPassword(user.password);
     const userExist = await authenticationUser.checkEmail(user.email);
     const userRegister = await authenticationUser.addUser(user);
-    console.log('userRegister:', userRegister);
-    console.log('userRegister.email:', userRegister.email);
 
     if (userExist != 0) {
       res.writeHead(409, jsonType);
@@ -44,6 +42,32 @@ async function registerUser(user, req, res) {
   }
 }
 
+async function registerValidate(user, req, res) {
+  try {
+    const checkExistCode = await authenticationUser.checkExistCode(
+      user.email,
+      user.code
+    );
+    console.log('checkExistCode:', checkExistCode);
+    if (checkExistCode == 1) {
+      await authenticationUser.deleteCode(user.email, user.code);
+
+      await authenticationUser.activateAccount(user.email);
+
+      //TODO use json here -> login.hmtl
+      res.writeHead(201, jsonType);
+      res.end(
+        JSON.stringify({ message: "Your account was activate with succes!!!" })
+      );
+    }
+  } catch (error) {
+    console.log("Error: ", error);
+    res.writeHead(400, jsonType);
+    res.end(JSON.stringify({ message: "Error in Registration Validater pass!" }));
+  }
+}
+
 module.exports = {
   registerUser,
+  registerValidate,
 };

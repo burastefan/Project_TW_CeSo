@@ -44,15 +44,16 @@ function getUserId(email) {
 async function sendMail(mail, code) {
   return new Promise(function (resolve, reject) {
     var transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587, 
+      host: "smtp.gmail.com",
+      port: 465,
+      seecure: true,
       auth: {
-        user: "deanna.grimes49@ethereal.email",
-        pass: "8ZJvNqh5zdSTHgX3GR",
+        user: "tudorsibura@gmail.com",
+        pass: "fjnpwtxdvwcovfiq",
       },
     });
     var mailOptions = {
-      from: "cose.admin@gmail.com",
+      from: "tudorsibura@gmail.com",
       to: mail,
       subject: "Validation code",
       text: "Use this code: " + code + " to validate your account!",
@@ -205,9 +206,122 @@ function addUser(user) {
   });
 }
 
+async function checkExistCode(email, code) {
+  const userId = await getUserId(email);
+
+  if (userId) {
+    return new Promise((resolve, reject) => {
+      const connection = dbContext.connect();
+      connection.on("connect", (err) => {
+        if (err) {
+          reject(err.message);
+        } else {
+          const request = new Request(
+            `SELECT count (*) FROM Codes WHERE id = @id AND code = @code`,
+            (err) => {
+              if (err) {
+                reject(err.message);
+              }
+            }
+          );
+          request.addParameter("id", TYPES.Int, userId);
+          request.addParameter("code", TYPES.VarChar, code);
+
+          try {
+            connection.execSql(request);
+
+            request.on("row", (rows) => {
+              rows.forEach((row) => {
+                response = row.value;
+                resolve(response);
+              });
+            });
+          } catch (error) {
+            reject(error);
+          }
+        }
+      });
+      connection.connect();
+    });
+  }
+}
+
+async function deleteCode(email, code) {
+  const userId = await getUserId(email);
+
+  return new Promise((resolve, reject) => {
+    const connection = dbContext.connect();
+
+    connection.on("connect", (err) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        const request = new Request(
+          `DELETE FROM Codes WHERE id = @id AND code = @code`,
+          (err) => {
+            if (err) {
+              reject(err.message);
+            }
+          }
+        );
+
+        request.addParameter("id", TYPES.Int, userId);
+        request.addParameter("code", TYPES.VarChar, code);
+
+        try {
+          connection.execSql(request);
+          request.on("requestCompleted", function () {
+            resolve(true);
+          });
+        } catch (error) {
+          reject(error);
+        }
+      }
+    });
+    connection.connect();
+  });
+}
+
+function activateAccount(email) {
+  return new Promise((resolve, reject) => {
+    const connection = dbContext.connect();
+
+    connection.on("connect", (err) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        const request = new Request(
+          `UPDATE Users SET activate = 1 WHERE email = @email`,
+          (err) => {
+            if (err) {
+              reject(err.message);
+            }
+          }
+        );
+
+        request.addParameter("email", TYPES.VarChar, email);
+
+        try {
+          connection.execSql(request);
+
+          request.on("requestCompleted", function () {
+            resolve(true);
+          });
+        } catch (error) {
+          reject(error);
+        }
+      }
+    });
+    connection.connect();
+  });
+}
+
 module.exports = {
   addUser,
   checkEmail,
   getUserId,
   generateCode,
+  checkExistCode,
+  activateAccount,
+  deleteCode,
 };

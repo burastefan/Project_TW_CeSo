@@ -29,11 +29,14 @@ async function loginUser(userLogin) {
         body: JSON.stringify(userLogin),
       }
     );
-    console.log("Response", response);
+
+    const responseData = await response.json();
+    const token = responseData.token;
 
     if (response.status == 202) {
-        location.href = "../Home/home.html";
-      //TODO j.then(jsonResp=>{ localStorage.setItem("jwt",jsonResp.token)
+      localStorage.setItem("jwt", token);
+      snackbar(document, "Login with success!!!");
+      location.href = "../Home/home.html";
     } else {
       snackbar(document, "Login with unsuccess!!!");
     }

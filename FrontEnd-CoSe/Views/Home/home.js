@@ -1,69 +1,73 @@
-const pageSize = 8
-var curPage = 1
-var eventsData = []
+const pageSize = 8;
+var curPage = 1;
+var eventsData = [];
 
 async function onInitialized() {
-    eventsData = await getEvents()
+    //Get events from database
+    eventsData = await getEvents();
 
-    renderEventTable(1)
+    //Get events from API -- TODO
 
-    document.getElementById("loader").style.display = "none"
-    //LOADING PANEL
+    //Render Events Table
+    renderEventTable(1);
+
+    //Loading Panel for loading table data
+    document.getElementById("loader").style.display = "none";
 }
 
 async function getEvents()  {
-    const response = await fetch('http://localhost:5000/api/events')
-    console.log('Response: ', response)
+    const response = await fetch('http://localhost:5000/api/events');
+    console.log('Get Events Response: ', response);
     
-    const data = await response.json()
-    console.log('Data: ', data)
+    const data = await response.json();
+    console.log('Get Events Data: ', data);
 
-    return data
+    return data;
 }
 
 function previousPage() {
     if (curPage > 1) {
-        curPage--
-        renderEventTable(curPage)
+        curPage--;
+        renderEventTable(curPage);
     }
 }
   
 function nextPage() {
     if ((curPage * pageSize) < eventsData.length) {
-        curPage++
-        renderEventTable(curPage)
+        curPage++;
+        renderEventTable(curPage);
     }
 }
 
 function numPages() {
-    return Math.ceil(eventsData.length / pageSize)
+    return Math.ceil(eventsData.length / pageSize);
 }
 
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
-        parent.removeChild(parent.firstChild)
+        parent.removeChild(parent.firstChild);
     }
 }
 
 function renderEventTable(page) {
-    const prevButton = document.getElementById('prevButton')
-    const nextButton = document.getElementById('nextButton')
-    prevButton.style.visibility = "visible"
-    nextButton.style.visibility = "visible"
+    const prevButton = document.getElementById('prevButton');
+    const nextButton = document.getElementById('nextButton');
+    prevButton.style.visibility = "visible";
+    nextButton.style.visibility = "visible";
 
     if (page == 1) {
-        prevButton.disabled = true
+        prevButton.disabled = true;
     } else {
-        prevButton.disabled = false
+        prevButton.disabled = false;
     }
     
     if (page == numPages()) {
-        nextButton.disabled = true
+        nextButton.disabled = true;
     } else {
-        nextButton.disabled = false
+        nextButton.disabled = false;
     }
 
-    const tableHead = document.getElementById('tableHead')
+    const tableHead = document.getElementById('tableHead');
     tableHead.innerHTML = `
     <tr>
         <th>Name</th>
@@ -74,114 +78,112 @@ function renderEventTable(page) {
         <th>Date of occurrence</th>
         <th>Code</th>
         <th>Actions</th>
-    </tr>`
+    </tr>`;
     
-    const tableBody = document.getElementById('tableBody')
+    const tableBody = document.getElementById('tableBody');
 
     if (document.querySelector('#tableBody').firstChild) {
-        removeAllChildNodes(document.querySelector('#tableBody'))
+        removeAllChildNodes(document.querySelector('#tableBody'));
     }
 
     const events = JSON.parse(JSON.stringify(eventsData)).filter((row, index) => {
-        let start = (curPage - 1) * pageSize
-        let end = curPage * pageSize
-        if (index >= start && index < end) return true
+        let start = (curPage - 1) * pageSize;
+        let end = curPage * pageSize;
+        if (index >= start && index < end) return true;
     });
 
     for (let i = 0; i < events.length; i++) {
-        const row = document.createElement('tr')
+        const row = document.createElement('tr');
 
-        let event = events[i]
+        let event = events[i];
         
-        const column1 = document.createElement('td')
-        column1.innerHTML = event.name
+        const column1 = document.createElement('td');
+        column1.innerHTML = event.name;
 
-        const column2 = document.createElement('td')
+        const column2 = document.createElement('td');
 
-        const image = document.createElement('img')
-        image.width = '17'
-        image.height = '17'
+        const image = document.createElement('img');
+        image.width = '17';
+        image.height = '17';
         if (event.status == 'completed') {
-            image.src = '../../images/completeIcon.png'
+            image.src = '../../images/completeIcon.png';
         }
         else if (event.status == 'pending') {
-            image.src = '../../images/progressIcon.png'
+            image.src = '../../images/progressIcon.png';
         }
         else if (event.status == 'new') {
-            image.src = '../../images/newIcon.png'
+            image.src = '../../images/newIcon.png';
         }
 
-        column2.append(image)
+        column2.append(image);
         
-        const column3 = document.createElement('td')
-        column3.innerHTML = event.location
+        const column3 = document.createElement('td');
+        column3.innerHTML = event.location;
 
-        const column4 = document.createElement('td')
-        column4.innerHTML = event.category
+        const column4 = document.createElement('td');
+        column4.innerHTML = event.category;
 
-        const column5 = document.createElement('td')
-        column5.innerHTML = event.timeOfOccurence
+        const column5 = document.createElement('td');
+        column5.innerHTML = event.timeOfOccurence;
 
-        const column6 = document.createElement('td')
-        column6.innerHTML = event.dateOfOccurence
+        const column6 = document.createElement('td');
+        column6.innerHTML = event.dateOfOccurence;
 
-        const column7 = document.createElement('td')
+        const column7 = document.createElement('td');
 
-        const code = document.createElement('button')
-        code.className = "button"
+        const code = document.createElement('button');
+        code.className = "button";
         if (event.code == 'yellow') {
-            code.style.backgroundColor = '#FDF539'
-            code.innerHTML = 'Yellow'
+            code.style.backgroundColor = '#FDF539';
+            code.innerHTML = 'Yellow';
         }
         else if (event.code == 'orange') {
-            code.style.backgroundColor = '#ffa500'
-            code.innerHTML = 'Orange'
+            code.style.backgroundColor = '#ffa500';
+            code.innerHTML = 'Orange';
         }
         else if (event.code == 'red') {
-            code.style.backgroundColor = '#B22222'
-            code.innerHTML = 'Red'
+            code.style.backgroundColor = '#B22222';
+            code.innerHTML = 'Red';
         }
 
-        column7.append(code)
+        column7.append(code);
 
         //COLUMN 8 IS ONLY FOR AUTHORITIES
-        const column8 = document.createElement('td')
+        const column8 = document.createElement('td');
 
-        const editButton = document.createElement('i')
-        editButton.className = 'fa-regular fa-pen-to-square hand-mouse'
+        const editButton = document.createElement('i');
+        editButton.className = 'fa-regular fa-pen-to-square hand-mouse';
 
         editButton.onclick = function() {
-            console.log(event)
-            editEvent(event)
+            editEvent(event);
         }
 
-        column8.append(editButton)
+        column8.append(editButton);
 
-        const deleteButton = document.createElement('i')
-        deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8'
+        const deleteButton = document.createElement('i');
+        deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8';
 
         deleteButton.onclick = function() {
-            console.log(event)
-            deleteEvent(event.id)
+            deleteEvent(event.id);
         }
 
-        column8.append(deleteButton)
+        column8.append(deleteButton);
 
-        row.append(column1)
-        row.append(column2)
-        row.append(column3)
-        row.append(column4)
-        row.append(column5)
-        row.append(column6)
-        row.append(column7)
-        row.append(column8)
+        row.append(column1);
+        row.append(column2);
+        row.append(column3);
+        row.append(column4);
+        row.append(column5);
+        row.append(column6);
+        row.append(column7);
+        row.append(column8);
 
-        tableBody.append(row)
+        tableBody.append(row);
     }
 }
 
 async function deleteEvent(id) {
-    const deleteModal = document.getElementById('deleteModal')
+    const deleteModal = document.getElementById('deleteModal');
     deleteModal.innerHTML =
     `
     <h4 class="text-align-center margin-top-8">Are you sure you want to delete this event?</h4>
@@ -189,9 +191,9 @@ async function deleteEvent(id) {
         <button id="deleteButton" class="delete-button margin-left-12 hand-mouse">Delete</button>
         <button id="cancelDeleteButton" class="cancel-delete-button margin-left-12 hand-mouse">Cancel</button>
     </div>
-    `
+    `;
     
-    const deleteButton = document.getElementById('deleteButton')
+    const deleteButton = document.getElementById('deleteButton');
 
     deleteButton.onclick = async function() {
         const response = await fetch(`http://localhost:5000/api/events/${id}`, {
@@ -200,31 +202,33 @@ async function deleteEvent(id) {
             'Content-Type': 'text/plain',
         },
         body: id,
-        })
-        console.log('Response: ', response)
+        });
+        console.log('Delete Event Response: ', response);
 
-        const data = await response.json()
-        console.log('Data: ', data)
+        const data = await response.json();
+        console.log('Delete Event Data: ', data);
 
-        deleteModal.close()
+        deleteModal.close();
 
-        eventsData = eventsData.filter(x => x.id !== id)
+        //Delete event from events array
+        eventsData = eventsData.filter(x => x.id !== id);
 
-        renderEventTable(curPage)
+        //Rerender table afte event delete
+        renderEventTable(curPage);
     }
 
-    const cancelButton = document.getElementById('cancelDeleteButton')
+    const cancelButton = document.getElementById('cancelDeleteButton');
 
     cancelButton.onclick = function() {
-        deleteModal.close()
+        deleteModal.close();
     }
 
-    deleteModal.showModal()
+    deleteModal.showModal();
     
 }
 
 async function editEvent(event) {
-    const editEventModal = document.getElementById('editModal')
+    const editEventModal = document.getElementById('editModal');
     editEventModal.innerHTML =
     `
     <div class="flex-column margin-bottom-20 margin-top-20">
@@ -292,36 +296,37 @@ async function editEvent(event) {
             </button>
         </div>
     </form>
-    `
+    `;
+    
+    //Select correct option for event data
+    const eventCategory = document.getElementById(`${event.category}`);
+    eventCategory.selected = true;
 
-    const eventCategory = document.getElementById(`${event.category}`)
-    eventCategory.selected = true
+    const eventCode = document.getElementById(`${event.code}`);
+    eventCode.selected = true;
 
-    const eventCode = document.getElementById(`${event.code}`)
-    eventCode.selected = true
+    const eventStatus = document.getElementById(`${event.status}`);
+    eventStatus.selected = true;
 
-    const eventStatus = document.getElementById(`${event.status}`)
-    eventStatus.selected = true
+    editEventModal.showModal();
 
-    editEventModal.showModal()
+    document.addEventListener('submit', (e) => {e.preventDefault()});
 
-    document.addEventListener('submit', (e) => {e.preventDefault()})
-
-    const saveButton = document.getElementById('saveEditButton')
+    const saveButton = document.getElementById('saveEditButton');
     saveButton.onclick = async function() {
-        const form = document.getElementById('editEventForm')
+        const form = document.getElementById('editEventForm');
 
-        const formData = new FormData(form)
+        const formData = new FormData(form);
 
-        console.log(formData.entries())
+        console.log(formData.entries());
 
-        const title = formData.get('eventTitle')
-        const description = formData.get('eventDescription')
-        const date = new Date(formData.get('eventTime'))
-        const location = formData.get('eventLocation')
-        const category = formData.get('eventCategory')
-        const code = formData.get('eventCode')
-        const status = formData.get('eventStatus')
+        const title = formData.get('eventTitle');
+        const description = formData.get('eventDescription');
+        const date = new Date(formData.get('eventTime'));
+        const location = formData.get('eventLocation');
+        const category = formData.get('eventCategory');
+        const code = formData.get('eventCode');
+        const status = formData.get('eventStatus');
 
         const updatedEvent = {
         'name': title,
@@ -331,9 +336,9 @@ async function editEvent(event) {
         'code': code,
         'date': date,
         'description': description
-        }
+        };
 
-        console.log('Updated Event: ', updatedEvent)
+        console.log('Updated Event: ', updatedEvent);
 
         const response = await fetch(`http://localhost:5000/api/events/${event.id}`, {
         method: 'PUT',
@@ -342,50 +347,51 @@ async function editEvent(event) {
         },
         body: JSON.stringify(updatedEvent),
         })
-        console.log('Response: ', response)
+        console.log('Edit Event Response: ', response);
 
-        const data = await response.json()
-        console.log('Data: ', data)
+        const data = await response.json();
+        console.log('Edit Event Data: ', data);
 
-        editEventModal.close()
+        editEventModal.close();
 
-        onInitialized()
+        //Rerender after event is edited
+        onInitialized();
     }
 
-    const cancelButton = document.getElementById('cancelEditButton')
+    const cancelButton = document.getElementById('cancelEditButton');
     cancelButton.onclick = function() {
-        editEventModal.close()
+        editEventModal.close();
     }
 }
 
 function htmlToCSV(filename) {
 	var data = [];
-    let row = []
+    let row = []; // Header row
 
-    row.push('NAME')
-    row.push('STATUS')
-    row.push('LOCATION')
-    row.push('CATEGORY')
-    row.push('TIME OF OCCURENCE')
-    row.push('DATE OF OCCURENCE')
-    row.push('CODE')
-    row.push('DESCRIPTION')
+    row.push('NAME');
+    row.push('STATUS');
+    row.push('LOCATION');
+    row.push('CATEGORY');
+    row.push('TIME OF OCCURENCE');
+    row.push('DATE OF OCCURENCE');
+    row.push('CODE');
+    row.push('DESCRIPTION');
             
     data.push(row.join(",")); 	
 
     for (let i = 0; i < eventsData.length; i++) {
-        let row = []
+        let row = []; // Row for data of event[i]
 
-        row.push(eventsData[i].name)
-        row.push(eventsData[i].status)
-        row.push(eventsData[i].location)
-        row.push(eventsData[i].category)
-        row.push(eventsData[i].timeOfOccurence)
-        row.push(eventsData[i].dateOfOccurence)
-        row.push(eventsData[i].code)
-        row.push(eventsData[i].description)
+        row.push(eventsData[i].name);
+        row.push(eventsData[i].status);
+        row.push(eventsData[i].location);
+        row.push(eventsData[i].category);
+        row.push(eventsData[i].timeOfOccurence);
+        row.push(eventsData[i].dateOfOccurence);
+        row.push(eventsData[i].code);
+        row.push(eventsData[i].description);
 
-        row = row.map(string => string === null ? '' : `\"${string}\"`) // export to csv considers to values that contatin ','
+        row = row.map(string => string === null ? '' : `\"${string}\"`); // export to csv considers to values that contatin ','
 
         data.push(row.join(",")); 
     }

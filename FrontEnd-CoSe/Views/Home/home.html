@@ -16,6 +16,7 @@
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./home.js" async></script>
+  <script src="./homeAdmin.js" async></script>
   <script src="../../Scripts/filters.js" defer></script>
   <script src="../../Scripts/navbar.js" async></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
@@ -57,6 +58,7 @@
           </div>
         </div>
 
+        <h2>All events</h2>
         <table id="eventsTable">
           <thead id="tableHead"></thead>
           <tbody id="tableBody"></tbody>
@@ -66,6 +68,18 @@
         <div class="flex-center" style="padding-top: 8px">
             <button class="page-link" id="prevButton" onclick="previousPage()" style="visibility: hidden">Prev</button>
             <button class="page-link" id="nextButton" onclick="nextPage()" style="visibility: hidden">Next</button>
+        </div>
+
+        <h2>Events submitted by civilians</h2>
+        <table id="adminEventsTable">
+          <thead id="adminTableHead"></thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+        <div id="adminLoader" class="loader"></div> 
+        
+        <div class="flex-center" style="padding-top: 8px">
+            <button class="page-link" id="adminPrevButton" onclick="adminPreviousPage()" style="visibility: hidden">Prev</button>
+            <button class="page-link" id="adminNextButton" onclick="adminNextPage()" style="visibility: hidden">Next</button>
         </div>
       </div>
 
@@ -238,13 +252,16 @@
 
     onInitialized()
 
-    function myFunction () {
-        console.log('Executed!');
-    }
+    // function myFunction () {
+    //     console.log('Executed!');
+    // }
 
-    var interval = setInterval(function () { myFunction(); }, 6000);
+    // var interval = setInterval(function () { myFunction(); }, 6000);
 
-    myFunction()
+    // myFunction()
+
+    //Admin Table
+    onAdminInitalized()
   </script>
 
 </body>

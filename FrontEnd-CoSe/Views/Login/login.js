@@ -14,6 +14,7 @@ async function onSubmitFormLogin(e) {
     password: password,
   };
 
+
   await loginUser(UserLogin);
 }
 
@@ -35,6 +36,7 @@ async function loginUser(userLogin) {
 
     if (response.status == 202) {
       localStorage.setItem("jwt", token);
+      localStorage.setItem("email", userLogin.email);
       snackbar(document, "Login with success!!!");
       location.href = "../Home/home.html";
     } else {

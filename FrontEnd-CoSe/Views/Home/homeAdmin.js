@@ -1,6 +1,10 @@
 var civilianEventsData = [];
 
 async function onAdminInitalized() {
+    //Show admin table title
+    const tableTitle = document.getElementById('adminEventsTitle');
+    tableTitle.innerHTML = `<h2>Events submitted by civilians</h2>`;
+
     //Get events from database
     civilianEventsData = await getCivilianEvents();
 

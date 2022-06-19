@@ -1,16 +1,41 @@
-//REGISTER, LOGIN, FORGET PASSWORD
-//COMUNICA CU userModel
-//CRIPTARE PAROLA + VALIDARE JWT
-//CRIPTARE + GENERARE - UTILS
-
 const authenticationUser = require("../Models/authenticationModel");
 const { jsonType } = require("../Utils/headerTypes");
+const path = require('path');
+const privateKey = path.join(__dirname, "..", "Utils", "private.key");
 const bcrypt = require("bcrypt");
 const { reject } = require("bcrypt/promises");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 const hashPassword = (password) => {
   return bcrypt.hashSync(password, 10);
 };
+
+function createToken(userId) {
+
+  const payload = {
+    userId: userId,
+  };
+
+  const privateKEY = fs.readFileSync(privateKey, 'utf8');
+
+  const i = "UPNP"; // Issuer
+  const s = "some@user.com"; // Subject
+  const a = "http://localhost:5000"; // Audience
+
+  // SIGNING OPTIONS
+  const signOptions = {
+    issuer: i,
+    subject: s,
+    audience: a,
+    expiresIn: "12h",
+    algorithm: "RS256",
+  };
+
+  const token = jwt.sign(payload, privateKEY, signOptions);
+  console.log("Token - " + token);
+  return token;
+}
 
 async function registerUser(user, req, res) {
   try {
@@ -48,13 +73,12 @@ async function registerValidate(user, req, res) {
       user.email,
       user.code
     );
-    console.log('checkExistCode:', checkExistCode);
+    console.log("checkExistCode:", checkExistCode);
     if (checkExistCode == 1) {
       await authenticationUser.deleteCode(user.email, user.code);
 
       await authenticationUser.activateAccount(user.email);
 
-      //TODO use json here jwt -> login.hmtl
       res.writeHead(201, jsonType);
       res.end(
         JSON.stringify({ message: "Your account was activate with succes!!!" })
@@ -63,26 +87,32 @@ async function registerValidate(user, req, res) {
   } catch (error) {
     console.log("Error: ", error);
     res.writeHead(400, jsonType);
-    res.end(JSON.stringify({ message: "Error in Registration Validater pass!" }));
+    res.end(
+      JSON.stringify({ message: "Error in Registration Validater pass!" })
+    );
   }
 }
 
 async function loginUser(user, req, res) {
   try {
     const passwordExist = await authenticationUser.login(user.email);
-    if(passwordExist) {
+    if (passwordExist) {
       const validPassword = bcrypt.compareSync(user.password, passwordExist);
       if (validPassword) {
+        const userId = await authenticationUser.getUserId(user.email);
+        const jsonObject = {
+          "token": createToken(userId),
+        };
         res.writeHead(202, jsonType);
-        res.end(
-          JSON.stringify({ message: "Login with succes!!!" })
-        );
+        res.end(JSON.stringify(jsonObject));
       }
     }
   } catch (error) {
     console.log("Error: ", error);
     res.writeHead(400, jsonType);
-    res.end(JSON.stringify({ message: "Error in Registration Validater pass!" }));
+    res.end(
+      JSON.stringify({ message: "Error in Registration Validater pass!" })
+    );
   }
 }
 
@@ -93,21 +123,24 @@ async function changePassword(user, req, res) {
     if (emailExist > 0) {
       const passwordExist = await authenticationUser.login(user.email);
 
-      const validPassword = bcrypt.compareSync(user.currentPassword, passwordExist);
+      const validPassword = bcrypt.compareSync(
+        user.currentPassword,
+        passwordExist
+      );
 
       if (validPassword) {
         user.newPassword = hashPassword(user.newPassword);
         await authenticationUser.updatePassword(user);
         res.writeHead(200, jsonType);
-        res.end(
-          JSON.stringify({ message: "Change password with succes!!!" })
-        );
+        res.end(JSON.stringify({ message: "Change password with succes!!!" }));
       }
     }
   } catch (error) {
     console.log("Error: ", error);
     res.writeHead(400, jsonType);
-    res.end(JSON.stringify({ message: "Error in Registration Validater pass!" }));
+    res.end(
+      JSON.stringify({ message: "Error in Registration Validater pass!" })
+    );
   }
 }
 
@@ -115,5 +148,6 @@ module.exports = {
   registerUser,
   registerValidate,
   loginUser,
-  changePassword
+  changePassword,
+  createToken,
 };

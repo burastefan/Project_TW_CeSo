@@ -356,7 +356,6 @@ function login(email) {
 }
 
 async function updatePassword(user) {
-  console.log('am intrat in aceastaaaaaa functie!!')
   const userId = await getUserId(user.email);
 
   if (userId) {

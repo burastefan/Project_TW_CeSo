@@ -24,7 +24,10 @@ function handleAuthentication(req, res) {
 
       registerUser(user, req, res);
     });
-  } else if (req.url === "/api/authentication/validate" && req.method === "POST") {
+  } else if (
+    req.url === "/api/authentication/validate" &&
+    req.method === "POST"
+  ) {
     console.log("Handle Authentication: Register Validate");
     let body = "";
 
@@ -34,7 +37,7 @@ function handleAuthentication(req, res) {
 
     req.on("end", function () {
       console.log(body);
-      
+
       const userValidate = JSON.parse(body);
 
       console.log("User validater to be inserted: ", userValidate);
@@ -51,14 +54,17 @@ function handleAuthentication(req, res) {
 
     req.on("end", function () {
       console.log(body);
-      
+
       const userLogin = JSON.parse(body);
 
       console.log("User validater to be inserted: ", userLogin);
 
       loginUser(userLogin, req, res);
     });
-  } else if (req.url === "/api/authentication/changePassword" && req.method === "PUT") {
+  } else if (
+    req.url === "/api/authentication/changePassword" &&
+    req.method === "PUT"
+  ) {
     console.log("Handle Authentication: Change Password");
     let body = "";
 
@@ -78,6 +84,10 @@ function handleAuthentication(req, res) {
   } else if (req.method === "OPTIONS") {
     //Browser checks if API is valid for POST/PUT/DELETE operations
     res.writeHead(200, noType);
+    res.end();
+  } else {
+    //Unknown request
+    res.writeHead(404, noType);
     res.end();
   }
 }

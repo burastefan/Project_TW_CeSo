@@ -1,9 +1,10 @@
 const http = require('http')
-const { eventRoute, authenticationRoute, userRoute } = require('./Utils/routes')
+const { eventRoute, authenticationRoute, userRoute, shelterRoute } = require('./Utils/routes')
 const { handleEvents } = require('./Services/eventService')
 const { handleAuthentication } = require('./Services/authenticationService')
 const { handleUsers } = require('./Services/userService')
 const { jsonType } = require('./Utils/headerTypes')
+const { handleShelters } = require('./Services/shelterService')
 
 const server = http.createServer((req, res) => {
     if (req.url.startsWith(eventRoute)) {
@@ -14,6 +15,9 @@ const server = http.createServer((req, res) => {
     }
     else if (req.url.startsWith(userRoute)) {
         handleUsers(req, res);
+    }
+    else if (req.url.startsWith(shelterRoute)) {
+        handleShelters(req, res);
     }
     else {
         res.writeHead(404, jsonType)

@@ -17,6 +17,8 @@ async function onAdminInitalized() {
     document.getElementById("adminLoader").style.display = "none";
 }
 
+
+
 async function getCivilianEvents()  {
     const response = await fetch('http://localhost:5000/api/events/civilian');
     console.log('Get Civilian Events Response: ', response);

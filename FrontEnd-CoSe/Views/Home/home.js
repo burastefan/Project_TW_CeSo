@@ -415,3 +415,7 @@ function downloadCSVFile(csv, filename) {
 	document.body.appendChild(download_link);
 	download_link.click();
 }
+
+async function getUserByEmail()  {
+    const response = await fetch(`http://localhost:5000/api/users?email=${localStorage.email}`);
+}

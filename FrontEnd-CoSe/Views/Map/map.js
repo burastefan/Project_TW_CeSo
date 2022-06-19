@@ -14,13 +14,21 @@ async function onInitialized() {
 }
 
 async function getEvents() {
-    const response = await fetch('http://localhost:5000/api/events')
-    console.log('Response: ', response)
+    const response = await fetch('http://localhost:5000/api/events', {
+        method: 'GET', 
+        headers: new Headers({
+            'Authorization': 'Bearer ' + localStorage.jwt
+        }), 
+    });
+    console.log('Get Events Response: ', response);
     
-    const data = await response.json()
-    console.log('Data: ', data)
+    if (response.status == 200) {
+        const data = await response.json();
+        console.log('Get Events Data: ', data);
+        return data;
+    }
 
-    return data
+    return [];
 }
 
 function previousPage() {

@@ -5,10 +5,11 @@ const { noType } = require('../Utils/headerTypes')
 
 function handleEvents(req, res) {
     if (req.url === '/api/events' && req.method === 'GET') { // Get All Events
-        token = getToken(req, res);
+        //Verify token existence and validity
+        const token = getToken(req, res);
         console.log("Token: ", token)
         if (token) {
-            valid = validateToken(token, res);
+            const valid = validateToken(token, res);
             console.log("Valid token: ", valid);
             if (valid != null) {
                 getEvents(req, res);
@@ -23,89 +24,201 @@ function handleEvents(req, res) {
         }
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'GET') { // Get Event by id
-        const id = req.url.split('/')[3];
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                const id = req.url.split('/')[3];
 
-        getEvent(id, req, res);
+                getEvent(id, req, res);
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url === '/api/events' && req.method === 'POST') { // Insert Event
-        let body = '';
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                let body = '';
+                req.on('data', function (data) {
+                    body += data;
+                })
+                req.on('end', function () {
+                    const event = JSON.parse(body);
+                    console.log("Event to be inserted: ", event);
 
-        req.on('data', function (data) {
-            body += data;
-        })
-
-        req.on('end', function () {
-            const event = JSON.parse(body);
-
-            console.log("Event to be inserted: ", event);
-
-            insertEvent(event, req, res);
-        })
+                    insertEvent(event, req, res);
+                })
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'DELETE') { // Delete Event
-        const id = req.url.split('/')[3];
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                const id = req.url.split('/')[3];
 
-        console.log('Id: ', id);
-
-        deleteEvent(id, req, res);
+                deleteEvent(id, req, res);
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'PUT') { // Update Event
-        const id = req.url.split('/')[3];
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                const id = req.url.split('/')[3];
 
-        let body = '';
+                let body = '';
+                req.on('data', function (data) {
+                    body += data;
+                })
+                req.on('end', function () {
+                    const event = JSON.parse(body);
+                    event.id = id;
+                    console.log("Event to be inserted: ", event);
 
-        req.on('data', function (data) {
-            body += data;
-        })
-
-        req.on('end', function () {
-            const event = JSON.parse(body);
-            event.id = id;
-
-            console.log("Event to be inserted: ", event);
-
-            updateEvent(event, req, res);
-        })
+                    updateEvent(event, req, res);
+                })
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url === '/api/events/civilian' && req.method === 'GET') { // Get All Civilian Events
-        getCivilianEvents(req, res);
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                getCivilianEvents(req, res);
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url === '/api/events/civilian' && req.method === 'POST') { // Insert Civilian Event
-        let body = '';
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                let body = '';
+                req.on('data', function (data) {
+                    body += data;
+                })
+                req.on('end', function () {
+                    const event = JSON.parse(body);
+                    console.log("Civilian Event to be inserted: ", event);
 
-        req.on('data', function (data) {
-            body += data;
-        })
-
-        req.on('end', function () {
-            const event = JSON.parse(body);
-
-            console.log("Event to be inserted: ", event);
-
-            insertCivilianEvent(event, req, res);
-        })
+                    insertCivilianEvent(event, req, res);
+                })
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url === '/api/events/civilian/accept' && req.method === 'POST') { // Civilian Event was accepted by authority and must be added to Events Table
-        let body = '';
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                let body = '';
+                req.on('data', function (data) {
+                    body += data;
+                })
+                req.on('end', function () {
+                    const event = JSON.parse(body);
+                    console.log("Civilian Event to be transferred: ", event);
 
-        req.on('data', function (data) {
-            body += data;
-        })
-
-        req.on('end', function () {
-            const event = JSON.parse(body);
-
-            console.log("Event to be inserted: ", event);
-
-            transferCivilianEvent(event, req, res);
-        })
+                    transferCivilianEvent(event, req, res);
+                })
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url.match(/\/api\/events\/civilian\/([0-9]+)/) && req.method === 'DELETE') { // Delete Civilian Event
-        const id = req.url.split('/')[4];
+        //Verify token existence and validity
+        const token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            const valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                const id = req.url.split('/')[4];
 
-        console.log('Id: ', id);
-
-        deleteCivilianEvent(id, req, res);
+                deleteCivilianEvent(id, req, res);
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.method === 'OPTIONS') {
         //Browser checks if API is valid for POST/PUT/DELETE operations

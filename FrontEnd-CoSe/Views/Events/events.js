@@ -37,19 +37,16 @@ async function createEvent(event) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.jwt
             },
             body: JSON.stringify(event),
         })
         console.log('Response: ', response)
 
-        const data = await response.json()
-        console.log('Data: ', data)
-
-        if (response.status == 201 && response.statusText == "Created") {
+        if (response.status == 201) {
+            const data = await response.json()
+            console.log('Data: ', data)
             //afisare mesaj creat cu succes
-        }
-        else {
-            //afisare mesaj eroare la creare
         }
     } catch(error) {
         console.log(error)

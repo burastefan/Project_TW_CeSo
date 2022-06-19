@@ -20,13 +20,21 @@ async function onInitialized(userData) {
 }
 
 async function getEvents()  {
-    const response = await fetch('http://localhost:5000/api/events');
+    const response = await fetch('http://localhost:5000/api/events', {
+        method: 'GET', 
+        headers: new Headers({
+            'Authorization': 'Bearer ' + localStorage.jwt
+        }), 
+    });
     console.log('Get Events Response: ', response);
     
-    const data = await response.json();
-    console.log('Get Events Data: ', data);
+    if (response.status == 200) {
+        const data = await response.json();
+        console.log('Get Events Data: ', data);
+        return data;
+    }
 
-    return data;
+    return [];
 }
 
 function previousPage() {
@@ -220,21 +228,23 @@ async function deleteEvent(id) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'text/plain',
+            'Authorization': 'Bearer ' + localStorage.jwt
         },
         body: id,
         });
         console.log('Delete Event Response: ', response);
 
-        const data = await response.json();
-        console.log('Delete Event Data: ', data);
+        if (response.status == 200) {
+            const data = await response.json();
+            console.log('Delete Event Data: ', data);
 
+            //Delete event from events array
+            eventsData = eventsData.filter(x => x.id !== id);
+
+            //Rerender table afte event delete
+            renderEventTable(curPage);
+        }
         deleteModal.close();
-
-        //Delete event from events array
-        eventsData = eventsData.filter(x => x.id !== id);
-
-        //Rerender table afte event delete
-        renderEventTable(curPage);
     }
 
     const cancelButton = document.getElementById('cancelDeleteButton');
@@ -364,19 +374,22 @@ async function editEvent(event) {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.jwt
         },
         body: JSON.stringify(updatedEvent),
         })
         console.log('Edit Event Response: ', response);
 
-        const data = await response.json();
-        console.log('Edit Event Data: ', data);
+        if (response.status == 200) {
+            const data = await response.json();
+            console.log('Edit Event Data: ', data);
+
+            //Rerender after event is edited
+            eventsData[eventsData.findIndex(x => x.id == event.id)] = updatedEvent;
+            renderEventTable(curPage);
+        }
 
         editEventModal.close();
-        
-        //Rerender after event is edited
-        eventsData[eventsData.findIndex(x => x.id == event.id)] = updatedEvent;
-        renderEventTable(curPage);
     }
 
     const cancelButton = document.getElementById('cancelEditButton');

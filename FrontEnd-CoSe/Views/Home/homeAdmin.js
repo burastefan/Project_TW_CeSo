@@ -20,13 +20,21 @@ async function onAdminInitalized() {
 
 
 async function getCivilianEvents()  {
-    const response = await fetch('http://localhost:5000/api/events/civilian');
+    const response = await fetch('http://localhost:5000/api/events/civilian', {
+        method: 'GET', 
+        headers: new Headers({
+            'Authorization': 'Bearer ' + localStorage.jwt
+        }), 
+    });
     console.log('Get Civilian Events Response: ', response);
     
-    const data = await response.json();
-    console.log('Cet Civilian Events Data: ', data);
+    if (response.status == 200) {
+        const data = await response.json();
+        console.log('Cet Civilian Events Data: ', data);
+        return data;
+    }
 
-    return data;
+    return [];
 }
 
 function adminPreviousPage() {
@@ -81,7 +89,7 @@ function renderAdminEventTable(page) {
         <th>Time of occurrence</th>
         <th>Date of occurrence</th>
         <th>Code</th>
-        <th>User email</th>
+        <th>Civilian email</th>
         <th>Actions</th>
     </tr>`;
     
@@ -201,19 +209,22 @@ async function rejectEvent(id) {
     method: 'DELETE',
     headers: {
         'Content-Type': 'text/plain',
+        'Authorization': 'Bearer ' + localStorage.jwt
     },
     body: id,
     });
     console.log('Reject Event Response: ', response);
 
-    const data = await response.json();
-    console.log('Reject Event Data: ', data);
+    if (response.status == 200) {
+        const data = await response.json();
+        console.log('Reject Event Data: ', data);
 
-    //Delete event from events array
-    civilianEventsData = civilianEventsData.filter(x => x.id !== id);
+        //Delete event from events array
+        civilianEventsData = civilianEventsData.filter(x => x.id !== id);
 
-    //Rerender admin table after event delete
-    renderAdminEventTable(curPage);
+        //Rerender admin table after event delete
+        renderAdminEventTable(curPage);
+    }
 }
 
 async function acceptEvent(event) {
@@ -221,17 +232,20 @@ async function acceptEvent(event) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.jwt
         },
         body: JSON.stringify(event),
     });
     console.log('Accept Event Response: ', response);
 
-    const data = await response.json();
-    console.log('Accept Event Data: ', data);
+    if (response.status == 201) {
+        const data = await response.json();
+        console.log('Accept Event Data: ', data);
 
-    //Rerender admin table
-    onAdminInitalized()
+        //Rerender admin table
+        onAdminInitalized()
 
-    //Rerender all events table
-    onInitialized();
+        //Rerender all events table
+        onInitialized(userInfo);
+    }
 }

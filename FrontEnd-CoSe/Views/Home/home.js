@@ -1,8 +1,10 @@
 const pageSize = 8;
-var curPage = 1;
+var curPage;
 var eventsData = [];
 
 async function onInitialized() {
+    curPage = 1;
+
     //Get events from database
     eventsData = await getEvents();
 
@@ -353,9 +355,10 @@ async function editEvent(event) {
         console.log('Edit Event Data: ', data);
 
         editEventModal.close();
-
+        
         //Rerender after event is edited
-        onInitialized();
+        eventsData[eventsData.findIndex(x => x.id == event.id)] = updatedEvent;
+        renderEventTable(curPage);
     }
 
     const cancelButton = document.getElementById('cancelEditButton');

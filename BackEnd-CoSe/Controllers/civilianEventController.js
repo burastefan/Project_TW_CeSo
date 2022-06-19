@@ -34,6 +34,26 @@ async function getCivilianEvents(req, res) {
     }
 }
 
+async function insertCivilianEvent(event, req, res) {
+    try {
+        event.date = new Date(event.date);
+
+        await CivilianEvent.insert(event);
+
+        console.log("Event created succesfully");
+        console.log("Event: ", event);
+
+        res.writeHead(201, jsonType);
+        res.end(JSON.stringify(event));
+    }
+    catch (error) {
+        console.log('Error: ', error);
+
+        res.writeHead(400, jsonType);
+        res.end(JSON.stringify({ message: 'Error in creating event' }));
+    }
+}
+
 async function transferCivilianEvent(event, req, res) {
     try {
         event.date = new Date(event.date);
@@ -85,6 +105,7 @@ async function deleteCivilianEvent(id, req, res) {
 
 module.exports = {
     getCivilianEvents,
-    deleteCivilianEvent,
-    transferCivilianEvent
+    insertCivilianEvent,
+    transferCivilianEvent,
+    deleteCivilianEvent
 }

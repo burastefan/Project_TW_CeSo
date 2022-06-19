@@ -77,6 +77,69 @@ function findById(id) {
     })  
 }
 
+function insert(event) {
+    return new Promise((resolve, reject) => {
+        const connection = dbContext.connect();
+
+        connection.on("connect", err => {
+            if (err) {
+                reject(err.message);
+            } else {
+                const request = new Request(
+                    `INSERT INTO CivilianEvents (
+                        userId,
+                        userEmail,
+                        name,
+                        status,
+                        location,
+                        category,
+                        code,
+                        date,
+                        description) 
+                        VALUES(
+                            @userId,
+                            @userEmail,
+                            @name,
+                            @status,
+                            @location,
+                            @category,
+                            @code,
+                            @date,
+                            @description
+                        )`,
+                    (err) => {
+                        if (err) {
+                            reject(err.message);
+                        }
+                    }
+                );
+                
+                request.addParameter('userId', TYPES.Int, event.userId);
+                request.addParameter('userEmail', TYPES.VarChar, event.userEmail);
+                request.addParameter('name', TYPES.VarChar, event.name);
+                request.addParameter('status', TYPES.VarChar, event.status);
+                request.addParameter('location', TYPES.NVarChar, event.location);
+                request.addParameter('category', TYPES.VarChar, event.category);
+                request.addParameter('code', TYPES.VarChar, event.code);
+                request.addParameter('date', TYPES.DateTime, event.date);
+                request.addParameter('description', TYPES.VarChar, event.description);
+                
+                try {
+                    connection.execSql(request);
+
+                    request.on('requestCompleted', function () {
+                        resolve(event);
+                    })
+                }
+                catch(error) {
+                    reject(error);
+                }
+            }
+        })
+        connection.connect();
+    })  
+}
+
 function remove(id) {
     return new Promise((resolve, reject) => {
         const connection = dbContext.connect();
@@ -115,5 +178,6 @@ function remove(id) {
 module.exports = {
     findAll,
     findById,
+    insert,
     remove
 }

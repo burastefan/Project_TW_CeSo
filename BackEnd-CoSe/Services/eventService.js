@@ -1,5 +1,5 @@
 const { getEvents, getEvent, insertEvent, deleteEvent, updateEvent } = require('../Controllers/eventController')
-const { getCivilianEvents, deleteCivilianEvent, transferCivilianEvent } = require('../Controllers/civilianEventController')
+const { getCivilianEvents, insertCivilianEvent, transferCivilianEvent, deleteCivilianEvent } = require('../Controllers/civilianEventController')
 const { noType } = require('../Utils/headerTypes')
 
 function handleEvents(req, res) {
@@ -53,6 +53,21 @@ function handleEvents(req, res) {
     }
     else if (req.url === '/api/events/civilian' && req.method === 'GET') { // Get All Civilian Events
         getCivilianEvents(req, res);
+    }
+    else if (req.url === '/api/events/civilian' && req.method === 'POST') { // Insert Civilian Event
+        let body = '';
+
+        req.on('data', function (data) {
+            body += data;
+        })
+
+        req.on('end', function () {
+            const event = JSON.parse(body);
+
+            console.log("Event to be inserted: ", event);
+
+            insertCivilianEvent(event, req, res);
+        })
     }
     else if (req.url === '/api/events/civilian/accept' && req.method === 'POST') { // Civilian Event was accepted by authority and must be added to Events Table
         let body = '';

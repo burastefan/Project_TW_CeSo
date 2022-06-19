@@ -1,9 +1,11 @@
 const pageSize = 8;
 var curPage;
 var eventsData = [];
+var userInfo = {};
 
-async function onInitialized() {
+async function onInitialized(userData) {
     curPage = 1;
+    userInfo = userData;
 
     //Get events from database
     eventsData = await getEvents();
@@ -70,17 +72,30 @@ function renderEventTable(page) {
     }
 
     const tableHead = document.getElementById('tableHead');
-    tableHead.innerHTML = `
-    <tr>
-        <th>Name</th>
-        <th>Status</th>
-        <th>Location</th>
-        <th>Category</th>
-        <th>Time of occurrence</th>
-        <th>Date of occurrence</th>
-        <th>Code</th>
-        <th>Actions</th>
-    </tr>`;
+    if (userInfo.roles === Roles.AUTHORITY) {
+        tableHead.innerHTML = `
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Time of occurrence</th>
+            <th>Date of occurrence</th>
+            <th>Code</th>
+            <th>Actions</th>
+        </tr>`;
+    } else {
+        tableHead.innerHTML = `
+        <tr>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Location</th>
+            <th>Category</th>
+            <th>Time of occurrence</th>
+            <th>Date of occurrence</th>
+            <th>Code</th>
+        </tr>`;
+    }
     
     const tableBody = document.getElementById('tableBody');
 
@@ -150,27 +165,6 @@ function renderEventTable(page) {
 
         column7.append(code);
 
-        //COLUMN 8 IS ONLY FOR AUTHORITIES
-        const column8 = document.createElement('td');
-
-        const editButton = document.createElement('i');
-        editButton.className = 'fa-regular fa-pen-to-square hand-mouse';
-
-        editButton.onclick = function() {
-            editEvent(event);
-        }
-
-        column8.append(editButton);
-
-        const deleteButton = document.createElement('i');
-        deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8';
-
-        deleteButton.onclick = function() {
-            deleteEvent(event.id);
-        }
-
-        column8.append(deleteButton);
-
         row.append(column1);
         row.append(column2);
         row.append(column3);
@@ -178,7 +172,31 @@ function renderEventTable(page) {
         row.append(column5);
         row.append(column6);
         row.append(column7);
-        row.append(column8);
+
+        //If user is authority, give access to edit and delete actions
+        if (userInfo.roles === Roles.AUTHORITY) {
+            const column8 = document.createElement('td');
+
+            const editButton = document.createElement('i');
+            editButton.className = 'fa-regular fa-pen-to-square hand-mouse';
+
+            editButton.onclick = function() {
+                editEvent(event);
+            }
+
+            column8.append(editButton);
+
+            const deleteButton = document.createElement('i');
+            deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8';
+
+            deleteButton.onclick = function() {
+                deleteEvent(event.id);
+            }
+
+            column8.append(deleteButton);
+
+            row.append(column8);
+        }
 
         tableBody.append(row);
     }
@@ -418,4 +436,10 @@ function downloadCSVFile(csv, filename) {
 
 async function getUserByEmail()  {
     const response = await fetch(`http://localhost:5000/api/users?email=${localStorage.email}`);
+    console.log("User data response: ", response);
+
+    const data = await response.json();
+    console.log("User data: ", data);
+
+    return data[0];
 }

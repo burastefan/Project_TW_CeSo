@@ -1,10 +1,26 @@
 const { getEvents, getEvent, insertEvent, deleteEvent, updateEvent } = require('../Controllers/eventController')
 const { getCivilianEvents, insertCivilianEvent, transferCivilianEvent, deleteCivilianEvent } = require('../Controllers/civilianEventController')
+const { validateToken, getToken } = require('../Utils/jwtUtils')
 const { noType } = require('../Utils/headerTypes')
 
 function handleEvents(req, res) {
-    if (req.url === '/api/events' && req.method === 'GET') { // Get All Event
-        getEvents(req, res);
+    if (req.url === '/api/events' && req.method === 'GET') { // Get All Events
+        token = getToken(req, res);
+        console.log("Token: ", token)
+        if (token) {
+            valid = validateToken(token, res);
+            console.log("Valid token: ", valid);
+            if (valid != null) {
+                getEvents(req, res);
+            } else {
+                res.writeHead(401, noType);
+                res.end();
+            }
+        }
+        else {
+            res.writeHead(401, noType);
+            res.end();
+        }
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'GET') { // Get Event by id
         const id = req.url.split('/')[3];

@@ -19,6 +19,7 @@
   <script src="./homeAdmin.js" async></script>
   <script src="../../Scripts/filters.js" defer></script>
   <script src="../../Scripts/navbar.js" async></script>
+  <script src="../../Scripts/userRoles.js" async></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/miniNavbarComponent.js" type="text/javascript" defer></script>
@@ -75,7 +76,7 @@
           <thead id="adminTableHead"></thead>
           <tbody id="adminTableBody"></tbody>
         </table>
-        <div id="adminLoader" class="loader"></div> 
+        <div id="adminLoader" class="loader" style="display: none;"></div> 
         
         <div class="flex-center" style="padding-top: 8px">
             <button class="page-link" id="adminPrevButton" onclick="adminPreviousPage()" style="visibility: hidden">Prev</button>
@@ -249,21 +250,21 @@
   <dialog id="editModal"></dialog>
 
   <script>
-    getUserByEmail()
+    async function initialize() {
+      //Get User Info (Role, Name, etc.)
+      const userData = await getUserByEmail();
 
-    onInitialized()
+      //Initialize Events Table
+      onInitialized(userData)
 
-    // function myFunction () {
-    //     console.log('Executed!');
-    // }
-
-    // var interval = setInterval(function () { myFunction(); }, 6000);
-
-    // myFunction()
-
-    //Admin Table
-    onAdminInitalized()
-
+      //Initialize Admin Table if user role is Authority
+      if (userData.roles === Roles.AUTHORITY) {
+        document.getElementById("adminLoader").style.display = "block";
+        onAdminInitalized();
+      }
+    }
+    
+    initialize();
   </script>
 
 </body>

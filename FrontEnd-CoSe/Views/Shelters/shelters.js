@@ -22,19 +22,19 @@ async function onSubmitHandlerShelters(e) {
     category: category,
   };
 
-  console.log("Shelter: ", shelter);
+  console.log("Response: ", shelter);
 
   await createShelter(shelter);
 }
 
-async function createShelter(event) {
+async function createShelter(shelter) {
   try {
     const response = await fetch("http://localhost:5000/api/shelters", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(event),
+      body: JSON.stringify(shelter),
     });
     console.log("Response: ", response);
 
@@ -42,10 +42,18 @@ async function createShelter(event) {
     console.log("Data: ", data);
 
     if (response.status == 201) {
-      snackbar(document, "Shelter created with succes!!!");
-    } else {
-      //afisare mesaj eroare la creare
-    }
+      console.log('Data: ', data)
+      //afisare mesaj creat cu succes
+      snackbar(document, 'Shelter created successfully!');
+  }
+  else if (response.status == 404) {
+      //afisare eroare creare
+      snackbar(document, 'Error in creating shelter!');
+  }
+  else if (response.status == 401) {
+      //afisare mesaj unauthorized
+      snackbar(document, 'Unauthorized!');
+  }
   } catch (error) {
     console.log(error);
   }

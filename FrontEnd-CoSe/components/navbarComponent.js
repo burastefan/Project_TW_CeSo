@@ -26,18 +26,6 @@ class NavBar extends HTMLElement {
                 <li><a href="../Storms/storms.html">Storms</a></li>
               </div>
               <div class="flex-center-row">
-                <li>
-                  <button
-                    id="dropdownButton"
-                    class="dropdown-btn"
-                    onclick="handleDropdownClick()"
-                  >
-                    <a id="notificationsButton" href="#">
-                      <i id="dropdownButtonIcon" class="fa-regular fa-bell"></i>
-                      <span class="badge"></span>
-                    </a>
-                  </button>
-                </li>
                 <li style="padding: 0">
                   <a href="#" style="padding: 2px" onclick="handleUserDropdownClick()">
                     <img
@@ -52,55 +40,6 @@ class NavBar extends HTMLElement {
               </div>
             </ul>
           </nav>
-          <div id="myDropdown" class="dropdown-content">
-            <div class="notifications-title1">Notifications</div>
-            <div id="dsdd" class="notificationsPanel">
-              <div class="notifications-title2">New</div>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 1: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 2 hours ago</div>
-                </div>
-              </a>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 2: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 8 hours ago</div>
-                </div>
-              </a>
-              <div class="notifications-title2">Earlier</div>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 3: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 12 hours ago</div>
-                </div>
-              </a>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 4: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 18 hours ago</div>
-                </div>
-              </a>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 5: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 1 day ago</div>
-                </div>
-              </a>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 6: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 3 days ago</div>
-                </div>
-              </a>
-              <a href="#">
-                <div style="flex-column">
-                  <div class="notifications-text1">Notification 7: Lorem ipsum dolor sit amet</div>
-                  <div class="notifications-text2">- 1 week ago</div>
-                </div>
-              </a>
-            </div>
-          </div>
           <div id="myDropdownPpic" class="dropdown-content-ppic">
             <a>
               <div class="flex-row">
@@ -119,8 +58,6 @@ class NavBar extends HTMLElement {
                 </div>
               </div>
             </a>
-            <a href="#"><i class="fa-solid fa-user" style="padding-right: 10px;"></i>Account</a>
-            <a href="#"><i class="fa-solid fa-gear" style="padding-right: 10px;"></i>Settings</a>
             <a href="../ChangePassword/changePassword.html"><i class="fa-solid fa-key" style="padding-right: 10px;"></i>Change Password</a>
             <a href="../Login/login.html"><i class="fa-solid fa-right-from-bracket" style="padding-right: 10px;"></i>Log out</a>
           </div>

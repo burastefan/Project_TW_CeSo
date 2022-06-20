@@ -23,6 +23,11 @@
     justify-content: center;
 }
 
+.flex-justify-end {
+    display: flex;
+    justify-content: end;
+}
+
 .input-title {
     font-size: 18px;
     font-weight: 500;

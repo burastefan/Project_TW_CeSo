@@ -17,6 +17,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="./events.js" async></script>
   <script src="../../Scripts/navbar.js"></script>
+  <script src="../../Scripts/snackbar.js"></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/miniNavbarComponent.js" type="text/javascript" defer></script>
@@ -102,13 +103,13 @@
     </div>
     <sidenavbar-component></sidenavbar-component>
   </div>
+  <div id="snackbar"></div>
+
   <script
     src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDwqwV9AluRxRNfyomqquJ8w0BiaPuCmso&callback=initializeAutocompleteField"
     async defer></script>
   <script>
-
-    document.addEventListener('submit', (event) => onSubmitHandler(event))
-
+    document.addEventListener('submit', (event) => onSubmitHandler(event));
   </script>
   
 </body>

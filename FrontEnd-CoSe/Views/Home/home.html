@@ -20,6 +20,7 @@
   <script src="../../Scripts/filters.js" defer></script>
   <script src="../../Scripts/navbar.js" async></script>
   <script src="../../Scripts/userRoles.js" async></script>
+  <script src="../../Scripts/snackbar.js"></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/miniNavbarComponent.js" type="text/javascript" defer></script>
@@ -249,6 +250,8 @@
 
   <dialog id="editModal"></dialog>
 
+  <div id="snackbar"></div>
+
   <script>
     async function initialize() {
       //Get User Info (Role, Name, etc.)
@@ -260,7 +263,7 @@
       //Initialize Admin Table if user role is Authority
       if (userData.roles === Roles.AUTHORITY) {
         document.getElementById("adminLoader").style.display = "block";
-        onAdminInitalized();
+        onAdminInitalized(userData);
       }
     }
     

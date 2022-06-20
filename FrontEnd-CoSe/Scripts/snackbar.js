@@ -1,5 +1,4 @@
 function snackbar(documentCurrent, message) {
-  console.log("am intrat in functia SNACKBAR");
   // Get the snackbar DIV
   const popUp = documentCurrent.getElementById("snackbar");
   
@@ -13,11 +12,3 @@ function snackbar(documentCurrent, message) {
 
   popUp.innerHTML = `<div>${message}</div>`;
 }
-
-//   <!-- Use a button to open the snackbar -->
-// <button onclick="myFunction()">Show Snackbar</button>
-
-// <!-- The actual snackbar -->
-// <div id="snackbar">Some text some message..</div>
-
-// var x = document.getElementById("snackbar");

@@ -1,6 +1,12 @@
+const adminPageSize = 8;
+var adminCurPage;
 var civilianEventsData = [];
+var userInfoAdmin = {};
 
-async function onAdminInitalized() {
+async function onAdminInitalized(userData) {
+    adminCurPage = 1;
+    userInfoAdmin = userData;
+
     //Show admin table title
     const tableTitle = document.getElementById('adminEventsTitle');
     tableTitle.innerHTML = `<h2>Events submitted by civilians</h2>`;
@@ -38,21 +44,21 @@ async function getCivilianEvents()  {
 }
 
 function adminPreviousPage() {
-    if (curPage > 1) {
-        curPage--;
-        renderEventTable(curPage);
+    if (adminCurPage > 1) {
+        adminCurPage--;
+        renderAdminEventTable(adminCurPage);
     }
 }
   
 function adminNextPage() {
-    if ((curPage * pageSize) < civilianEventsData.length) {
-        curPage++;
-        renderEventTable(curPage);
+    if ((adminCurPage * adminPageSize) < civilianEventsData.length) {
+        adminCurPage++;
+        renderAdminEventTable(adminCurPage);
     }
 }
 
 function adminNumPages() {
-    return Math.ceil(civilianEventsData.length / pageSize);
+    return Math.ceil(civilianEventsData.length / adminPageSize);
 }
 
 function adminRemoveAllChildNodes(parent) {
@@ -100,8 +106,8 @@ function renderAdminEventTable(page) {
     }
 
     const events = JSON.parse(JSON.stringify(civilianEventsData)).filter((row, index) => {
-        let start = (curPage - 1) * pageSize;
-        let end = curPage * pageSize;
+        let start = (curPage - 1) * adminPageSize;
+        let end = curPage * adminPageSize;
         if (index >= start && index < end) return true;
     });
 
@@ -219,11 +225,22 @@ async function rejectEvent(id) {
         const data = await response.json();
         console.log('Reject Event Data: ', data);
 
+        //afisare mesaj reject cu succes
+        snackbar(document, 'Civilian event rejected successfully!');
+
         //Delete event from events array
         civilianEventsData = civilianEventsData.filter(x => x.id !== id);
 
         //Rerender admin table after event delete
         renderAdminEventTable(curPage);
+    }
+    else if (response.status == 404) {
+        //afisare eroare reject
+        snackbar(document, 'Error in rejecting civilian event!');
+    }
+    else if (response.status == 401) {
+        //afisare mesaj unauthorized
+        snackbar(document, 'Unauthorized!');
     }
 }
 
@@ -242,10 +259,21 @@ async function acceptEvent(event) {
         const data = await response.json();
         console.log('Accept Event Data: ', data);
 
-        //Rerender admin table
-        onAdminInitalized()
+        //afisare mesaj accept cu succes
+        snackbar(document, 'Civilian event accepted successfully!');
 
         //Rerender all events table
-        onInitialized(userInfo);
+        onInitialized(userInfoAdmin);
+
+        //Rerender admin table
+        onAdminInitalized(userInfoAdmin);
+    }
+    else if (response.status == 404) {
+        //afisare eroare accept
+        snackbar(document, 'Error in accepting civilian event!');
+    }
+    else if (response.status == 401) {
+        //afisare mesaj unauthorized
+        snackbar(document, 'Unauthorized!');
     }
 }

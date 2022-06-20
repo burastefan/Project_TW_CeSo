@@ -47,6 +47,15 @@ async function createEvent(event) {
             const data = await response.json()
             console.log('Data: ', data)
             //afisare mesaj creat cu succes
+            snackbar(document, 'Event created successfully!');
+        }
+        else if (response.status == 404) {
+            //afisare eroare creare
+            snackbar(document, 'Error in creating event!');
+        }
+        else if (response.status == 401) {
+            //afisare mesaj unauthorized
+            snackbar(document, 'Unauthorized!');
         }
     } catch(error) {
         console.log(error)

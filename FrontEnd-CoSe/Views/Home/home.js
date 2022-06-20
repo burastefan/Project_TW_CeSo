@@ -238,11 +238,22 @@ async function deleteEvent(id) {
             const data = await response.json();
             console.log('Delete Event Data: ', data);
 
+            //afisare mesaj editat cu succes
+            snackbar(document, 'Event deleted successfully!');
+
             //Delete event from events array
             eventsData = eventsData.filter(x => x.id !== id);
 
             //Rerender table afte event delete
             renderEventTable(curPage);
+        }
+        else if (response.status == 404) {
+            //afisare eroare delete
+            snackbar(document, 'Error in updating event!');
+        }
+        else if (response.status == 401) {
+            //afisare mesaj unauthorized
+            snackbar(document, 'Unauthorized!');
         }
         deleteModal.close();
     }
@@ -384,9 +395,19 @@ async function editEvent(event) {
             const data = await response.json();
             console.log('Edit Event Data: ', data);
 
+            //afisare mesaj editat cu succes
+            snackbar(document, 'Event updated successfully!');
+            
             //Rerender after event is edited
-            eventsData[eventsData.findIndex(x => x.id == event.id)] = updatedEvent;
-            renderEventTable(curPage);
+            onInitialized(userInfo);
+        }
+        else if (response.status == 404) {
+            //afisare eroare editare
+            snackbar(document, 'Error in updating event!');
+        }
+        else if (response.status == 401) {
+            //afisare mesaj unauthorized
+            snackbar(document, 'Unauthorized!');
         }
 
         editEventModal.close();
@@ -448,11 +469,20 @@ function downloadCSVFile(csv, filename) {
 }
 
 async function getUserByEmail()  {
-    const response = await fetch(`http://localhost:5000/api/users?email=${localStorage.email}`);
+    const response = await fetch(`http://localhost:5000/api/users?email=${localStorage.email}`, {
+        method: 'GET', 
+        headers: new Headers({
+            'Authorization': 'Bearer ' + localStorage.jwt
+        }), 
+    });
     console.log("User data response: ", response);
 
-    const data = await response.json();
-    console.log("User data: ", data);
+    if (response.status == 200) {
+        const data = await response.json();
+        console.log("User data: ", data);
 
-    return data[0];
+        return data[0];
+    }
+
+    return false;
 }

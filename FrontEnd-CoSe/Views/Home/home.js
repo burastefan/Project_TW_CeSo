@@ -20,12 +20,7 @@ async function onInitialized(userData) {
 }
 
 async function getEvents()  {
-    const response = await fetch('http://localhost:5000/api/events', {
-        method: 'GET', 
-        headers: new Headers({
-            'Authorization': 'Bearer ' + localStorage.jwt
-        }), 
-    });
+    const response = await fetch('http://localhost:5000/api/events');
     console.log('Get Events Response: ', response);
     
     if (response.status == 200) {
@@ -397,7 +392,7 @@ async function editEvent(event) {
 
             //afisare mesaj editat cu succes
             snackbar(document, 'Event updated successfully!');
-            
+
             //Rerender after event is edited
             onInitialized(userInfo);
         }

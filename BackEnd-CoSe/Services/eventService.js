@@ -5,23 +5,8 @@ const { noType } = require('../Utils/headerTypes')
 
 function handleEvents(req, res) {
     if (req.url === '/api/events' && req.method === 'GET') { // Get All Events
-        //Verify token existence and validity
-        const token = getToken(req, res);
-        console.log("Token: ", token)
-        if (token) {
-            const valid = validateToken(token, res);
-            console.log("Valid token: ", valid);
-            if (valid != null) {
-                getEvents(req, res);
-            } else {
-                res.writeHead(401, noType);
-                res.end();
-            }
-        }
-        else {
-            res.writeHead(401, noType);
-            res.end();
-        }
+        //No token for get events
+        getEvents(req, res);
     }
     else if (req.url.match(/\/api\/events\/([0-9]+)/) && req.method === 'GET') { // Get Event by id
         //Verify token existence and validity

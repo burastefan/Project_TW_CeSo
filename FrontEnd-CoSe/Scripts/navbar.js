@@ -3,8 +3,6 @@ var clickedProfile = false;
 
 // Click on notifications panel
 function handleDropdownClick() {
-  const dropdownNotifications = document.getElementById("myDropdown");
-  dropdownNotifications.classList.toggle("show");
   const dropdownUser = document.getElementById("myDropdownPpic");
   if (dropdownUser.classList.contains("show")) {
     dropdownUser.classList.toggle("show");
@@ -25,12 +23,6 @@ function handleDropdownClick() {
 function handleUserDropdownClick() {
   const dropdownUser = document.getElementById("myDropdownPpic");
   dropdownUser.classList.toggle("show");
-  const dropdownNotifications = document.getElementById("myDropdown");
-  if (dropdownNotifications.classList.contains("show")) {
-    dropdownNotifications.classList.toggle("show");
-    const dropdownButton = document.getElementById("notificationsButton");
-    dropdownButton.classList.toggle("background-color-notifications");
-  }
   const profilePicArrow = document.getElementById("profilePicArrow");
   if (clickedProfile == false) {
     profilePicArrow.className = "fa-solid fa-caret-up";
@@ -78,3 +70,9 @@ window.onclick = function (event) {
     }
   }
 };
+
+function clearLocalStorage() {
+  console.log("Local storage clear");
+  localStorage.clear();
+  location.href="../Login/login.html";
+}

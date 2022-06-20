@@ -59,7 +59,7 @@ class NavBar extends HTMLElement {
               </div>
             </a>
             <a href="../ChangePassword/changePassword.html"><i class="fa-solid fa-key" style="padding-right: 10px;"></i>Change Password</a>
-            <a href="../Login/login.html"><i class="fa-solid fa-right-from-bracket" style="padding-right: 10px;"></i>Log out</a>
+            <a href="#" onclick="clearLocalStorage()"><i class="fa-solid fa-right-from-bracket" style="padding-right: 10px;"></i>Log out</a>
           </div>
         `;
   }

@@ -157,7 +157,6 @@ function addUser(user) {
             }
           }
         );
-        console.log("hello", request);
 
         request.addParameter("firstName", TYPES.VarChar, user.firstName);
         request.addParameter("lastName", TYPES.VarChar, user.lastName);

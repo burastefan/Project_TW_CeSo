@@ -5,7 +5,7 @@ class NavBar extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-          <nav class="stroke">
+          <nav id="navbar" class="stroke">
             <ul class="flex-space-between-center">
               <div class="flex-center-row">
                 <li style="padding: 0">
@@ -18,6 +18,7 @@ class NavBar extends HTMLElement {
               <div class="flex-center-row">
                 <li><a href="../Home/home.html">Home</a></li>
                 <li><a href="../Events/events.html">Add Event</a></li>
+                <li id="addShelters" style="display: none;"><a href="../Shelters/shelters.html">Add Shelter</a></li>
                 <li><a href="../Map/map.html">Map</a></li>
                 <li><a href="../Earthquakes/earthquakes.html">Earthquakes</a></li>
                 <li><a href="../Floods/floods.html">Floods</a></li>

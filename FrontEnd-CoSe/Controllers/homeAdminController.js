@@ -7,10 +7,6 @@ async function onAdminInitalized(userData) {
     adminCurPage = 1;
     userInfoAdmin = userData;
 
-    //Show admin table title
-    const tableTitle = document.getElementById('adminEventsTitle');
-    tableTitle.innerHTML = `<h2>Events submitted by civilians</h2>`;
-
     //Get events from database
     civilianEventsData = await getCivilianEvents();
 

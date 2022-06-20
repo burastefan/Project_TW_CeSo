@@ -28,7 +28,7 @@
 </head>
 
 <body>
-  <div class="page-row">
+  <div id="homeContent" class="page-row" style="display: none;">
     <div class="container">
       <navbar-component class="displayNavbar"></navbar-component>
       <mininavbar-component style="width: 100%"></mininavbar-component>
@@ -152,13 +152,25 @@
       //Get User Info (Role, Name, etc.)
       const userData = await getUserByEmail();
 
-      //Initialize Events Table
-      onInitialized(userData)
+      document.getElementById("homeContent").style.display = "block";
 
-      //Initialize Admin Table if user role is Authority
+      //Check if user is admin
       if (userData.roles === Roles.AUTHORITY) {
+        //Show Add shelter option on navbar
+        document.getElementById("addShelters").style.display = "block";
+        //Show admin table title
+        const tableTitle = document.getElementById('adminEventsTitle');
+        tableTitle.innerHTML = `<h2>Events submitted by civilians</h2>`;
         document.getElementById("adminLoader").style.display = "block";
+        
+        //Initialize Event Table
+        onInitialized(userData);
+        //Initialize Admin Table
         onAdminInitalized(userData);
+      }
+      else {
+        //Initialize Events Table for other users
+        onInitialized(userData);
       }
     }
     

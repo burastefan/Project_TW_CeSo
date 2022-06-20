@@ -19,7 +19,7 @@ function findAll() {
                             reject(err.message);
                         }
                         if (rowCount == 0) {
-                            reject(`No events were found`);
+                            resolve(false);
                         }
                     }
                 );

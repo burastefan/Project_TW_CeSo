@@ -7,7 +7,7 @@ async function getShelters(req, res) {
 
         console.log("Shelters: ", shelters);
         res.writeHead(200, jsonType);
-        res.end(JSON.stringify(shelters));
+        res.end(shelters);
 
     } catch (error) {
         console.log("Error: ", error);

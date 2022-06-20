@@ -15,8 +15,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="./home.js" async></script>
-  <script src="./homeAdmin.js" async></script>
+  <script src="../../Controllers/homeController.js" async></script>
+  <script src="../../Controllers/homeAdminController.js" async></script>
   <script src="../../Scripts/filters.js" defer></script>
   <script src="../../Scripts/navbar.js" async></script>
   <script src="../../Scripts/userRoles.js" async></script>
@@ -86,93 +86,8 @@
       </div>
 
       <div class="second-content">
-        <h2 style="color:black!important">News, reviews and everything in between</h2>
-        <div class="container-news">
-          <div class="container-content-news flex-space-between-center">
-            <div class="flex-center-row">
-              <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
-              <div class="flex-column">
-                <span class="input-title margin-bottom-20">Strong fires in forest</span>
-                <span class="text-image margin-bottom-4">category</span>
-              </div>
-            </div>
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Location</span>
-              <span class="text-image margin-bottom-4">capacity</span>
-            </div>
-          </div>
-
-          <div class="container-content-news flex-space-between-center">
-            <div class="flex-center-row">
-              <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
-              <div class="flex-column">
-                <span class="input-title margin-bottom-20">Strong fires in forest</span>
-                <span class="text-image margin-bottom-4">category</span>
-              </div>
-            </div>
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Location</span>
-              <span class="text-image margin-bottom-4">capacity</span>
-            </div>
-          </div>
-
-          <div class="container-content-news flex-space-between-center">
-            <div class="flex-center-row">
-              <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
-              <div class="flex-column">
-                <span class="input-title margin-bottom-20">Strong fires in forest</span>
-                <span class="text-image margin-bottom-4">category</span>
-              </div>
-            </div>
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Location</span>
-              <span class="text-image margin-bottom-4">capacity</span>
-            </div>
-          </div>
-
-          <div class="container-content-news flex-space-between-center">
-            <div class="flex-center-row">
-              <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
-              <div class="flex-column">
-                <span class="input-title margin-bottom-20">Strong fires in forest</span>
-                <span class="text-image margin-bottom-4">category</span>
-              </div>
-            </div>
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Location</span>
-              <span class="text-image margin-bottom-4">capacity</span>
-            </div>
-          </div>
-
-          <div class="container-content-news flex-space-between-center">
-            <div class="flex-center-row">
-              <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
-              <div class="flex-column">
-                <span class="input-title margin-bottom-20">Strong fires in forest</span>
-                <span class="text-image margin-bottom-4">category</span>
-              </div>
-            </div>
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Location</span>
-              <span class="text-image margin-bottom-4">capacity</span>
-            </div>
-          </div>
-
-          <div class="container-content-news flex-space-between-center">
-            <div class="flex-center-row">
-              <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
-              <div class="flex-column">
-                <span class="input-title margin-bottom-20">Strong fires in forest</span>
-                <span class="text-image margin-bottom-4">category</span>
-              </div>
-            </div>
-            <div class="flex-column">
-              <span class="input-title margin-bottom-20">Location</span>
-              <span class="text-image margin-bottom-4">capacity</span>
-            </div>
-          </div>
-
-        </div>
+        <h2 style="color:black!important">Shelters and rescue routes</h2>
+        <div id="sheltersList" class="container-news"></div>
       </div>
     </div>
     <sidenavbar-component></sidenavbar-component>

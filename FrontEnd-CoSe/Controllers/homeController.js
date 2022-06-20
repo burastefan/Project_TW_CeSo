@@ -1,6 +1,7 @@
 const pageSize = 8;
 var curPage;
 var eventsData = [];
+var sheltersData = [];
 var userInfo = {};
 
 async function onInitialized(userData) {
@@ -10,10 +11,16 @@ async function onInitialized(userData) {
     //Get events from database
     eventsData = await getEvents();
 
+    //Get shelters from database
+    sheltersData = await getShelters();
+
     //Get events from API -- TODO
 
     //Render Events Table
     renderEventTable(1);
+
+    //Render Shelters List
+    renderSheltersList()
 
     //Loading Panel for loading table data
     document.getElementById("loader").style.display = "none";
@@ -26,6 +33,19 @@ async function getEvents()  {
     if (response.status == 200) {
         const data = await response.json();
         console.log('Get Events Data: ', data);
+        return data;
+    }
+
+    return [];
+}
+
+async function getShelters()  {
+    const response = await fetch('http://localhost:5000/api/shelters');
+    console.log('Get Shelters Response: ', response);
+    
+    if (response.status == 200) {
+        const data = await response.json();
+        console.log('Get Shelters Data: ', data);
         return data;
     }
 
@@ -411,6 +431,31 @@ async function editEvent(event) {
     const cancelButton = document.getElementById('cancelEditButton');
     cancelButton.onclick = function() {
         editEventModal.close();
+    }
+}
+
+function renderSheltersList() {
+    const sheltersList = document.getElementById("sheltersList");
+
+    for (let i = 0; i < sheltersData.length; i++) {
+        const shelter = document.createElement('div');
+        shelter.className = "container-content-news flex-space-between-center";
+        shelter.innerHTML = 
+        `
+        <div class="flex-center-row">
+            <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
+            <div class="flex-column">
+            <span class="input-title margin-bottom-20">${sheltersData[i].name}</span>
+            <span class="text-image margin-bottom-4">Shelter for ${sheltersData[i].category}</span>
+            </div>
+        </div>
+        <div class="flex-column">
+            <span class="input-title margin-bottom-20">${sheltersData[i].location}</span>
+            <span class="text-image margin-bottom-4">Capacity: ${sheltersData[i].capacity}</span>
+        </div>
+        `;
+
+        sheltersList.append(shelter);
     }
 }
 

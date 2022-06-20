@@ -25,6 +25,10 @@ async function getEvents(req, res) {
             res.writeHead(200, jsonType);
             res.end(JSON.stringify(eventsParsed));
         }
+        else {
+            res.writeHead(404, jsonType);
+            res.end(JSON.stringify({ message: 'No civilian events found' }));
+        }
     }
     catch (error) {
         console.log('Error: ', error);

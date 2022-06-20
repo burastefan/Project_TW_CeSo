@@ -55,8 +55,8 @@ function getEmailUsersByLocation(location) {
             if (error) {
               reject(error.message);
             }
-            if (rowCount != 0) {
-              reject("No users found");
+            if (rowCount == 0) {
+              resolve(false);
             }
           }
         );

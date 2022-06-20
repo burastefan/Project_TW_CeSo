@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-  <script src="./events.js" async></script>
+  <script src="../../Controllers/eventsController.js"></script>
   <script src="../../Scripts/navbar.js"></script>
   <script src="../../Scripts/snackbar.js"></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
@@ -110,6 +110,10 @@
     async defer></script>
   <script>
     document.addEventListener('submit', (event) => onSubmitHandler(event));
+
+    function initializeAutocompleteField() {
+      new google.maps.places.Autocomplete(document.getElementById('autocompleteLocation'));
+    }
   </script>
   
 </body>

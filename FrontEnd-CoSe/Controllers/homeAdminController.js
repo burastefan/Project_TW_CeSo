@@ -36,8 +36,12 @@ async function getCivilianEvents()  {
     
     if (response.status == 200) {
         const data = await response.json();
-        console.log('Cet Civilian Events Data: ', data);
+        console.log('Get Civilian Events Data: ', data);
         return data;
+    }
+    else if (response.status == 404) {
+        const data = await response.json();
+        console.log('Get Civilian Events Data: ', data);
     }
 
     return [];

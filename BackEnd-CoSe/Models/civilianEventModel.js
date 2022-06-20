@@ -16,8 +16,9 @@ function findAll() {
                         if (err) {
                             reject(err.message);
                         }
+                        console.log(rowCount);
                         if (rowCount == 0) {
-                            reject(`No civilian events were found`);
+                            resolve(false);
                         }
                     }
                 );

@@ -24,7 +24,7 @@ function findAll() {
                     }
                 );
                 
-                const response = "";
+                var response = "";
 
                 request.on("row", (rows) => {
                     rows.forEach(row => {

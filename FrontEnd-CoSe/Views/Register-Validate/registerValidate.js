@@ -32,12 +32,12 @@ async function registerValidate(userValidate) {
     console.log("Response", response);
 
     if (response.status == 201) {
-      snackbar(document, "Your account was activate with succes!!!");
+      snackbar(document, "Your account was activated with succes!");
       setTimeout(function () {
         location.href = "../Login/login.html";
       }, 2500);
     } else {
-      snackbar(document, "User register validate with unsucces!!!");
+      snackbar(document, "User register validate with unsucces!");
     }
   } catch (error) {
     console.log(error);

@@ -48,3 +48,15 @@ async function changePasswordUser(event) {
         console.log(error);
     }
 }
+
+function onPasswordChange() {
+    const password = document.querySelector('input[name=newPassword]');
+    const confirm = document.querySelector('input[name=confirmPassword]');
+    if (confirm.value === password.value) {
+      password.setCustomValidity('');
+      confirm.setCustomValidity('');
+    } else {
+      password.setCustomValidity('Passwords do not match');
+      confirm.setCustomValidity('Passwords do not match');
+    }
+  }

@@ -1,5 +1,6 @@
 const Event = require('../Models/eventModel')
 const { jsonType } = require('../Utils/headerTypes')
+const { alertPopulationMail } = require('../Services/emailService')
 
 async function getEvents(req, res) {
     try {
@@ -68,6 +69,9 @@ async function insertEvent(event, req, res) {
 
         console.log("Event created succesfully");
         console.log("Event: ", event);
+
+        //Alert civilians who have the same location as the event
+        await alertPopulationMail(event);
 
         res.writeHead(201, jsonType);
         res.end(JSON.stringify(event));

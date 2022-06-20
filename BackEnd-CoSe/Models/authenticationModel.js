@@ -1,8 +1,8 @@
 const dbContext = require("../Utils/dbContext");
 const { Request } = require("tedious");
 const TYPES = require("tedious").TYPES;
-const nodemailer = require("nodemailer");
 const randomString = require("randomstring");
+const { sendVerificationCodeMail } = require('../Services/emailService')
 
 function getUserId(email) {
   return new Promise((resolve, reject) => {
@@ -41,35 +41,6 @@ function getUserId(email) {
   });
 }
 
-async function sendMail(mail, code) {
-  return new Promise(function (resolve, reject) {
-    var transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 465,
-      seecure: true,
-      auth: {
-        user: "tudorsibura@gmail.com",
-        pass: "fjnpwtxdvwcovfiq",
-      },
-    });
-    var mailOptions = {
-      from: "tudorsibura@gmail.com",
-      to: mail,
-      subject: "Validation code",
-      text: "Use this code: " + code + " to validate your account!",
-    };
-    transporter.sendMail(mailOptions, function (error, info) {
-      if (error) {
-        console.log(error);
-        reject(false);
-      } else {
-        resolve(true);
-        console.log("Email sent: " + info.response);
-      }
-    });
-  });
-}
-
 async function generateCode(email) {
   const userId = await getUserId(email);
 
@@ -102,7 +73,7 @@ async function generateCode(email) {
 
           try {
             connection.execSql(request);
-            sendMail(email, code);
+            sendVerificationCodeMail(email, code);
 
             request.on("requestCompleted", function () {
               resolve(email);
@@ -170,13 +141,15 @@ function addUser(user) {
                         firstName,
                         lastName, 
                         email,
-                        password
+                        password,
+                        location
                         ) 
                         VALUES(
                             @firstName,
                             @lastName,
                             @email,
-                            @password
+                            @password,
+                            @location
                         )`,
           (err) => {
             if (err) {
@@ -190,6 +163,7 @@ function addUser(user) {
         request.addParameter("lastName", TYPES.VarChar, user.lastName);
         request.addParameter("email", TYPES.VarChar, user.email);
         request.addParameter("password", TYPES.VarChar, user.password);
+        request.addParameter("location", TYPES.NVarChar, user.location);
 
         try {
           connection.execSql(request);

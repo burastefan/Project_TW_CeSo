@@ -56,12 +56,12 @@
 
           <div class="register-flex-column">
             <label class="register-input-title">Password</label>
-            <input class="input-register" id="password" name="password" placeholder="Password" type="password" required />
+            <input class="input-register" id="password" name="password" placeholder="Password" type="password" minlength="8" onChange="onPasswordChange()" required />
           </div>
 
           <div class="register-flex-column">
             <label class="register-input-title">Confirm password</label>
-            <input class="input-register" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" type="password" required />
+            <input class="input-register" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" type="password" minlength="8" onChange="onPasswordChange()" required />
           </div>
 
           <div class="register-flex-row-center">

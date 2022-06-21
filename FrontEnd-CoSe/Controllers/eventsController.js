@@ -1,3 +1,18 @@
+async function onInitialized() {
+    //Get User Info (Role, Name, etc.)
+    const userData = await getUserByEmail();
+
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("eventsComponent").style.display = "block";
+    
+    //Initialize NavBar
+    initializeNavbar(userData);
+
+    document.addEventListener('submit', (event) => onSubmitHandler(event));
+
+    initializeAutocompleteField();
+}
+
 async function onSubmitHandler(e) {
     const form = e.target
 
@@ -60,4 +75,8 @@ async function createEvent(event) {
     } catch(error) {
         console.log(error)
     }
+}
+
+function initializeAutocompleteField() {
+    new google.maps.places.Autocomplete(document.getElementById('autocompleteLocation'));
 }

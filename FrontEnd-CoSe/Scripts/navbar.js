@@ -76,3 +76,13 @@ function clearLocalStorage() {
   localStorage.clear();
   location.href="../Login/login.html";
 }
+
+function initializeNavbar(userData) {
+    if (userData) {
+      document.getElementById("userNameNav").innerHTML = userData.firstName + " " + userData.lastName;
+      document.getElementById("userRoleNav").innerHTML = userData.roles;
+    if (userData.roles === Roles.AUTHORITY) {
+      document.getElementById("addShelters").style.display = "block";
+    }
+  }
+}

@@ -29,7 +29,7 @@ class NavBar extends HTMLElement {
                 <li style="padding: 0">
                   <a href="#" style="padding: 2px" onclick="handleUserDropdownClick()">
                     <img
-                      src="../../images/profile_photo.png"
+                      src="../../images/civilian.png"
                       width="43"
                       height="43"
                       id="profilePic"
@@ -44,16 +44,16 @@ class NavBar extends HTMLElement {
             <a>
               <div class="flex-row">
               <img
-              src="../../images/profile_photo.png"
+              src="../../images/civilian.png"
               width="43"
               height="43"
               id="profilePic"
               /><div class="flex-column">
-                  <div class="profile-title">
-                  Jessica Alba
+                  <div id="userNameNav" class="profile-title">
+                  Unknow User
                   </div>
-                  <div class="role-title">
-                  Civilian
+                  <div id="userRoleNav" class="role-title">
+                  No role
                   </div>
                 </div>
               </div>

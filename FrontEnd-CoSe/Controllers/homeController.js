@@ -24,6 +24,9 @@ async function onInitialized(userData) {
 
     //Loading Panel for loading table data
     document.getElementById("loader").style.display = "none";
+
+    //Loading Panel for shelters list
+    document.getElementById("sheltersLoader").style.display = "none";
 }
 
 async function getEvents()  {
@@ -508,21 +511,6 @@ function downloadCSVFile(csv, filename) {
 	download_link.click();
 }
 
-async function getUserByEmail()  {
-    const response = await fetch(`http://localhost:5000/api/users?email=${localStorage.email}`, {
-        method: 'GET', 
-        headers: new Headers({
-            'Authorization': 'Bearer ' + localStorage.jwt
-        }), 
-    });
-    console.log("User data response: ", response);
-
-    if (response.status == 200) {
-        const data = await response.json();
-        console.log("User data: ", data);
-
-        return data[0];
-    }
-
-    return false;
+function viewMap() {
+    location.href = "../Map/Map.html";
 }

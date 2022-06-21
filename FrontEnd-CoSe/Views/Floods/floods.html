@@ -15,14 +15,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/1fede1a164.js" crossorigin="anonymous"></script>
   <script src="../../Controllers/floodsController.js"></script>
+  <script src="../../Controllers/userController.js" async></script>
+  <script src="../../Scripts/userRoles.js"></script>
   <script src="../../Scripts/navbar.js"></script>
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
+  <script src="../../components/loadingScreenComponent.js" type="text/javascript" defer></script>
   <script src="../../components/miniNavbarComponent.js" type="text/javascript" defer></script>
 </head>
 
 <body>
-  <div class="container">
+  <loading-screen></loading-screen>
+  <div id="floodsComponent" class="container" style="display: none;">
     <navbar-component class="displayNavbar"></navbar-component>
     <div class="page-row">
       <div class="map-flex-space-between-center">

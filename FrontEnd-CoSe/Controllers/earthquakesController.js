@@ -4,13 +4,20 @@ var curPage = 1
 var earthquakes = []
 
 async function onInitialized() {
+    //Get User Info (Role, Name, etc.)
+    const userData = await getUserByEmail();
+
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("earthquakesComponent").style.display = "block";
+    
+    //Initialize NavBar
+    initializeNavbar(userData);
+
     earthquakes = await getEarthquakesApi()
 
     initMap()
     renderEventTable(1)
     renderCounts()
-
-    //LOADING PANEL
 }
 
 async function getEarthquakesApi() {

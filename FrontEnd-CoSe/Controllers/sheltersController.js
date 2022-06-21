@@ -1,3 +1,18 @@
+async function onInitialized() {
+  //Get User Info (Role, Name, etc.)
+  const userData = await getUserByEmail();
+
+  document.getElementById("loadingScreen").style.display = "none";
+  document.getElementById("sheltersComponent").style.display = "block";
+  
+  //Initialize NavBar
+  initializeNavbar(userData);
+
+  document.addEventListener('submit', (event) => onSubmitHandlerShelters(event));
+
+  initializeAutocompleteField();
+}
+
 async function onSubmitHandlerShelters(e) {
   const form = e.target;
 
@@ -56,4 +71,8 @@ async function createShelter(shelter) {
   } catch (error) {
     console.log(error);
   }
+}
+
+function initializeAutocompleteField() {
+  new google.maps.places.Autocomplete(document.getElementById('autocompleteLocation'));
 }

@@ -17,6 +17,7 @@
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="../../Controllers/homeController.js" async></script>
   <script src="../../Controllers/homeAdminController.js" async></script>
+  <script src="../../Controllers/userController.js" async></script>
   <script src="../../Scripts/filters.js" defer></script>
   <script src="../../Scripts/navbar.js" async></script>
   <script src="../../Scripts/userRoles.js" async></script>
@@ -24,14 +25,12 @@
   <script src="../../components/navbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/sideNavbarComponent.js" type="text/javascript" defer></script>
   <script src="../../components/miniNavbarComponent.js" type="text/javascript" defer></script>
+  <script src="../../components/loadingScreenComponent.js" type="text/javascript" defer></script>
 
 </head>
 
 <body>
-  <div id="loadingScreen">
-    <div id="homeLoader" class="loader"></div>
-    <div>Loading... Please wait</div>
-  </div>  
+  <loading-screen></loading-screen>
   <div id="homeComponent" class="page-row" style="display: none;">
     <div class="container">
       <navbar-component class="displayNavbar"></navbar-component>
@@ -57,9 +56,13 @@
               <span id="filtersText" class="text-image margin-right-8">Filters</span>
               <img id="filtersImage" src="../../images/filterIcon.svg" width="17" height="17">
             </div>
-            <div class="filter-container flex-center-row" onclick="htmlToCSV('events')">
+            <div class="filter-container flex-center-row" style="margin-right: 5px;" onclick="htmlToCSV('events')">
               <span id="filtersText" class="text-image margin-right-8">Export</span>
               <i class="fa-solid fa-file-export" width="17" height="17"></i>
+            </div>
+            <div class="filter-container flex-center-row" style="margin-right: 5px;" onclick="viewMap()">
+              <span id="filtersText" class="text-image margin-right-8">View map</span>
+              <i class="fa-solid fa-map-location-dot" width="17" height="17"></i>
             </div>
           </div>
         </div>
@@ -92,6 +95,7 @@
 
       <div class="second-content">
         <h2 style="color:black!important">Shelters and rescue routes</h2>
+        <div id="sheltersLoader" class="loader"></div> 
         <div id="sheltersList" class="container-news"></div>
       </div>
     </div>
@@ -157,17 +161,22 @@
       //Get User Info (Role, Name, etc.)
       const userData = await getUserByEmail();
 
+      console.log(userData); //false daca utlizatorul nu ese conectat
+
       document.getElementById("loadingScreen").style.display = "none";
       document.getElementById("homeComponent").style.display = "block";
+      userNameNav
 
       //Initialize Events Table
       onInitialized(userData);
+
+      //Initialize NavBar
+      initializeNavbar(userData);
 
       //Initialize Admin Table if user role is Authority
       if (userData.roles === Roles.AUTHORITY) {
         document.getElementById("civilianEventsTitle").style.display = "block";
         document.getElementById("adminLoader").style.display = "block";
-        document.getElementById("addShelters").style.display = "block";
         
         onAdminInitalized(userData);
       }

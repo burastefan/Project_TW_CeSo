@@ -4,13 +4,20 @@ var eventsData = []
 var filterStatus = 'all'
 
 async function onInitialized() {
+    //Get User Info (Role, Name, etc.)
+    const userData = await getUserByEmail();
+
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("mapComponent").style.display = "block";
+    
+    //Initialize NavBar
+    initializeNavbar(userData);
+
     eventsData = await getEvents()
 
     initMap()
     renderEventTable(1, eventsData)
     renderCounts()
-
-    //LOADING PANEL
 }
 
 async function getEvents() {

@@ -78,11 +78,14 @@ function clearLocalStorage() {
 }
 
 function initializeNavbar(userData) {
-    if (userData) {
-      document.getElementById("userNameNav").innerHTML = userData.firstName + " " + userData.lastName;
-      document.getElementById("userRoleNav").innerHTML = userData.roles;
+  if (userData) {
+    document.getElementById("userNameNav").innerHTML = userData.firstName + " " + userData.lastName;
+    document.getElementById("userRoleNav").innerHTML = userData.roles;
     if (userData.roles === Roles.AUTHORITY) {
-      document.getElementById("addShelters").style.display = "block";
+      document.getElementById("addSheltersNav").style.display = "block";
     }
+  }
+  else {
+    document.getElementById("addEventsNav").style.display = "none";
   }
 }

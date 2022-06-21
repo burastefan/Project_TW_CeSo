@@ -17,8 +17,8 @@ class NavBar extends HTMLElement {
               </div>
               <div class="flex-center-row">
                 <li><a href="../Home/home.html">Home</a></li>
-                <li><a href="../Events/events.html">Add Event</a></li>
-                <li id="addShelters" style="display: none;"><a href="../Shelters/shelters.html">Add Shelter</a></li>
+                <li id="addEventsNav"><a href="../Events/events.html">Add Event</a></li>
+                <li id="addSheltersNav" style="display: none;"><a href="../Shelters/shelters.html">Add Shelter</a></li>
                 <li><a href="../Map/map.html">Map</a></li>
                 <li><a href="../Earthquakes/earthquakes.html">Earthquakes</a></li>
                 <li><a href="../Floods/floods.html">Floods</a></li>

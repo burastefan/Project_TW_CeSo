@@ -176,9 +176,47 @@ function remove(id) {
     })  
 }
 
+function getCivilianId(email) {
+    return new Promise((resolve, reject) => {
+      const connection = dbContext.connect();
+  
+      connection.on("connect", (err) => {
+        if (err) {
+          reject(err.message);
+        } else {
+          const request = new Request(
+            `SELECT id FROM Users WHERE email = @email`,
+            (error) => {
+              if (error) {
+                reject(error.message);
+              }
+            }
+          );
+  
+          request.addParameter("email", TYPES.VarChar, email);
+  
+          try {
+            connection.execSql(request);
+  
+            request.on("row", (rows) => {
+              rows.forEach((row) => {
+                response = row.value;
+                resolve(response);
+              });
+            });
+          } catch (error) {
+            reject(error);
+          }
+        }
+      });
+      connection.connect();
+    });
+  }
+
 module.exports = {
     findAll,
     findById,
     insert,
-    remove
+    remove,
+    getCivilianId
 }

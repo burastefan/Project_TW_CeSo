@@ -154,34 +154,11 @@
 
   <dialog id="editModal"></dialog>
 
+  <dialog id="editShelterModal"></dialog>
+
   <div id="snackbar"></div>
 
   <script>
-    async function initialize() {
-      //Get User Info (Role, Name, etc.)
-      const userData = await getUserByEmail();
-
-      console.log(userData); //false daca utlizatorul nu ese conectat
-
-      document.getElementById("loadingScreen").style.display = "none";
-      document.getElementById("homeComponent").style.display = "block";
-      userNameNav
-
-      //Initialize Events Table
-      onInitialized(userData);
-
-      //Initialize NavBar
-      initializeNavbar(userData);
-
-      //Initialize Admin Table if user role is Authority
-      if (userData.roles === Roles.AUTHORITY) {
-        document.getElementById("civilianEventsTitle").style.display = "block";
-        document.getElementById("adminLoader").style.display = "block";
-        
-        onAdminInitalized(userData);
-      }
-    }
-    
     initialize();
   </script>
 

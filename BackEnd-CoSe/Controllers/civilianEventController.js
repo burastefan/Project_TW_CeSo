@@ -41,11 +41,12 @@ async function getCivilianEvents(req, res) {
 async function insertCivilianEvent(event, req, res) {
     try {
         event.date = new Date(event.date);
+        event.userId = await CivilianEvent.getCivilianId(event.userEmail)
 
         await CivilianEvent.insert(event);
 
-        console.log("Event created succesfully");
-        console.log("Event: ", event);
+        console.log("Civilian Event created succesfully");
+        console.log("Civilian Event: ", event);
 
         res.writeHead(201, jsonType);
         res.end(JSON.stringify(event));
@@ -54,7 +55,7 @@ async function insertCivilianEvent(event, req, res) {
         console.log('Error: ', error);
 
         res.writeHead(400, jsonType);
-        res.end(JSON.stringify({ message: 'Error in creating event' }));
+        res.end(JSON.stringify({ message: 'Civilian Error in creating event' }));
     }
 }
 
@@ -83,6 +84,27 @@ async function transferCivilianEvent(event, req, res) {
 
         res.writeHead(400, jsonType);
         res.end(JSON.stringify({ message: 'Error in creating event' }));
+    }
+}
+
+async function deleteCivilianEvent(id, req, res) {
+    try {
+        const event = await CivilianEvent.findById(id);
+
+        if (event) {
+            await CivilianEvent.remove(id);
+
+            console.log(`Civilian Event with id ${id} deleted`);
+
+            res.writeHead(200, jsonType);
+            res.end(JSON.stringify({ message: 'Civilian Event has been deleted' }));
+        }
+    }
+    catch (error) {
+        console.log('Error: ', error);
+
+        res.writeHead(404, jsonType);
+        res.end(JSON.stringify({ message: 'Civilian Event not found' }));
     }
 }
 

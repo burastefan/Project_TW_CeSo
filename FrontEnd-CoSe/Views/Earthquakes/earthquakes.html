@@ -34,12 +34,6 @@
           <mininavbar-component style="width: 100%"></mininavbar-component>
           <div class="first-section--title">
             <h1>Earthquakes</h1>
-            <select class="map-input-title">
-              <option value="test1">10/03/2022</option>
-              <option value="test2">Test 2</option>
-              <option value="test3">Test 3</option>
-              <option value="test4">Test 4</option>
-            </select>
           </div>
           <div class="first-section--stats">
             <div class="stats--new map-input-title">
@@ -68,6 +62,9 @@
               </div>
             </div>
           </div>
+
+          <div id="loader" class="loader"></div> 
+
           <div id="eventsList"></div>
           <div class="flex-center">
             <button class="page-link" id="prevButton" onclick="previousPage()" style="visibility: hidden">Prev</button>

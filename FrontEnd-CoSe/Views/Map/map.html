@@ -35,13 +35,7 @@
         <div class="first-section">
           <mininavbar-component style="width: 100%"></mininavbar-component>
           <div class="first-section--title">
-            <h1>Search for incidents</h1>
-            <select class="map-input-title">
-              <option value="test1">10/03/2022</option>
-              <option value="test2">Test 2</option>
-              <option value="test3">Test 3</option>
-              <option value="test4">Test 4</option>
-            </select>
+            <h1>All events</h1>
           </div>
           <div class="first-section--stats">
             <div class="stats--new map-input-title">
@@ -76,6 +70,8 @@
             <div id="pendingSelected" class="filter--not__selected" onclick="filterByStatus('pending')">In progress</div>
             <div id="completedSelected" class="filter--not__selected" onclick="filterByStatus('completed')">Completed</div>
           </div>
+
+          <div id="loader" class="loader"></div> 
 
           <div id="eventsList"></div>
           <div class="flex-center">

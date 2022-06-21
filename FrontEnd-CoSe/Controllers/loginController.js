@@ -30,17 +30,19 @@ async function loginUser(userLogin) {
         body: JSON.stringify(userLogin),
       }
     );
-
+    console.log(response);
     const responseData = await response.json();
-    const token = responseData.token;
 
     if (response.status == 202) {
+      const token = responseData.token;
       localStorage.setItem("jwt", token);
       localStorage.setItem("email", userLogin.email);
-      snackbar(document, "Login with success!!!");
       location.href = "../Home/home.html";
+    } else if (response.status == 401) {
+      console.log(responseData);
+      snackbar(document, responseData.message);
     } else {
-      snackbar(document, "Login with unsuccess!!!");
+      snackbar(document, "Error! Could not login!");
     }
   } catch (error) {
     console.log(error);

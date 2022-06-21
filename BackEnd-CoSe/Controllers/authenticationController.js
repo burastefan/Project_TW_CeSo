@@ -41,14 +41,14 @@ async function registerUser(user, req, res) {
   try {
     user.password = hashPassword(user.password);
     const userExist = await authenticationUser.checkEmail(user.email);
-    const userRegister = await authenticationUser.addUser(user);
 
-    if (userExist != 0) {
+    if (userExist) {
       res.writeHead(409, jsonType);
       res.end(
         JSON.stringify({ message: "This email address is already being used!" })
       );
     } else {
+      const userRegister = await authenticationUser.addUser(user);
       if (userRegister) {
         await authenticationUser.generateCode(userRegister.email);
         console.log("Send Email generated code!");
@@ -62,7 +62,7 @@ async function registerUser(user, req, res) {
     }
   } catch (error) {
     console.log("Error: ", error);
-    res.writeHead(400, jsonType);
+    res.writeHead(401, jsonType);
     res.end(JSON.stringify({ message: "Error in Registration pass!" }));
   }
 }
@@ -96,6 +96,7 @@ async function registerValidate(user, req, res) {
 async function loginUser(user, req, res) {
   try {
     const passwordExist = await authenticationUser.login(user.email);
+    console.log(passwordExist);
     if (passwordExist) {
       const validPassword = bcrypt.compareSync(user.password, passwordExist);
       if (validPassword) {
@@ -106,12 +107,24 @@ async function loginUser(user, req, res) {
         res.writeHead(202, jsonType);
         res.end(JSON.stringify(jsonObject));
       }
+      else {
+        res.writeHead(401, jsonType);
+        res.end(
+          JSON.stringify({ message: "The email/password you inserted is incorrect!" })
+        );
+      }
+    }
+    else {
+      res.writeHead(401, jsonType);
+      res.end(
+        JSON.stringify({ message: "The email/password you inserted is incorrect!" })
+      );
     }
   } catch (error) {
     console.log("Error: ", error);
-    res.writeHead(400, jsonType);
+    res.writeHead(401, jsonType);
     res.end(
-      JSON.stringify({ message: "Error in Registration Validater pass!" })
+      JSON.stringify({ message: "The email/password you inserted is incorrect!" })
     );
   }
 }
@@ -123,23 +136,43 @@ async function changePassword(user, req, res) {
     if (emailExist > 0) {
       const passwordExist = await authenticationUser.login(user.email);
 
-      const validPassword = bcrypt.compareSync(
-        user.currentPassword,
-        passwordExist
-      );
+      if (passwordExist) {
+        const validPassword = bcrypt.compareSync(
+          user.currentPassword,
+          passwordExist
+        );
 
-      if (validPassword) {
-        user.newPassword = hashPassword(user.newPassword);
-        await authenticationUser.updatePassword(user);
-        res.writeHead(200, jsonType);
-        res.end(JSON.stringify({ message: "Change password with succes!!!" }));
+        if (validPassword) {
+          user.newPassword = hashPassword(user.newPassword);
+          await authenticationUser.updatePassword(user);
+          res.writeHead(200, jsonType);
+          res.end(JSON.stringify({ message: "Change password with succes!!!" }));
+        }
+        else {
+          res.writeHead(401, jsonType);
+          res.end(
+            JSON.stringify({ message: "The email/password you inserted is incorrect!" })
+          );
+        }
       }
+      else {
+        res.writeHead(401, jsonType);
+        res.end(
+          JSON.stringify({ message: "The email/password you inserted is incorrect!" })
+        );
+      }
+    }
+    else {
+      res.writeHead(401, jsonType);
+      res.end(
+        JSON.stringify({ message: "The email/password you inserted is incorrect!" })
+      );
     }
   } catch (error) {
     console.log("Error: ", error);
     res.writeHead(400, jsonType);
     res.end(
-      JSON.stringify({ message: "Error in Registration Validater pass!" })
+      JSON.stringify({ message: "Error! Could not change password!" })
     );
   }
 }

@@ -5,7 +5,7 @@ async function getShelters(req, res) {
     try {
         const shelters = await Shelter.findAll();
 
-        console.log("Shelters: ", shelters);
+        console.log("Shelters: ", JSON.parse(shelters));
         res.writeHead(200, jsonType);
         res.end(shelters);
 

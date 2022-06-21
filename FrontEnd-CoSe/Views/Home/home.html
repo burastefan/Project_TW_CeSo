@@ -28,7 +28,11 @@
 </head>
 
 <body>
-  <div id="homeContent" class="page-row" style="display: none;">
+  <div id="loadingScreen">
+    <div id="homeLoader" class="loader"></div>
+    <div>Loading... Please wait</div>
+  </div>  
+  <div id="homeComponent" class="page-row" style="display: none;">
     <div class="container">
       <navbar-component class="displayNavbar"></navbar-component>
       <mininavbar-component style="width: 100%"></mininavbar-component>
@@ -72,6 +76,7 @@
             <button class="page-link" id="nextButton" onclick="nextPage()" style="visibility: hidden">Next</button>
         </div>
 
+        <h2 id="civilianEventsTitle" style="display: none;">Events submitted by civilians</h2>
         <div id="adminEventsTitle"></div>
         <table id="adminEventsTable">
           <thead id="adminTableHead"></thead>
@@ -152,25 +157,19 @@
       //Get User Info (Role, Name, etc.)
       const userData = await getUserByEmail();
 
-      document.getElementById("homeContent").style.display = "block";
+      document.getElementById("loadingScreen").style.display = "none";
+      document.getElementById("homeComponent").style.display = "block";
 
-      //Check if user is admin
+      //Initialize Events Table
+      onInitialized(userData);
+
+      //Initialize Admin Table if user role is Authority
       if (userData.roles === Roles.AUTHORITY) {
-        //Show Add shelter option on navbar
-        document.getElementById("addShelters").style.display = "block";
-        //Show admin table title
-        const tableTitle = document.getElementById('adminEventsTitle');
-        tableTitle.innerHTML = `<h2>Events submitted by civilians</h2>`;
+        document.getElementById("civilianEventsTitle").style.display = "block";
         document.getElementById("adminLoader").style.display = "block";
+        document.getElementById("addShelters").style.display = "block";
         
-        //Initialize Event Table
-        onInitialized(userData);
-        //Initialize Admin Table
         onAdminInitalized(userData);
-      }
-      else {
-        //Initialize Events Table for other users
-        onInitialized(userData);
       }
     }
     

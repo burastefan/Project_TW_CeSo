@@ -102,8 +102,8 @@ function checkEmail(email) {
             if (err) {
               reject(err.message);
             }
-            if (rowCount != 0) {
-              reject("Account already exist!");
+            if (rowCount == 0) {
+              resolve(false);
             }
           }
         );
@@ -302,8 +302,8 @@ function login(email) {
             if (error) {
               reject(error.message);
             }
-            if (rowCount != 0) {
-              reject("Password didn't exist!");
+            if (rowCount == 0) {
+              resolve(false);
             }
           }
         );

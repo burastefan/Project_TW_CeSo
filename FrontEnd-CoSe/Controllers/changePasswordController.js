@@ -33,15 +33,17 @@ async function changePasswordUser(event) {
         console.log('Response', response);
 
         if(response.status == 200) {
-            console.log('aicii uitema, sunt intraaat');
-            // alert('Change password with succes!!!');
-            snackbar(document, "Change password with succes!!!");
+            snackbar(document, "Password was changed successfully!");
             setTimeout(function () {
               location.href = "../Login/login.html";
             }, 2500);
         }
-        else {
-            alert('Change password with unsucces!!!');
+        else if (response.status == 401) {
+            const responseData = await response.json();
+            console.log(responseData);
+            snackbar(document, responseData.message);
+        } else {
+            snackbar(document, "Error! Could not change password!");
         }
 
     } catch (error) {

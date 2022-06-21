@@ -8,12 +8,12 @@ async function onInitialized() {
     //Initialize NavBar
     initializeNavbar(userData);
 
-    document.addEventListener('submit', (event) => onSubmitHandler(event));
+    document.addEventListener('submit', (event) => onSubmitHandler(event, userData));
 
     initializeAutocompleteField();
 }
 
-async function onSubmitHandler(e) {
+async function onSubmitHandler(e, userData) {
     const form = e.target
 
     // Prevent the default form submit
@@ -31,19 +31,37 @@ async function onSubmitHandler(e) {
     const code = formData.get('eventCode')
     const status = formData.get('eventStatus')
 
-    const event = {
-      'name': title,
-      'status': status,
-      'location': location,
-      'category': category,
-      'code': code,
-      'date': date,
-      'description': description
+
+    if (userData.roles == 'AUTHORITY') {
+        const event = {
+        'name': title,
+        'status': status,
+        'location': location,
+        'category': category,
+        'code': code,
+        'date': date,
+        'description': description
+        }
+
+        console.log('Event: ', event)
+
+        await createEvent(event)
+    } else if (userData.roles == 'CIVILIAN') {
+        const event = {
+        'name': title,
+        'status': status,
+        'location': location,
+        'category': category,
+        'code': code,
+        'date': date,
+        'description': description,
+        'userEmail': localStorage.email
+        }
+    
+        console.log('Event: ', event)
+
+        await createCivilianEvent(event)
     }
-
-    console.log('Event: ', event)
-
-    await createEvent(event)
 }
 
 async function createEvent(event) {
@@ -67,6 +85,37 @@ async function createEvent(event) {
         else if (response.status == 404) {
             //afisare eroare creare
             snackbar(document, 'Error in creating event!');
+        }
+        else if (response.status == 401) {
+            //afisare mesaj unauthorized
+            snackbar(document, 'Unauthorized!');
+        }
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+async function createCivilianEvent(event) {
+    try {
+        const response = await fetch('http://localhost:5000/api/events/civilian', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.jwt
+            },
+            body: JSON.stringify(event),
+        })
+        console.log('Response: ', response)
+
+        if (response.status == 201) {
+            const data = await response.json()
+            console.log('Data: ', data)
+            //afisare mesaj creat cu succes
+            snackbar(document, 'Civilian Event created successfully!');
+        }
+        else if (response.status == 404) {
+            //afisare eroare creare
+            snackbar(document, 'Error in creating civilian event!');
         }
         else if (response.status == 401) {
             //afisare mesaj unauthorized

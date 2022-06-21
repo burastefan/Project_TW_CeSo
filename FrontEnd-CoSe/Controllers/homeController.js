@@ -1,8 +1,32 @@
 const pageSize = 8;
 var curPage;
 var eventsData = [];
+var earthquakesData = [];
+var floodsData = [];
 var sheltersData = [];
 var userInfo = {};
+
+async function initialize() {
+    //Get User Info (Role, Name, etc.)
+    const userData = await getUserByEmail();
+
+    document.getElementById("loadingScreen").style.display = "none";
+    document.getElementById("homeComponent").style.display = "block";
+
+    //Initialize Events Table
+    onInitialized(userData);
+
+    //Initialize NavBar
+    initializeNavbar(userData);
+
+    //Initialize Admin Table if user role is Authority
+    if (userData.roles === Roles.AUTHORITY) {
+        document.getElementById("civilianEventsTitle").style.display = "block";
+        document.getElementById("adminLoader").style.display = "block";
+        
+        onAdminInitalized(userData);
+    }
+}
 
 async function onInitialized(userData) {
     curPage = 1;
@@ -11,22 +35,35 @@ async function onInitialized(userData) {
     //Get events from database
     eventsData = await getEvents();
 
-    //Get shelters from database
-    sheltersData = await getShelters();
+    //Get earthquakes from API and concatenate with events array
+    earthquakesData = await getEarthquakesApi();
+    console.log("Earthquakes: ", earthquakesData);
+    eventsData = eventsData.concat(earthquakesData);
 
-    //Get events from API -- TODO
+    //Get floods from API and concatenate with events array
+    floodsData = await getFloodsApi();
+    console.log("Floods: ", floodsData);
+    eventsData = eventsData.concat(floodsData);
 
-    //Render Events Table
-    renderEventTable(1);
-
-    //Render Shelters List
-    renderSheltersList()
+    //Sort events desc by date of occurence
+    eventsData = eventsData.sort((e1, e2) => (new Date(e2.date) - new Date(e1.date)));
+    console.log("All events: ", eventsData);
 
     //Loading Panel for loading table data
     document.getElementById("loader").style.display = "none";
 
+    //Render Events Table
+    renderEventTable(1);
+
+    //Get shelters from database
+    sheltersData = await getShelters();
+
     //Loading Panel for shelters list
     document.getElementById("sheltersLoader").style.display = "none";
+
+    //Render Shelters List
+    renderSheltersList()
+   
 }
 
 async function getEvents()  {
@@ -34,8 +71,19 @@ async function getEvents()  {
     console.log('Get Events Response: ', response);
     
     if (response.status == 200) {
-        const data = await response.json();
+        let data = await response.json();
         console.log('Get Events Data: ', data);
+
+        data = data.map(event => {
+            const utcDate = new Date(event.date); // Get the UTC date
+            const eventDate = new Date(utcDate.getTime() - new Date().getTimezoneOffset() * 60000); // Convert it to local date
+
+            return {
+            ...event,
+            date: eventDate,
+            source: 'Local authorities'}
+        });
+
         return data;
     }
 
@@ -53,6 +101,71 @@ async function getShelters()  {
     }
 
     return [];
+}
+
+async function getEarthquakesApi() {
+    const response = await fetch('https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&limit=10')
+    console.log('Response: ', response)
+    
+    const data = await response.json()
+    console.log('Data: ', data)
+
+    const earthquakes = data.features.map(event => {
+        if (event.properties.mag < 2) {
+            var code = 'yellow';
+        } else if (event.properties.mag < 4) {
+            var code = 'orange';
+        } else {
+            var code = 'red';
+        }
+
+        return {
+            name: event.properties.title,
+            status: 'completed',
+            location: event.properties.place,
+            category: 'earthquake',
+            date: new Date(event.properties.time),
+            timeOfOccurence: new Date(event.properties.time).toLocaleTimeString('en-UK'),
+            dateOfOccurence: new Date(event.properties.time).toLocaleDateString('en-UK'),
+            code: code,
+            source: 'USGS Earthquake Catalog'
+        }
+    })
+
+    return earthquakes;
+}
+
+async function getFloodsApi() {
+    const response = await fetch('http://environment.data.gov.uk/flood-monitoring/id/floodAreas?_limit=10')
+    
+    const data = await response.json();
+
+    const floods = data.items.map(event => {
+        const random = Math.floor(Math.random() * 3);
+        if (random == 0) {
+            var code = 'yellow';
+        } else if (random == 1) {
+            var code = 'orange';
+        } else {
+            var code = 'red';
+        }
+
+        const utcDate = new Date().setUTCHours(0,0,0,0);
+
+        return {
+            name: event.label,
+            status: 'pending',
+            location: event.county,
+            category: 'flood',
+            date: new Date(utcDate),
+            timeOfOccurence: new Date(utcDate).toLocaleTimeString('en-UK'),
+            dateOfOccurence: new Date(utcDate).toLocaleDateString('en-UK'),
+            code: code,
+            source: 'Environment Agency Real Time Flood-Monitoring'
+        }
+    });
+
+    return floods;
 }
 
 function previousPage() {
@@ -108,6 +221,7 @@ function renderEventTable(page) {
             <th>Time of occurrence</th>
             <th>Date of occurrence</th>
             <th>Code</th>
+            <th>Source</th>
             <th>Actions</th>
         </tr>`;
     } else {
@@ -120,6 +234,7 @@ function renderEventTable(page) {
             <th>Time of occurrence</th>
             <th>Date of occurrence</th>
             <th>Code</th>
+            <th>Source</th>
         </tr>`;
     }
     
@@ -139,7 +254,7 @@ function renderEventTable(page) {
         const row = document.createElement('tr');
 
         let event = events[i];
-        
+
         const column1 = document.createElement('td');
         column1.innerHTML = event.name;
 
@@ -174,6 +289,9 @@ function renderEventTable(page) {
 
         const column7 = document.createElement('td');
 
+        const column8 = document.createElement('td');
+        column8.innerHTML = event.source;
+
         const code = document.createElement('button');
         code.className = "button";
         if (event.code == 'yellow') {
@@ -198,30 +316,33 @@ function renderEventTable(page) {
         row.append(column5);
         row.append(column6);
         row.append(column7);
+        row.append(column8);
 
         //If user is authority, give access to edit and delete actions
         if (userInfo.roles === Roles.AUTHORITY) {
-            const column8 = document.createElement('td');
+            const column9 = document.createElement('td');
 
             const editButton = document.createElement('i');
             editButton.className = 'fa-regular fa-pen-to-square hand-mouse';
 
             editButton.onclick = function() {
-                editEvent(event);
+                if (event.source === 'Local authorities')
+                    editEvent(event);
             }
 
-            column8.append(editButton);
+            column9.append(editButton);
 
             const deleteButton = document.createElement('i');
             deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-left-8';
 
             deleteButton.onclick = function() {
-                deleteEvent(event.id);
+                if (event.source === 'Local authorities')
+                    deleteEvent(event.id);
             }
 
-            column8.append(deleteButton);
+            column9.append(deleteButton);
 
-            row.append(column8);
+            row.append(column9);
         }
 
         tableBody.append(row);
@@ -287,6 +408,8 @@ async function deleteEvent(id) {
 }
 
 async function editEvent(event) {
+    console.log(event);
+
     const editEventModal = document.getElementById('editModal');
     editEventModal.innerHTML =
     `
@@ -308,7 +431,7 @@ async function editEvent(event) {
         <div class="flex-row">
             <div class="flex-column margin-bottom-24 margin-right-16">
             <label class="label-text margin-bottom-8">Time of occurrence:</label>
-            <input class="input-place" type="datetime-local" name="eventTime" value="${event.date}" required>
+            <input class="input-place" type="datetime-local" name="eventTime" value="${event.date.slice(0, -1)}" required>
             </div>
             <div class="flex-column margin-bottom-0">
             <label class="label-text margin-bottom-8" class="">Location</label>
@@ -388,13 +511,13 @@ async function editEvent(event) {
         const status = formData.get('eventStatus');
 
         const updatedEvent = {
-        'name': title,
-        'status': status,
-        'location': location,
-        'category': category,
-        'code': code,
-        'date': date,
-        'description': description
+            'name': title,
+            'status': status,
+            'location': location,
+            'category': category,
+            'code': code,
+            'date': date,
+            'description': description
         };
 
         console.log('Updated Event: ', updatedEvent);
@@ -446,7 +569,7 @@ function renderSheltersList() {
         shelter.innerHTML = 
         `
         <div class="flex-center-row">
-            <img src="../../images/STORM.png" class="margin-right-16" alt="stormImage"/>
+            <img src="../../images/${sheltersData[i].category}.png" class="margin-right-16" alt="stormImage" width=117 height=117/>
             <div class="flex-column">
             <span class="input-title margin-bottom-20">${sheltersData[i].name}</span>
             <span class="text-image margin-bottom-4">Shelter for ${sheltersData[i].category}</span>
@@ -458,7 +581,154 @@ function renderSheltersList() {
         </div>
         `;
 
+        //If user is authority, give access to edit and delete actions
+        if (userInfo.roles === Roles.AUTHORITY) {
+            const adminColumn = document.createElement('div');
+            adminColumn.className = "flex-column";
+
+            const editButton = document.createElement('i');
+            editButton.className = 'fa-regular fa-pen-to-square hand-mouse';
+
+            editButton.onclick = function() {
+                editShelter(sheltersData[i]);
+            }
+
+            adminColumn.append(editButton);
+
+            const deleteButton = document.createElement('i');
+            deleteButton.className = 'fa-regular fa-trash-can hand-mouse margin-top-8';
+
+            deleteButton.onclick = function() {
+                console.log(sheltersData[i]);
+            }
+
+            adminColumn.append(deleteButton);
+
+            shelter.append(adminColumn);
+        }
+
         sheltersList.append(shelter);
+    }
+}
+
+async function editShelter(shelter) {
+    console.log(shelter);
+
+    const editShelterModal = document.getElementById('editShelterModal');
+    editShelterModal.innerHTML =
+    `
+    <div class="flex-column margin-bottom-20">
+        <span class="margin-bottom-8 title-page">Edit shelter</span>
+    </div>
+    <form id="addEventForm" class="flex-column">
+    <div class="flex-column margin-bottom-24">
+        <label class="label-text margin-bottom-8">Shelter title</label>
+        <input class="input-place" type="text" name="shelterTitle" placeholder="Shelter title" value=${shelter.name} required />
+    </div>
+
+    <div class="flex-column margin-bottom-24">
+        <label class="label-text margin-bottom-8">Shelter description</label>
+        <textarea class="text-area" placeholder="Description" name="shelterDescription" rows="10">${shelter.description}</textarea>
+    </div>
+
+    <div class="flex-row">
+        <div class="flex-column margin-bottom-24 margin-right-16">
+        <label class="label-text margin-bottom-8" class="">Location</label>
+        <input id="autocompleteLocation" class="input-place" type="text" name="shelterLocation" placeholder="Location" value=${shelter.location} required />
+        </div>
+        <div class="flex-column margin-bottom-24 margin-right-16">
+        <label class="label-text margin-bottom-8" class="">Capacity</label>
+        <input class="input-place" type="number" name="shelterCapacity" placeholder="Capacity" value=${shelter.capacity} required />
+        </div>
+        <div class="flex-column margin-right-16 margin-bottom-0">
+        <label class="label-text margin-bottom-8 margin-right-16">Category</label>
+        <select class="input-place" name="shelterCategory" required>
+            <option value="fire">Fire</option>
+            <option value="flood">Flood</option>
+            <option value="earthquake">Earthquake</option>
+            <option value="storm">Storm</option>
+        </select>
+        </div>
+    </div>
+
+    <div class="flex-row flex-space-between-center margin-top-40">
+        <button id="saveEditButton" class="save-edit-button input-title text-align-center hand-mouse">
+        Save
+        </button>
+        <button id="cancelEditButton" class="cancel-edit-button input-title text-align-center hand-mouse">
+        Cancel
+        </button>
+    </div>
+    </form>
+    `;
+
+    editShelterModal.showModal();
+
+    document.addEventListener('submit', (e) => {e.preventDefault()});
+
+    // const saveButton = document.getElementById('saveEditButton');
+    // saveButton.onclick = async function() {
+    //     const form = document.getElementById('editEventForm');
+
+    //     const formData = new FormData(form);
+
+    //     console.log(formData.entries());
+
+    //     const title = formData.get('eventTitle');
+    //     const description = formData.get('eventDescription');
+    //     const date = new Date(formData.get('eventTime'));
+    //     const location = formData.get('eventLocation');
+    //     const category = formData.get('eventCategory');
+    //     const code = formData.get('eventCode');
+    //     const status = formData.get('eventStatus');
+
+    //     const updatedEvent = {
+    //         'name': title,
+    //         'status': status,
+    //         'location': location,
+    //         'category': category,
+    //         'code': code,
+    //         'date': date,
+    //         'description': description
+    //     };
+
+    //     console.log('Updated Event: ', updatedEvent);
+
+    //     const response = await fetch(`http://localhost:5000/api/events/${event.id}`, {
+    //     method: 'PUT',
+    //     headers: {
+    //         'Content-Type': 'application/json',
+    //         'Authorization': 'Bearer ' + localStorage.jwt
+    //     },
+    //     body: JSON.stringify(updatedEvent),
+    //     })
+    //     console.log('Edit Event Response: ', response);
+
+    //     if (response.status == 200) {
+    //         const data = await response.json();
+    //         console.log('Edit Event Data: ', data);
+
+    //         //afisare mesaj editat cu succes
+    //         snackbar(document, 'Event updated successfully!');
+
+    //         //Rerender after event is edited
+    //         onInitialized(userInfo);
+    //     }
+    //     else if (response.status == 404) {
+    //         //afisare eroare editare
+    //         snackbar(document, 'Error in updating event!');
+    //     }
+    //     else if (response.status == 401) {
+    //         //afisare mesaj unauthorized
+    //         snackbar(document, 'Unauthorized!');
+    //     }
+
+    //     editShelterModal.close();
+    // }
+
+    const cancelButton = document.getElementById('cancelEditButton');
+    cancelButton.onclick = function() {
+        editShelterModal.close();
     }
 }
 
@@ -473,6 +743,7 @@ function htmlToCSV(filename) {
     row.push('TIME OF OCCURENCE');
     row.push('DATE OF OCCURENCE');
     row.push('CODE');
+    row.push('SOURCE');
     row.push('DESCRIPTION');
             
     data.push(row.join(",")); 	
@@ -487,6 +758,7 @@ function htmlToCSV(filename) {
         row.push(eventsData[i].timeOfOccurence);
         row.push(eventsData[i].dateOfOccurence);
         row.push(eventsData[i].code);
+        row.push(eventsData[i].source);
         row.push(eventsData[i].description);
 
         row = row.map(string => string === null ? '' : `\"${string}\"`); // export to csv considers to values that contatin ','

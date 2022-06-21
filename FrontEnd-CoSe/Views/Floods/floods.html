@@ -34,42 +34,37 @@
           <mininavbar-component style="width: 100%"></mininavbar-component>
           <div class="first-section--title">
             <h1>Floods</h1>
-            <select class="map-input-title">
-              <option value="test1">10/03/2022</option>
-              <option value="test2">Test 2</option>
-              <option value="test3">Test 3</option>
-              <option value="test4">Test 4</option>
-            </select>
           </div>
           <div class="first-section--stats">
-            <div class="stats--completed">
-              <i class="fa fa-check-circle" style="color: green; font-size: 20px; margin-right: 8px"></i>
-              <div class="stats--details map-input-title">
-                <h5>Completed</h5>
-                <h4>70</h4>
+            <div class="stats--new map-input-title">
+              <i class="fa fa-spinner" style="
+                    color: lightskyblue;
+                    font-size: 20px;
+                    margin-right: 8px;
+                  "></i>
+              <div class="stats--details">
+                <h5>New</h5>
+                <h4 id="newEvents">--</h4>
               </div>
             </div>
             <div class="stats--proceeding">
               <i class="fa fa-clock-o" style="color: orange; font-size: 20px; margin-right: 8px"></i>
               <div class="stats--details map-input-title">
                 <h5>In progress</h5>
-                <h4>13</h4>
+                <h4 id="pendingEvents">--</h4>
               </div>
             </div>
-            <div class="stats--new map-input-title">
-              <i class="fa fa-spinner" style="color: lightskyblue; font-size: 20px; margin-right: 8px"></i>
-              <div class="stats--details">
-                <h5>New</h5>
-                <h4>3</h4>
+            <div class="stats--completed">
+              <i class="fa fa-check-circle" style="color: green; font-size: 20px; margin-right: 8px"></i>
+              <div class="stats--details map-input-title">
+                <h5>Completed</h5>
+                <h4 id="completedEvents">--</h4>
               </div>
             </div>
           </div>
-          <div class="first-section--filter">
-            <div class="filter--selected">All</div>
-            <div class="filter--not__selected">New</div>
-            <div class="filter--not__selected">In progress</div>
-            <div class="filter--not__selected">Completed</div>
-          </div>
+
+          <div id="loader" class="loader"></div> 
+
           <div id="eventsList"></div>
           <div class="flex-center">
             <button class="page-link" id="prevButton" onclick="previousPage()" style="visibility: hidden">Prev</button>

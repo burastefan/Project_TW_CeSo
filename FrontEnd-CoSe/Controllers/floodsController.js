@@ -1,7 +1,8 @@
 const pageSize = 4
 var curPage = 1
 
-var floods = []
+var floodsData = []
+var floodsDataLocal = []
 
 async function onInitialized() {
     //Get User Info (Role, Name, etc.)
@@ -13,21 +14,77 @@ async function onInitialized() {
     //Initialize NavBar
     initializeNavbar(userData);
 
-    floods = await getFloodsApi()
+    //Get earthquakes from API
+    floodsData = await getFloodsApi();
+    console.log(floodsData);
 
+    //Get earthquakes from DB
+    floodsDataLocal = await getEvents();
+    console.log(floodsDataLocal);
+    floodsData = floodsData.concat(floodsDataLocal);
+
+    //Sort events desc by date of occurence
+    floodsData = floodsData.sort((e1, e2) => (new Date(e2.date) - new Date(e1.date)));
+
+    document.getElementById("loader").style.display = "none";
     initMap()
     renderEventTable(1)
-    //renderCounts()
+    renderCounts()
 }
 
 async function getFloodsApi() {
-    const response = await fetch('http://environment.data.gov.uk/flood-monitoring/id/floodAreas')
+    const response = await fetch('http://environment.data.gov.uk/flood-monitoring/id/floodAreas?_limit=10')
     console.log('Response: ', response)
     
-    const data = await response.json()
-    console.log('Data: ', data)
+    const data = await response.json();
 
-    return data.items
+    const floods = data.items.map(event => {
+        const utcDate = new Date().setUTCHours(0,0,0,0);
+        
+        return {
+            name: event.label,
+            date: new Date(utcDate),
+            location: event.county,
+            riverOrSea: event.riverOrSea,
+            source: 'Environment Agency Real Time Flood-Monitoring',
+            lat: event.lat,
+            long: event.long,
+        }
+    })
+
+    return floods;
+}
+
+async function getEvents() {
+    const response = await fetch('http://localhost:5000/api/events', {
+        method: 'GET', 
+        headers: new Headers({
+            'Authorization': 'Bearer ' + localStorage.jwt
+        }), 
+    });
+    console.log('Get Events Response: ', response);
+    
+    if (response.status == 200) {
+        const data = await response.json();
+
+        let floods = data.filter(x => x.category === "flood");
+        floods = floods.map(event => {
+            const utcDate = new Date(event.date); // Get the UTC date
+            const eventDate = new Date(utcDate.getTime() - new Date().getTimezoneOffset() * 60000); // Convert it to local date
+
+            return {
+                name: event.name,
+                date: eventDate,
+                location: event.location,
+                riverOrSea: "Rivers/seas near " + event.location,
+                source: 'Local Authorities'
+            }
+        })
+
+        return floods;
+    }
+
+    return [];
 }
 
 function previousPage() {
@@ -38,14 +95,14 @@ function previousPage() {
 }
   
 function nextPage() {
-    if ((curPage * pageSize) < floods.length) {
+    if ((curPage * pageSize) < floodsData.length) {
         curPage++
         renderEventTable(curPage)
     }
 }
 
 function numPages() {
-    return Math.ceil(floods.length / pageSize)
+    return Math.ceil(floodsData.length / pageSize)
 }
 
 function removeAllChildNodes(parent) {
@@ -72,7 +129,7 @@ function renderEventTable(page) {
         nextButton.disabled = false
     }
 
-    const events = JSON.parse(JSON.stringify(floods)).filter((row, index) => {
+    const events = JSON.parse(JSON.stringify(floodsData)).filter((row, index) => {
         let start = (curPage - 1) * pageSize
         let end = curPage * pageSize
         if (index >= start && index < end) return true
@@ -93,19 +150,25 @@ function renderEventTable(page) {
             <div class="elements--details">
                 <div class="elements--data">
                 <div class="elements--data__title">Name</div>
-                <div class="elements--data__value">${events[i].label}</div>
+                <div class="elements--data__value">${events[i].name}</div>
                 </div>
             </div>
             <div class="elements--details">
                 <div class="elements--data">
                 <div class="elements--data__title">Location</div>
-                <div class="elements--data__value">${events[i].county}</div>
+                <div class="elements--data__value">${events[i].location}</div>
                 </div>
             </div>
             <div class="elements--details">
                 <div class="elements--data">
                 <div class="elements--data__title">Rivers/Seas</div>
                 <div class="elements--data__value">${events[i].riverOrSea}</div>
+                </div>
+            </div>
+            <div class="elements--details">
+                <div class="elements--data">
+                <div class="elements--data__title">Source</div>
+                <div class="elements--data__value">${events[i].source}</div>
                 </div>
             </div>
             </div>
@@ -118,10 +181,10 @@ function renderEventTable(page) {
 
 function renderCounts() {
     const completedEvents = document.getElementById('completedEvents')
-    completedEvents.innerHTML = floods.length
+    completedEvents.innerHTML = 0
 
     const pendingEvents = document.getElementById('pendingEvents')
-    pendingEvents.innerHTML = 0
+    pendingEvents.innerHTML = floodsData.length
 
     const newEvents = document.getElementById('newEvents')
     newEvents.innerHTML = 0
@@ -129,8 +192,8 @@ function renderCounts() {
 
 function initMap() {
     var map = new google.maps.Map(document.getElementById('eventsMap'), {
-        center: {lat: 52.408054, lng: -1.510556},
-        zoom: 7
+        center: {lat: 52.520008, lng: 13.404954},
+        zoom: 4
     });
 
     var input = document.getElementById('searchInput')
@@ -159,23 +222,56 @@ function initMap() {
     })
 
     //Set markers on map
-    for (let i = 0; i < floods.length; i++) {
-        const latlng = new google.maps.LatLng(floods[i].lat, floods[i].long)
+    for (let i = 0; i < floodsData.length; i++) {
+        if (floodsData[i].source === 'Environment Agency Real Time Flood-Monitoring') {
+            const latlng = new google.maps.LatLng(floodsData[i].lat, floodsData[i].long)
 
-        const marker = new google.maps.Marker({
-            position: latlng,
-            map: map,
-            title: 'Click Me ' + i
-        })
-
-        google.maps.event.addListener(marker, 'click', function() {
-            infowindow = new google.maps.InfoWindow({
-                content: 
-                `<div>Name: ${floods[i].label}</div>` +
-                `<div>Location: ${floods[i].county}</div>` +
-                `<div>Rivers/Seas: ${floods[i].riverOrSea}</div>`
+            const marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: 'Click Me ' + i
             })
-            infowindow.open(map, marker)
-        })
+
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow = new google.maps.InfoWindow({
+                    content: 
+                    `<div>Name: ${floodsData[i].name}</div>` +
+                    `<div>Location: ${floodsData[i].location}</div>` +
+                    `<div>Rivers/Seas: ${floodsData[i].riverOrSea}</div>` +
+                    `<div>Source: ${floodsData[i].source}</div>`
+                })
+                infowindow.open(map, marker)
+            })
+        }
+        else {
+            var geocoder = new google.maps.Geocoder()
+            var address = floodsData[i].location
+
+            geocoder.geocode({ 'address': address }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                }
+
+                var latlng = new google.maps.LatLng(latitude, longitude);
+                
+                var marker = new google.maps.Marker({
+                    position: latlng,
+                    map: map,
+                    title: 'Click Me ' + i
+                })
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow = new google.maps.InfoWindow({
+                        content: 
+                        `<div>Name: ${floodsData[i].name}</div>` +
+                        `<div>Location: ${floodsData[i].location}</div>` +
+                        `<div>Rivers/Seas: ${floodsData[i].riverOrSea}</div>` +
+                        `<div>Source: ${floodsData[i].source}</div>`
+                    })
+                    infowindow.open(map, marker)
+                })
+            })
+        }
     }
 }

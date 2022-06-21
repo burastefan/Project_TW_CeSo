@@ -8,12 +8,12 @@ async function sendVerificationCodeMail(mail, code) {
         port: 465,
         seecure: true,
         auth: {
-          user: "tudorsibura@gmail.com",
-          pass: "fjnpwtxdvwcovfiq"
+          user: "cose.management@gmail.com",
+          pass: "zquevilunehuhush"
         },
       });
       const mailOptions = {
-        from: "tudorsibura@gmail.com",
+        from: "cose.management@gmail.com",
         to: mail,
         subject: "Validation code",
         text: "Use this code: " + code + " to validate your account!"
@@ -44,12 +44,12 @@ async function alertPopulationMail(event) {
                 port: 465,
                 seecure: true,
                 auth: {
-                    user: "tudorsibura@gmail.com",
-                    pass: "fjnpwtxdvwcovfiq"
+                    user: "cose.management@gmail.com",
+                    pass: "zquevilunehuhush"
                 },
             });
             const mailOptions = {
-                from: "tudorsibura@gmail.com",
+                from: "cose.management@gmail.com",
                 to: emails[i].email,
                 subject: "CoSe Alert - New crisis event in your area",
                 html: 

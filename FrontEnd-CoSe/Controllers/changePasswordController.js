@@ -23,7 +23,7 @@ async function onSubmitFormChangePassword(e) {
 
 async function changePasswordUser(event) {
     try {
-        const response = await fetch ('http://localhost:5000/api/authentication/changePassword', {
+        const response = await fetch ('http://localhost:5001/api/authentication/changePassword', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

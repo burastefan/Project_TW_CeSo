@@ -67,7 +67,7 @@ async function onInitialized(userData) {
 }
 
 async function getEvents()  {
-    const response = await fetch('http://localhost:5000/api/events');
+    const response = await fetch('http://localhost:5003/api/events');
     console.log('Get Events Response: ', response);
     
     if (response.status == 200) {
@@ -91,7 +91,7 @@ async function getEvents()  {
 }
 
 async function getShelters()  {
-    const response = await fetch('http://localhost:5000/api/shelters');
+    const response = await fetch('http://localhost:5004/api/shelters');
     console.log('Get Shelters Response: ', response);
     
     if (response.status == 200) {
@@ -363,7 +363,7 @@ async function deleteEvent(id) {
     const deleteButton = document.getElementById('deleteButton');
 
     deleteButton.onclick = async function() {
-        const response = await fetch(`http://localhost:5000/api/events/${id}`, {
+        const response = await fetch(`http://localhost:5003/api/events/${id}`, {
         method: 'DELETE',
         headers: {
             'Content-Type': 'text/plain',
@@ -522,7 +522,7 @@ async function editEvent(event) {
 
         console.log('Updated Event: ', updatedEvent);
 
-        const response = await fetch(`http://localhost:5000/api/events/${event.id}`, {
+        const response = await fetch(`http://localhost:5003/api/events/${event.id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -694,7 +694,7 @@ async function editShelter(shelter) {
 
     //     console.log('Updated Event: ', updatedEvent);
 
-    //     const response = await fetch(`http://localhost:5000/api/events/${event.id}`, {
+    //     const response = await fetch(`http://localhost:5003/api/events/${event.id}`, {
     //     method: 'PUT',
     //     headers: {
     //         'Content-Type': 'application/json',

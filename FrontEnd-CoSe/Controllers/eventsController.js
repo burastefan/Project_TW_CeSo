@@ -66,7 +66,7 @@ async function onSubmitHandler(e, userData) {
 
 async function createEvent(event) {
     try {
-        const response = await fetch('http://localhost:5000/api/events', {
+        const response = await fetch('http://localhost:5003/api/events', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -97,7 +97,7 @@ async function createEvent(event) {
 
 async function createCivilianEvent(event) {
     try {
-        const response = await fetch('http://localhost:5000/api/events/civilian', {
+        const response = await fetch('http://localhost:5003/api/events/civilian', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

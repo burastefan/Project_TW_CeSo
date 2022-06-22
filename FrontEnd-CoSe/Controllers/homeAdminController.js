@@ -22,7 +22,7 @@ async function onAdminInitalized(userData) {
 
 
 async function getCivilianEvents()  {
-    const response = await fetch('http://localhost:5000/api/events/civilian', {
+    const response = await fetch('http://localhost:5003/api/events/civilian', {
         method: 'GET', 
         headers: new Headers({
             'Authorization': 'Bearer ' + localStorage.jwt
@@ -211,7 +211,7 @@ function renderAdminEventTable(page) {
 }
 
 async function rejectEvent(id) {
-    const response = await fetch(`http://localhost:5000/api/events/civilian/${id}`, {
+    const response = await fetch(`http://localhost:5003/api/events/civilian/${id}`, {
     method: 'DELETE',
     headers: {
         'Content-Type': 'text/plain',
@@ -245,7 +245,7 @@ async function rejectEvent(id) {
 }
 
 async function acceptEvent(event) {
-    const response = await fetch(`http://localhost:5000/api/events/civilian/accept`, {
+    const response = await fetch(`http://localhost:5003/api/events/civilian/accept`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

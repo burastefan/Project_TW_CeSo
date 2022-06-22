@@ -29,7 +29,7 @@ async function onSubmitForm(e) {
 
 async function registerUser(user) {
   try {
-    const response = await fetch("http://localhost:5000/api/authentication/register", {
+    const response = await fetch("http://localhost:5001/api/authentication/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

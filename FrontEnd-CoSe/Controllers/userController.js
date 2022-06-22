@@ -1,5 +1,5 @@
 async function getUserByEmail()  {
-    const response = await fetch(`http://localhost:5000/api/users?email=${localStorage.email}`, {
+    const response = await fetch(`http://localhost:5002/api/users?email=${localStorage.email}`, {
         method: 'GET', 
         headers: new Headers({
             'Authorization': 'Bearer ' + localStorage.jwt

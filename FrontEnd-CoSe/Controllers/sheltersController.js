@@ -44,10 +44,11 @@ async function onSubmitHandlerShelters(e) {
 
 async function createShelter(shelter) {
   try {
-    const response = await fetch("http://localhost:5000/api/shelters", {
+    const response = await fetch("http://localhost:5004/api/shelters", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + localStorage.jwt
       },
       body: JSON.stringify(shelter),
     });

@@ -99,34 +99,24 @@
                         <li>Authentication:</li>
                             <ul>
                                 <li>Register</li>
+                                <li>Register Validation Code</li>
                                 <li>Login</li>
-                                <li>Remember me</li>
-                                <li>Forgot password</li>
+                                <li>Change password</li>
                             </ul>
-                        <li>Use live location to see the events near them.</li>
+                        <li>Use location to see the events near them.</li>
                         <li>Search location manually on the map to see the events near it.</li>
-                        <li>Filter events based on their type:</li>
-                            <ul>
-                                <li>Floods</li>
-                                <li>Fires</li>
-                                <li>Earthquakes</li>
-                                <li>Storms</li>
-                            </ul>
-                        <li>Filter events based on the level of danger:</li>
-                            <ul>
-                                <li>Code yellow</li>
-                                <li>Code orange</li>
-                                <li>Code red</li>
-                            </ul>
-                        <li>Enable/Disable notifications.</li>
+                        <li>Filter events</li>
                         <li>Receive alerts on e-mail.</li>
+                        <li>See events on map</li>
                         <li>See event history.</li>
-                        <li>Pages that contain general details about each type of cataclysm (floods, fires, earthquakes, storms).</li>
+                        <li>Export information about events (local + external) in csv format.</li>
+                        <li>See shelters/rescue routes.</li>
                     </ul>
                     <li>Only the authorities will have access to the following features:</li>
                         <ul>
                             <li>Add crisis situation.</li>
                             <li>Review a crisis situation added by a civilian user.</li>
+                            <li>Edit events.</li>
                             <li>Delete false/inappropriate events</li>
                             <li>Add shelter locations or rescue routes.</li>
                             <li>Send special instructions to the affected population.</li>
@@ -134,9 +124,9 @@
                     <li>Only the civilians will have access to the following features:</li>
                         <ul>
                             <li>Add crisis situation which will be reviewed by the local authorities.</li>
-                            <li>Review authorities based on how well they handled the crisis situation.</li>
                         </ul>
                     <li>The user role (local authority/civilian) will be given by an administrator of the application.</li>
+                    <li>Unauthenticated users will also be able to see crisis situations and view shelter & rescue routes.</li>
                     <li>Information about crisis events will be provided by two main sources:</li>
                         <ul>
                             <li>APIs such as <i>USGS Earthquake Catalog</i>, <i>NOAA National Weather Service</i> and <i>Environment Agency Real Time Flood-Monitoring</i>.</li>
@@ -184,7 +174,7 @@
                     <ol>
                         <li>Node.js</li>
                         <li>JSON</li>
-                        <li>MySQL</li>
+                        <li>Microsoft Azure MySQL Database</li>
                     </ol>
                 </section>
 
@@ -199,7 +189,11 @@
 
             <section>
                 <h4>2.6 Assumptions and Dependencies</h4>
-                <p> </p>
+                <li>Tedious - connection to Azure hosted MySQL database</li>
+                <li>Nodemailer - email provider</li>
+                <li>Jsonwebtoken - JWT provider</li>
+                <li>Randomstring - random string generator</li>
+                <li>Bcrypt - Hashing password</li>
             </section>
 
         </section>
@@ -214,19 +208,18 @@
                         <ul>
                             <li>Search Panel</li>
                             <li>Home Page</li>
+                            <li>Add Event Page</li>
+                            <li>Add Shelter Page</li>
+                            <li>Map Page</li>
                             <li>Fires Page</li>
                             <li>Earthquakes Page</li>
                             <li>Floods Page</li>
                             <li>Storms Page</li>
-                            <li>Map Page</li>
-                            <li>Events Page</li>
                         </ul>
                     <li><b>Side Panel</b></li>
                         <ul>
-                            <li>Login Page</li>
-                            <li>Register Page</li>
-                            <li>Forgot password Page</li>
-                            <li>Notifications</li>
+                            <li>Change password</li>
+                            <li>Log out</li>
                         </ul>
                 </ul>
             </section>
@@ -267,7 +260,7 @@
                             <dd>User will be able to see the ongoing events, possible shelters, safe routes based on live location or manually searched location.</dd>
                         </ul>
                         <ul>
-                            <li style="list-style-type: square;">Events Page</li>
+                            <li style="list-style-type: square;">Add Event Page</li>
                                 <dd>User will be able to manually search events and see the results in the table.</dd>
                                 <ul style="margin-left: 40px;">
                                     <li style="list-style-type: circle;"> Citizen</li>
@@ -280,6 +273,10 @@
                                         <dd>User will be able to see event history.</dd>
                                         <dd>User will be able to add shelters/safe routes.</dd>
                                 </ul>
+                        </ul>
+                        <ul>
+                            <li style="list-style-type: square;">Add Shelter Page</li>
+                            <dd>User will be able to add a new shelter.</dd>
                         </ul>
                         <ul>
                             <li style="list-style-type: square;">Fires Page</li>
@@ -304,16 +301,16 @@
                             <dd>Guests can create an account and then use it to login into the application and access all the features provided by their account type (citizen/authority/admin).</dd>
                         </ul>
                         <ul>
+                            <li style="list-style-type: square;">Register Validate page</li>
+                            <dd>Guests can create an account and then use it to login into the application and access all the features provided by their account type (citizen/authority/admin).</dd>
+                        </ul>
+                        <ul>
                             <li style="list-style-type: square;">Login page</li>
                             <dd>Users of the app can login by entering their credentials and therefore access other functionalities of the app.</dd>
                         </ul>
                         <ul>
-                            <li style="list-style-type: square;">Forgot Password page</li>
+                            <li style="list-style-type: square;">Change Password page</li>
                             <dd>Users who have forgotten their password can unlock, retrieve, or reset it, by recieving a verification email.</dd>
-                        </ul>
-                        <ul>
-                            <li style="list-style-type: square;">Notifications page</li>
-                            <dd>Users will receive notifications regarding emergency situations. (a new crisis was added, shelter and safe routes plans, the crisis has ended, etc.)</dd>
                         </ul>
                 </ul>
             </section>
@@ -372,22 +369,26 @@
             <section>
                 <h4>BACK-END - Bura Stefan-Gabriel:</h4>
                 <ul>
-                    <li>Authentication (Register, Login, Forget, Remember me)</li>
-                    <li>Security protocols</li>
-                    <li>Live notifications</li>
-                    <li>Review crisis situation added by civilian</li>
-                    <li>Review system</li>
-                    <li>Provide functionalities based on user role</li>
+                    <li>Authentication (Register, Register Validation, Login, Change Password)</li>
+                    <li>Email account validation service</li>
+                    <li>Security protocols (JWT)</li>
+                    <li>Role based back-end implementation</li>
+                    <li>Shelters and rescue routes</li>
+                    <li>Deploy application on Heroku</li>
+                    <li>Back-end structuring</li>
+                    <li>Database architecture</li>
                 </ul>
                 
                 <h4>BACK-END - Popescu Tudor-George:</h4>
                 <ul>
-                    <li>Get information about events offered by given APIs</li>
-                    <li>Add Event manually</li>
-                    <li>Search events based on live location</li>
-                    <li>Add shelter locations or rescue routes</li>
-                    <li>Send special instructions to the affected population</li>
-                    <li>E-mail alerts</li>
+                    <li>Events (Get All, Insert, Delete, Edit)</li>
+                    <li>Civilian Events (Get All, Insert, Delete, Review)</li>
+                    <li>External APIs integration (USGS Earthquake Catalog, NOAA National Weather Service)</li>
+                    <li>Search events based on geolocation</li>
+                    <li>Export information about events in CSV format</li>
+                    <li>Email alerting service</li>
+                    <li>Back-end structuring</li>
+                    <li>Database architecture</li>
                 </ul>
             </section>
         </section>
